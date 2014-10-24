@@ -12,7 +12,8 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"           
 	        android:layout_weight="1"
-	        android:text="@string/action_events_button"/>
+	        android:text="@string/action_events_button"
+	        android:textColor="#ffffff"/>
         
         <Button
         	style="?android:attr/buttonBarButtonStyle"
@@ -20,7 +21,8 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"           
 	        android:layout_weight="1"
-	        android:text="@string/action_media_button"/>
+	        android:text="@string/action_media_button"
+	        android:textColor="#ffffff"/>
 
         <Button
         	style="?android:attr/buttonBarButtonStyle"
@@ -28,7 +30,8 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"           
 	        android:layout_weight="1"
-	        android:text="@string/action_raffle_button"/>
+	        android:text="@string/action_raffle_button"
+	        android:textColor="#ffffff"/>
         
         <Button
         	style="?android:attr/buttonBarButtonStyle"
@@ -36,5 +39,6 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"
 	        android:layout_weight="1"
-	        android:text="@string/action_settings"/>
+	        android:text="@string/action_settings"
+	        android:textColor="#ffffff"/>
     </LinearLayout>

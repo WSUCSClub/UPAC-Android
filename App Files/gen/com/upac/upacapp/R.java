@@ -1097,7 +1097,9 @@ containing a value of this type.
         public static final int action_settings=0x7f05001d;
         public static final int activity_chooser_view_content=0x7f050029;
         public static final int always=0x7f05000b;
+        public static final int analogClock1=0x7f050044;
         public static final int beginning=0x7f050011;
+        public static final int button1=0x7f050042;
         public static final int checkbox=0x7f050031;
         public static final int collapseActionView=0x7f05000d;
         public static final int container=0x7f050040;
@@ -1123,6 +1125,8 @@ containing a value of this type.
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f050033;
+        public static final int radioButton1=0x7f050045;
+        public static final int ratingBar1=0x7f050043;
         public static final int search_badge=0x7f050036;
         public static final int search_bar=0x7f050035;
         public static final int search_button=0x7f050037;
@@ -1134,8 +1138,8 @@ containing a value of this type.
         public static final int search_src_text=0x7f05003b;
         public static final int search_voice_btn=0x7f05003f;
         public static final int shortcut=0x7f050032;
-        public static final int shortcut_event=0x7f050042;
-        public static final int shortcut_media=0x7f050043;
+        public static final int shortcut_event=0x7f050046;
+        public static final int shortcut_media=0x7f050047;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
@@ -1203,7 +1207,10 @@ containing a value of this type.
         public static final int activity_main=0x7f030019;
         public static final int fragment_calendar=0x7f03001a;
         public static final int fragment_events=0x7f03001b;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
+        public static final int fragment_media=0x7f03001c;
+        public static final int fragment_raffle=0x7f03001d;
+        public static final int fragment_settings=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
