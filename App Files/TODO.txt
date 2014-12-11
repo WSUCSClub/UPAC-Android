@@ -1,0 +1,40 @@
+Facebook
+	1. Connect to facebook and pull UPAC information
+	
+Parse
+	1. Connect to parse
+	2. Connect to the common database used for raffles
+
+Events Page
+	1. (Dynamic) Populate events page with facebook events
+	2. Show date at the left with data from facebook
+	3. Show title to the right of the date with data from facebook
+	4. Show location below title with data from facebook
+	5. Show image as background with data from facebook
+	6. Differentiate between events with raffles and those without
+	
+Event Details Page
+	1. Show event image at the top with data from facebook
+	2. (Dynamic) Show raffle button if user may enter a raffle
+	3. (Dynamic) Show that a user has entered a raffle if the requirements have been met
+	4. (Dynamic) Show time window for raffle if it is available
+	5. Show title of even under image with data from facebook
+	6. Show location of event under title with data from facebook
+	7. Show time of event under location with data from facebook
+	8. Show description of event under time with data from facebook
+	-- ADMIN --
+	1. Show create raffle button at the bottom of the image if no raffle exists for this event
+	2. Show Draw! button if raffle is running or complete
+	3. Show Delete button if raffle is on event
+	
+Gallery Page
+	1. Dynamically populate gallery page with facebook images
+
+Image Details Page
+	1. Display a full-screen version of the gallery image selected
+	2. Show the date the image was posted to facebook
+	
+About Page
+	1. Show UPAC description at the top of the page
+	2. Show WSU copyright information (Winona State University. All rights reserved © 2014)
+	3. Show links to social media

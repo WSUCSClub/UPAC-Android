@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -17,28 +19,19 @@
         
         <Button
         	style="?android:attr/buttonBarButtonStyle"
-	        android:id="@+id/action_media_button"
+	        android:id="@+id/action_gallery_button"
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"           
 	        android:layout_weight="1"
-	        android:text="@string/action_media_button"
+	        android:text="@string/action_gallery_button"
 	        android:textColor="#ffffff"/>
 
         <Button
         	style="?android:attr/buttonBarButtonStyle"
-	        android:id="@+id/action_raffle_button"
+	        android:id="@+id/action_about_button"
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"           
 	        android:layout_weight="1"
-	        android:text="@string/action_raffle_button"
-	        android:textColor="#ffffff"/>
-        
-        <Button
-        	style="?android:attr/buttonBarButtonStyle"
-	        android:id="@+id/action_settings"
-	        android:layout_width="fill_parent"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1"
-	        android:text="@string/action_settings"
+	        android:text="@string/action_about_button"
 	        android:textColor="#ffffff"/>
     </LinearLayout>
