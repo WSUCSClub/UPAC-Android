@@ -1,5 +1,8 @@
 package com.upac.upacapp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,13 +12,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.PushService;
+
 public class MainActivity extends Activity {
 	
 	private static int nextFrag;
 	private Button navBttn;
-	
+			
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Session session = AppDelegates.loadFBSession(this);
+		
+		System.out.println(new Request(
+			    session,
+			    "/WSU.UPAC",
+			    null,
+			    HttpMethod.GET,
+			    new Request.Callback() {
+			        public void onCompleted(Response response) {
+			            /* handle the result */
+			        }
+			    }
+			).executeAsync());
+		
+		Parse.initialize(this, Secrets.parseAppId, Secrets.parseClientKey);
+		// Also in this method, specify a default Activity to handle push notifications
+		PushService.setDefaultPushCallback(this, MainActivity.class);
+		
+		Map<String, String> dimensions = new HashMap<String, String>();
+		// What type of news is this?
+		dimensions.put("category", "AndroidTest");
+		// Is it a weekday or the weekend?
+		dimensions.put("dayType", "weekday");
+		// Send the dimensions to Parse along with the 'read' event
+		 
+		ParseAnalytics.trackEvent("read", dimensions);
+		
 		android.app.ActionBar ab;
 		
 		super.onCreate(savedInstanceState);

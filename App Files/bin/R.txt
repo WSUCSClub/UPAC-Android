@@ -349,6 +349,7 @@ int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_about_button 0x7f0a0010
 int string action_events_button 0x7f0a000e
 int string action_gallery_button 0x7f0a000f
+int string app_id 0x7f0a0011
 int string app_name 0x7f0a000d
 int style AppBaseTheme 0x7f0b008b
 int style AppTheme 0x7f0b008c

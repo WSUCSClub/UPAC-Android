@@ -1251,6 +1251,7 @@ containing a value of this type.
         public static final int action_about_button=0x7f0a0010;
         public static final int action_events_button=0x7f0a000e;
         public static final int action_gallery_button=0x7f0a000f;
+        public static final int app_id=0x7f0a0011;
         public static final int app_name=0x7f0a000d;
     }
     public static final class style {

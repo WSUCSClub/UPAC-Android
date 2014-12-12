@@ -2,8 +2,8 @@ Facebook
 	1. Connect to facebook and pull UPAC information
 	
 Parse
-	1. Connect to parse
-	2. Connect to the common database used for raffles
+	1. Connect to the common database used for raffles
+	2. (Optional) Add analytics for the app
 
 Events Page
 	1. (Dynamic) Populate events page with facebook events
