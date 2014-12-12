@@ -1,5 +1,5 @@
 Facebook
-	1. Connect to facebook and pull UPAC information
+	1. Pull specific information
 	
 Parse
 	1. Connect to the common database used for raffles

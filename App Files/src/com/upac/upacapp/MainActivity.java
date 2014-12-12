@@ -1,12 +1,20 @@
 package com.upac.upacapp;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,21 +34,24 @@ public class MainActivity extends Activity {
 	private Button navBttn;
 			
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {		
 		Session session = AppDelegates.loadFBSession(this);
+		
+		Bundle params = new Bundle();
+		params.putString("limit", "25");
 		
 		System.out.println(new Request(
 			    session,
-			    "/WSU.UPAC",
-			    null,
+			    "/WSU.UPAC/events",
+			    params,
 			    HttpMethod.GET,
 			    new Request.Callback() {
 			        public void onCompleted(Response response) {
-			            /* handle the result */
+			            System.out.println(response);
 			        }
 			    }
 			).executeAsync());
-		
+				
 		Parse.initialize(this, Secrets.parseAppId, Secrets.parseClientKey);
 		// Also in this method, specify a default Activity to handle push notifications
 		PushService.setDefaultPushCallback(this, MainActivity.class);

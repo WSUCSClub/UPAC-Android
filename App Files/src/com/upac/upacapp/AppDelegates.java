@@ -1,10 +1,14 @@
 package com.upac.upacapp;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 
 import com.facebook.AccessToken;
+import com.facebook.LoggingBehavior;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.Settings;
 
 public class AppDelegates extends Activity {
 	final static Session.StatusCallback ssnStsCllbck = new Session.StatusCallback() {
@@ -26,19 +30,20 @@ public class AppDelegates extends Activity {
 	};
 	
 	public static Session loadFBSession(Activity activity) {
+		ArrayList<String> permissions = new ArrayList<String>(){{
+			add("name");
+		}};
+		
 		try{
 			if(Session.getActiveSession().getState() != null){
-				System.out.println("Already had one");
 				return Session.openActiveSession(activity, false, ssnStsCllbck);
 			}
 			else{
-				System.out.println("What the eff");
 				return null;
 			}
 		}
 		catch(Exception e){
-			System.out.println("This happened");
-			return Session.openActiveSessionWithAccessToken(activity, AccessToken.createFromExistingAccessToken(Secrets.fbAccessToken, null, null, null, null), ssnStsCllbck);
+			return Session.openActiveSessionWithAccessToken(activity, AccessToken.createFromExistingAccessToken(Secrets.fbAccessToken, null, null, null, permissions), ssnStsCllbck);
 		}
 	} 
 }
