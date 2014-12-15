@@ -1108,7 +1108,7 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050029;
         public static final int expanded_menu=0x7f05002f;
-        public static final int gallery1=0x7f050041;
+        public static final int gallery1=0x7f050042;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002d;
@@ -1124,6 +1124,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f050032;
         public static final int radioButton1=0x7f050040;
+        public static final int scrollView1=0x7f050041;
         public static final int search_badge=0x7f050035;
         public static final int search_bar=0x7f050034;
         public static final int search_button=0x7f050036;

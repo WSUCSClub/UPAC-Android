@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import android.app.Activity;
 
 import com.facebook.AccessToken;
-import com.facebook.LoggingBehavior;
 import com.facebook.Session;
 import com.facebook.SessionState;
-import com.facebook.Settings;
 
 public class AppDelegates extends Activity {
 	final static Session.StatusCallback ssnStsCllbck = new Session.StatusCallback() {

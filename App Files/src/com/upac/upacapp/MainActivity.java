@@ -1,29 +1,28 @@
 package com.upac.upacapp;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
+import com.facebook.model.GraphObject;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.PushService;
@@ -32,26 +31,13 @@ public class MainActivity extends Activity {
 	
 	private static int nextFrag;
 	private Button navBttn;
-			
+	private View v;
+	private ScrollView sv;
+	private LinearLayout ll;
+	private TextView tv;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
-		Session session = AppDelegates.loadFBSession(this);
-		
-		Bundle params = new Bundle();
-		params.putString("limit", "25");
-		
-		System.out.println(new Request(
-			    session,
-			    "/WSU.UPAC/events",
-			    params,
-			    HttpMethod.GET,
-			    new Request.Callback() {
-			        public void onCompleted(Response response) {
-			            System.out.println(response);
-			        }
-			    }
-			).executeAsync());
-				
+	protected void onCreate(Bundle savedInstanceState) {
 		Parse.initialize(this, Secrets.parseAppId, Secrets.parseClientKey);
 		// Also in this method, specify a default Activity to handle push notifications
 		PushService.setDefaultPushCallback(this, MainActivity.class);
@@ -83,11 +69,65 @@ public class MainActivity extends Activity {
 		
 		ab.setCustomView(abBttn);
 		ab.setDisplayShowTitleEnabled(false);
+		
+		v = getLayoutInflater().inflate(R.layout.fragment_events, null);
+		
+		sv = (ScrollView) v.findViewById(R.id.scrollView1);
+
+	    ll = new LinearLayout(this);
+	    ll.setOrientation(LinearLayout.VERTICAL);
+
+	    tv = new TextView(this);
+	    
+	    Session session = AppDelegates.loadFBSession(this);
+	    
+		Bundle params = new Bundle();
+		params.putString("fields", "events{description,cover,location,name,start_time}");
+		
+		new Request(
+			    session,
+			    "/WSU.UPAC",
+			    params,
+			    HttpMethod.GET,
+			    new Request.Callback() {
+			        public void onCompleted(Response response){
+			        	System.out.println(response);
+						try{
+							JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
+							
+							for (int i = 0; i < ( arr.length() ); i++){
+								JSONObject json_obj = arr.getJSONObject(i);
+								
+								String time			= json_obj.getString("start_time");
+								String location		= json_obj.getString("location");
+								String eventName	= json_obj.getString("name");
+								String description	= json_obj.getString("description");
+								String image		= json_obj.getJSONObject("cover").getString("source");
+								
+								System.out.println("Time: " + time);
+								System.out.println("Location: " + location);
+								System.out.println("Event Name: " + eventName);
+								System.out.println("Description: " + description);
+								System.out.println("Image Path: " + image);
+																
+								tv.setText(time);
+								
+								ll.addView(tv);
+							}
+						}
+						catch(Exception e){
+							System.out.println(e.toString());
+						}
+			        }
+			    }
+			).executeAsync();
+		
+		sv.addView(ll);
 				
 		if (savedInstanceState == null) {
 			nextFrag = R.layout.fragment_events;
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new NewFragment()).commit();
 		}
 	}
 	
@@ -97,31 +137,27 @@ public class MainActivity extends Activity {
 			case(R.id.action_events_button):
 				nextFrag = R.layout.fragment_events;
 								
-				getFragmentManager().beginTransaction().replace(R.id.container, new PlaceholderFragment())
+				getFragmentManager().beginTransaction().replace(R.id.container, new NewFragment())
 											.addToBackStack(null).commit();
 				break;
 			case(R.id.action_gallery_button):
 				nextFrag = R.layout.fragment_gallery;
 							
-				getFragmentManager().beginTransaction().replace(R.id.container, new PlaceholderFragment())
+				getFragmentManager().beginTransaction().replace(R.id.container, new NewFragment())
 											.addToBackStack(null).commit();
 				break;
 			case(R.id.action_about_button):
 				nextFrag = R.layout.fragment_about;
 			
-				getFragmentManager().beginTransaction().replace(R.id.container, new PlaceholderFragment())
+				getFragmentManager().beginTransaction().replace(R.id.container, new NewFragment())
 											.addToBackStack(null).commit();
 				break;
 			}
 		}
 	};
 
-	/*
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment(){
+	public static class NewFragment extends Fragment {
+		public NewFragment(){
 		}
 
 		@Override
