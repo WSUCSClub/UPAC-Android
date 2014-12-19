@@ -279,7 +279,6 @@ int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
 int id radio 0x7f050032
 int id radioButton1 0x7f050040
-int id scrollView1 0x7f050041
 int id search_badge 0x7f050035
 int id search_bar 0x7f050034
 int id search_button 0x7f050036
@@ -297,6 +296,7 @@ int id showTitle 0x7f050006
 int id split_action_bar 0x7f050021
 int id submit_area 0x7f05003c
 int id tabMode 0x7f050002
+int id textView1 0x7f050041
 int id title 0x7f05002e
 int id top_action_bar 0x7f050023
 int id up 0x7f050024

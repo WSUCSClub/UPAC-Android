@@ -1,6 +1,3 @@
-Facebook
-	1. Pull specific information
-	
 Parse
 	1. Connect to the common database used for raffles
 	2. (Optional) Add analytics for the app
