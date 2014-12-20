@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.upac.upacapp"
-        minSdkVersion 11
+        minSdkVersion 16
         targetSdkVersion 21
     }
 

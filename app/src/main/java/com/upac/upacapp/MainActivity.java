@@ -1,21 +1,19 @@
 package com.upac.upacapp;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -25,9 +23,14 @@ import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
-import com.parse.PushService;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends FragmentActivity {
 
@@ -40,15 +43,19 @@ public class MainActivity extends FragmentActivity {
     private View eventsView;
     private View galleryView;
     private View aboutView;
-	
-	@Override
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
+        /* The following two lines are poor practice. They were put in place to allow the events images to load.
+         * Consider using AsyncTask to more appropriately get the bitmap image from the URL. */
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         galleryView = getLayoutInflater().inflate(R.layout.fragment_gallery, null);
         aboutView = getLayoutInflater().inflate(R.layout.fragment_about, null);
         Button navBttn;
 
         App parse = new App();
-        parse.onCreate(this);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -95,28 +102,42 @@ public class MainActivity extends FragmentActivity {
 	
 	private void findEvents(){
 		Session session = AppDelegates.loadFBSession(this);
+        Calendar since = Calendar.getInstance();
+        since.add(Calendar.DATE, -60);
+        System.out.println("Date: " + since.getTime());
+
 		Bundle params = new Bundle();
-		params.putString("fields", "events.since(1).limit(5){description,cover,location,name,start_time}");
+		params.putString("fields", "events.since(" + since.getTime() + "){description,cover,location,name,start_time}");
 		
-		Request r = new Request(
+		new Request(
 			session,
 			"/WSU.UPAC",
 			params,
 			HttpMethod.GET,
 			new Request.Callback() {
 		        public void onCompleted(Response response){
-		        	String time, location, eventName, description, image;
+		        	String location, eventName, description, image;
+                    Date date;
+                    URL imageURL;
+                    Bitmap mIcon_val;
+
                     eventsView = getLayoutInflater().inflate(R.layout.fragment_events, null);
                     LinearLayout ll = (LinearLayout) eventsView.findViewById(R.id.eventsLayout);
+
+                    SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                    SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
 
 		        	try{
 						JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
 						TextView[] tv = new TextView[arr.length()];
+                        ImageView[] iv = new ImageView[arr.length()];
 
-						for (int i = 0; i < ( arr.length() ); i++){
+                        for (int i = 0; i < ( arr.length() ); i++){
 							JSONObject json_obj = arr.getJSONObject(i);
 
-							time			= json_obj.getString("start_time");
+                            date            = inFormat.parse(json_obj.getString("start_time"));
+
 							location		= json_obj.getString("location");
 							eventName		= json_obj.getString("name");
 							description		= json_obj.getString("description");
@@ -128,16 +149,26 @@ public class MainActivity extends FragmentActivity {
 								image		= "nothing";
 							}
 
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                            imageURL    = new URL(image);
 
-                            params.leftMargin = 50;
-                            params.topMargin = i * 50;
+                            mIcon_val   = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+
+                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(300, 300);
+
+                            iv[i] = new ImageView(getApplicationContext());
+                            iv[i].setImageBitmap(mIcon_val);
+                            iv[i].setId(i);
+                            iv[i].setLayoutParams(imgParams);
+
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f);
 
 							tv[i] = new TextView(getApplicationContext());
-							tv[i].setText(description);
+							tv[i].setText("Title: " + eventName + "\n" + "Day: " + dayFormat.format(date) + "    " + "Time: " + timeFormat.format(date) + "\n" + "Location: " + location);
+                            tv[i].setTextColor(Color.BLACK);
 							tv[i].setId(i);
 							tv[i].setLayoutParams(params);
 
+                            ll.addView(iv[i]);
 							ll.addView(tv[i]);
 
                             nextView = eventsView;
@@ -149,9 +180,7 @@ public class MainActivity extends FragmentActivity {
                     }
 		        }	// End of onCompleted
 		    }	// End of Callback
-		);
-		
-		r.executeAsync();
+		).executeAsync();
 	}
 	
 	View.OnClickListener openPage = new View.OnClickListener(){

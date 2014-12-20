@@ -11,23 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class App extends Application {
-    public void onCreate(Context context) {
+    @Override
+    public void onCreate() {
         super.onCreate();
 
-        try {
-            Parse.initialize(context, Secrets.parseAppId, Secrets.parseClientKey);
-            // Also in this method, specify a default Activity to handle push notifications
-            PushService.setDefaultPushCallback(context, MainActivity.class);
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, Secrets.parseAppId, Secrets.parseClientKey);
 
-            Map<String, String> dimensions = new HashMap<String, String>();
-            // What type of news is this?
-            dimensions.put("category", "AndroidTest");
-            // Is it a weekday or the weekend?
+        Map<String, String> dimensions = new HashMap<String, String>();
+        dimensions.put("category", "ThisIsATest");
 
-            ParseAnalytics.trackEvent("read", dimensions);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        ParseAnalytics.trackEvent("read", dimensions);
     }
 }
