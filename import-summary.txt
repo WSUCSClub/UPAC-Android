@@ -1,0 +1,256 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Risky Project Location:
+-----------------------
+The tools *should* handle project locations in any directory. However,
+due to bugs, placing projects in directories containing spaces in the
+path, or characters like ", ' and &, have had issues. We're working to
+eliminate these bugs, but to save yourself headaches you may want to
+move your project to a location where this is not a problem.
+C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp
+                                           -                 
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .idea\
+* .idea\.name
+* .idea\compiler.xml
+* .idea\copyright\
+* .idea\copyright\profiles_settings.xml
+* .idea\encodings.xml
+* .idea\misc.xml
+* .idea\modules.xml
+* .idea\scopes\
+* .idea\scopes\scope_settings.xml
+* .idea\vcs.xml
+* .idea\workspace.xml
+* TODO.txt
+* app\
+* app\build.gradle
+* app\libs\
+* app\libs\Parse-1.8.0.jar
+* app\libs\ParseCrashReporting-1.8.0.jar
+* app\libs\bolts-android-1.1.4.jar
+* app\src\
+* app\src\main\
+* app\src\main\AndroidManifest.xml
+* app\src\main\java\
+* app\src\main\java\com\
+* app\src\main\java\com\facebook\
+* app\src\main\java\com\facebook\AccessToken.java
+* app\src\main\java\com\facebook\AccessTokenSource.java
+* app\src\main\java\com\facebook\AppEventsConstants.java
+* app\src\main\java\com\facebook\AppEventsLogger.java
+* app\src\main\java\com\facebook\AppLinkData.java
+* app\src\main\java\com\facebook\AuthorizationClient.java
+* app\src\main\java\com\facebook\BoltsMeasurementEventListener.java
+* app\src\main\java\com\facebook\FacebookAppLinkResolver.java
+* app\src\main\java\com\facebook\FacebookAuthorizationException.java
+* app\src\main\java\com\facebook\FacebookBroadcastReceiver.java
+* app\src\main\java\com\facebook\FacebookDialogException.java
+* app\src\main\java\com\facebook\FacebookException.java
+* app\src\main\java\com\facebook\FacebookGraphObjectException.java
+* app\src\main\java\com\facebook\FacebookOperationCanceledException.java
+* app\src\main\java\com\facebook\FacebookRequestError.java
+* app\src\main\java\com\facebook\FacebookSdkVersion.java
+* app\src\main\java\com\facebook\FacebookServiceException.java
+* app\src\main\java\com\facebook\FacebookTimeSpentData.java
+* app\src\main\java\com\facebook\GetTokenClient.java
+* app\src\main\java\com\facebook\HttpMethod.java
+* app\src\main\java\com\facebook\InsightsLogger.java
+* app\src\main\java\com\facebook\LegacyHelper.java
+* app\src\main\java\com\facebook\LoggingBehavior.java
+* app\src\main\java\com\facebook\LoginActivity.java
+* app\src\main\java\com\facebook\NativeAppCallAttachmentStore.java
+* app\src\main\java\com\facebook\NativeAppCallContentProvider.java
+* app\src\main\java\com\facebook\NonCachingTokenCachingStrategy.java
+* app\src\main\java\com\facebook\ProgressNoopOutputStream.java
+* app\src\main\java\com\facebook\ProgressOutputStream.java
+* app\src\main\java\com\facebook\Request.java
+* app\src\main\java\com\facebook\RequestAsyncTask.java
+* app\src\main\java\com\facebook\RequestBatch.java
+* app\src\main\java\com\facebook\RequestOutputStream.java
+* app\src\main\java\com\facebook\RequestProgress.java
+* app\src\main\java\com\facebook\Response.java
+* app\src\main\java\com\facebook\Session.java
+* app\src\main\java\com\facebook\SessionDefaultAudience.java
+* app\src\main\java\com\facebook\SessionLoginBehavior.java
+* app\src\main\java\com\facebook\SessionState.java
+* app\src\main\java\com\facebook\Settings.java
+* app\src\main\java\com\facebook\SharedPreferencesTokenCachingStrategy.java
+* app\src\main\java\com\facebook\TestSession.java
+* app\src\main\java\com\facebook\TokenCachingStrategy.java
+* app\src\main\java\com\facebook\UiLifecycleHelper.java
+* app\src\main\java\com\facebook\android\
+* app\src\main\java\com\facebook\android\AsyncFacebookRunner.java
+* app\src\main\java\com\facebook\android\DialogError.java
+* app\src\main\java\com\facebook\android\Facebook.java
+* app\src\main\java\com\facebook\android\FacebookError.java
+* app\src\main\java\com\facebook\android\FbDialog.java
+* app\src\main\java\com\facebook\android\Util.java
+* app\src\main\java\com\facebook\internal\
+* app\src\main\java\com\facebook\internal\AnalyticsEvents.java
+* app\src\main\java\com\facebook\internal\AttributionIdentifiers.java
+* app\src\main\java\com\facebook\internal\BundleJSONConverter.java
+* app\src\main\java\com\facebook\internal\CacheableRequestBatch.java
+* app\src\main\java\com\facebook\internal\FacebookWebFallbackDialog.java
+* app\src\main\java\com\facebook\internal\FileLruCache.java
+* app\src\main\java\com\facebook\internal\ImageDownloader.java
+* app\src\main\java\com\facebook\internal\ImageRequest.java
+* app\src\main\java\com\facebook\internal\ImageResponse.java
+* app\src\main\java\com\facebook\internal\ImageResponseCache.java
+* app\src\main\java\com\facebook\internal\LikeActionController.java
+* app\src\main\java\com\facebook\internal\LikeBoxCountView.java
+* app\src\main\java\com\facebook\internal\LikeButton.java
+* app\src\main\java\com\facebook\internal\LikeStatusClient.java
+* app\src\main\java\com\facebook\internal\Logger.java
+* app\src\main\java\com\facebook\internal\NativeProtocol.java
+* app\src\main\java\com\facebook\internal\PendingCallStore.java
+* app\src\main\java\com\facebook\internal\PlatformServiceClient.java
+* app\src\main\java\com\facebook\internal\ServerProtocol.java
+* app\src\main\java\com\facebook\internal\SessionAuthorizationType.java
+* app\src\main\java\com\facebook\internal\SessionTracker.java
+* app\src\main\java\com\facebook\internal\UrlRedirectCache.java
+* app\src\main\java\com\facebook\internal\Utility.java
+* app\src\main\java\com\facebook\internal\Validate.java
+* app\src\main\java\com\facebook\internal\WorkQueue.java
+* app\src\main\java\com\facebook\internal\package-info.java
+* app\src\main\java\com\facebook\model\
+* app\src\main\java\com\facebook\model\CreateGraphObject.java
+* app\src\main\java\com\facebook\model\GraphLocation.java
+* app\src\main\java\com\facebook\model\GraphMultiResult.java
+* app\src\main\java\com\facebook\model\GraphObject.java
+* app\src\main\java\com\facebook\model\GraphObjectList.java
+* app\src\main\java\com\facebook\model\GraphPlace.java
+* app\src\main\java\com\facebook\model\GraphUser.java
+* app\src\main\java\com\facebook\model\JsonUtil.java
+* app\src\main\java\com\facebook\model\OpenGraphAction.java
+* app\src\main\java\com\facebook\model\OpenGraphObject.java
+* app\src\main\java\com\facebook\model\PropertyName.java
+* app\src\main\java\com\facebook\widget\
+* app\src\main\java\com\facebook\widget\FacebookDialog.java
+* app\src\main\java\com\facebook\widget\FacebookFragment.java
+* app\src\main\java\com\facebook\widget\FriendPickerFragment.java
+* app\src\main\java\com\facebook\widget\GraphObjectAdapter.java
+* app\src\main\java\com\facebook\widget\GraphObjectCursor.java
+* app\src\main\java\com\facebook\widget\GraphObjectPagingLoader.java
+* app\src\main\java\com\facebook\widget\LikeView.java
+* app\src\main\java\com\facebook\widget\LoginButton.java
+* app\src\main\java\com\facebook\widget\PickerFragment.java
+* app\src\main\java\com\facebook\widget\PlacePickerFragment.java
+* app\src\main\java\com\facebook\widget\ProfilePictureView.java
+* app\src\main\java\com\facebook\widget\SimpleGraphObjectCursor.java
+* app\src\main\java\com\facebook\widget\ToolTipPopup.java
+* app\src\main\java\com\facebook\widget\UserSettingsFragment.java
+* app\src\main\java\com\facebook\widget\WebDialog.java
+* app\src\main\java\com\upac\
+* app\src\main\java\com\upac\upacapp\
+* app\src\main\java\com\upac\upacapp\AppDelegates.java
+* app\src\main\java\com\upac\upacapp\EventsFragment.java
+* app\src\main\java\com\upac\upacapp\MainActivity.java
+* app\src\main\java\com\upac\upacapp\Secrets.java
+* app\src\main\res\
+* app\src\main\res\drawable-hdpi\
+* app\src\main\res\drawable-hdpi\ic_launcher.png
+* app\src\main\res\drawable-mdpi\
+* app\src\main\res\drawable-mdpi\ic_launcher.png
+* app\src\main\res\drawable-xhdpi\
+* app\src\main\res\drawable-xhdpi\ic_launcher.png
+* app\src\main\res\drawable-xxhdpi\
+* app\src\main\res\drawable-xxhdpi\ic_launcher.png
+* app\src\main\res\layout\
+* app\src\main\res\layout\ab_custom_view.xml
+* app\src\main\res\layout\activity_main.xml
+* app\src\main\res\layout\fragment_about.xml
+* app\src\main\res\layout\fragment_events.xml
+* app\src\main\res\layout\fragment_gallery.xml
+* app\src\main\res\menu\
+* app\src\main\res\menu\main.xml
+* app\src\main\res\values-v11\
+* app\src\main\res\values-v11\styles.xml
+* app\src\main\res\values-v14\
+* app\src\main\res\values-v14\styles.xml
+* app\src\main\res\values-w820dp\
+* app\src\main\res\values-w820dp\dimens.xml
+* app\src\main\res\values\
+* app\src\main\res\values\dimens.xml
+* app\src\main\res\values\strings.xml
+* app\src\main\res\values\styles.xml
+* build.gradle
+* gradle\
+* gradle\wrapper\
+* gradle\wrapper\gradle-wrapper.jar
+* gradle\wrapper\gradle-wrapper.properties
+* gradlew
+* gradlew.bat
+* ic_launcher-web.png
+* proguard-project.txt
+* settings.gradle
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:20.0.0
+android-support-v7-appcompat.jar => com.android.support:appcompat-v7:20.0.0
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+android-support-v7-appcompat => [com.android.support:appcompat-v7:20.0.0]
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets\
+* libs\bolts-android-1.1.4.jar => app\libs\bolts-android-1.1.4.jar
+* libs\Parse-1.8.0.jar => app\libs\Parse-1.8.0.jar
+* libs\ParseCrashReporting-1.8.0.jar => app\libs\ParseCrashReporting-1.8.0.jar
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
