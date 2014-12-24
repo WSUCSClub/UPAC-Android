@@ -2,15 +2,12 @@ package com.upac.upacapp;
 
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.HttpMethod;
@@ -30,8 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,6 +71,7 @@ public class MainActivity extends FragmentActivity {
 		ab.setDisplayShowTitleEnabled(false);
 	    
 		findEvents();
+        findPhotos();
 	}
 	
 	@Override
@@ -97,16 +94,50 @@ public class MainActivity extends FragmentActivity {
 
         Session.saveSession(currentSession, outState);
     }
-	
+
+    public void openFacebook(View v){
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/WSU.UPAC"));
+            startActivity(browserIntent);
+        }
+        catch(Exception e){
+            Toast.makeText(this, "No application can handle this request."
+                    + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    public void openTwitter(View v){
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/UPACWSU"));
+            startActivity(browserIntent);
+        }
+        catch(Exception e){
+            Toast.makeText(this, "No application can handle this request."
+                    + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    public void sendEmail(View v){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"upac@winona.edu"});
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 	private void findEvents(){
 		Session session = AppDelegates.loadFBSession(this);
         Calendar since = Calendar.getInstance();
         since.add(Calendar.DATE, -60);
-        System.out.println("Date: " + since.getTime());
 
 		Bundle params = new Bundle();
 		params.putString("fields", "events.since(" + since.getTime() + "){description,cover,location,name,start_time}");
-		
+
 		new Request(
 			session,
 			"/WSU.UPAC",
@@ -152,7 +183,7 @@ public class MainActivity extends FragmentActivity {
                             iv[i] = new ImageView(getApplicationContext());
 
                             imageURL = new URL(image);
-                            DownloadImageTask dit = new DownloadImageTask(imageURL, iv[i]);
+                            DownloadEventsImages dit = new DownloadEventsImages(imageURL, iv[i]);
                             dit.execute();
 
                             iv[i].setId(i);
@@ -161,7 +192,7 @@ public class MainActivity extends FragmentActivity {
 
                             GradientDrawable gd = new GradientDrawable();
                             gd.setColor(Color.WHITE);
-                            gd.setStroke(1, Color.BLACK);
+                            gd.setStroke(5, 0x000000);
 
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f);
 
@@ -191,6 +222,69 @@ public class MainActivity extends FragmentActivity {
 		    }	// End of Callback
 		).executeAsync();
 	}
+
+    private void findPhotos(){
+        Session session = AppDelegates.loadFBSession(this);
+
+        Bundle params = new Bundle();
+        params.putString("fields", "photos");
+
+        new Request(
+                session,
+                "/WSU.UPAC/albums",
+                params,
+                HttpMethod.GET,
+                new Request.Callback() {
+                    public void onCompleted(Response response){
+                        String croppedSRC, fullSRC;
+                        URL croppedURL, fullURL;
+
+                        galleryView = getLayoutInflater().inflate(R.layout.fragment_gallery, null);
+                        LinearLayout ll = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
+
+                        LinearLayout lines = new LinearLayout(getApplicationContext());
+                        LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                        lines.setLayoutParams(params);
+                        lines.setOrientation(LinearLayout.HORIZONTAL);
+                        ll.addView(lines);
+
+                        try{
+                            JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONArray("data").getJSONObject(0).getJSONObject("photos").getJSONArray("data");
+
+                            ImageView[] iv = new ImageView[arr.length()];
+
+                            for (int i = 0; i < ( arr.length() ); i++){
+                                JSONObject json_obj = arr.getJSONObject(i);
+
+                                croppedSRC = json_obj.getString("picture");
+                                fullSRC = json_obj.getString("source");
+
+                                LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(200, 200);
+
+                                iv[i] = new ImageView(getApplicationContext());
+
+                                croppedURL = new URL(croppedSRC);
+                                fullURL = new URL(fullSRC);
+                                DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, iv[i]);
+                                dgi.execute();
+
+                                iv[i].setId(i);
+                                iv[i].setPadding(5, 5, 5, 5);
+                                iv[i].setLayoutParams(imgParams);
+
+                                lines.addView(iv[i]);
+
+                                nextView = galleryView;
+                                getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
+                            }	// End of for loop
+                        }
+                        catch(Exception e) {
+                            e.printStackTrace();
+                        }
+                    }	// End of onCompleted
+                }	// End of Callback
+        ).executeAsync();
+    }
 	
 	View.OnClickListener openPage = new View.OnClickListener(){
 		public void onClick(View v) {

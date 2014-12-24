@@ -1158,7 +1158,7 @@ containing a value of this type.
         public static final int eventsLayout=0x7f080065;
         public static final int expand_activities_button=0x7f080034;
         public static final int expanded_menu=0x7f08003a;
-        public static final int gallery1=0x7f080067;
+        public static final int galleryLayout=0x7f080066;
         public static final int home=0x7f080003;
         public static final int homeAsUp=0x7f08000a;
         public static final int icon=0x7f080038;
@@ -1197,7 +1197,6 @@ containing a value of this type.
         public static final int standard=0x7f08001c;
         public static final int submit_area=0x7f080047;
         public static final int tabMode=0x7f080008;
-        public static final int textView1=0x7f080066;
         public static final int title=0x7f080039;
         public static final int top=0x7f08001f;
         public static final int top_action_bar=0x7f08002e;

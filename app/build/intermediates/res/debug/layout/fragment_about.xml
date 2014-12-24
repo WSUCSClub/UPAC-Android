@@ -18,7 +18,8 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="5dp" >
+                android:paddingBottom="5dp"
+                android:background="#d3d3d3" >
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="50dp"
@@ -27,7 +28,8 @@
                     android:layout_weight="1"
                     android:paddingLeft="10dp"
                     android:paddingStart="10dp"
-                    android:contentDescription="@string/twitter" />
+                    android:contentDescription="@string/twitter"
+                    android:onClick="openTwitter"  />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -38,7 +40,10 @@
                     android:textColor="#FFFFFF"
                     android:fontFamily="sans-serif"
                     android:textSize="25sp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:onClick="openTwitter"
+                    android:clickable="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -47,7 +52,8 @@
                 android:paddingTop="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+                android:background="#d3d3d3" >
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="50dp"
@@ -56,7 +62,8 @@
                     android:layout_weight="1"
                     android:paddingLeft="10dp"
                     android:paddingStart="10dp"
-                    android:contentDescription="@string/facebook" />
+                    android:contentDescription="@string/facebook"
+                    android:onClick="openFacebook" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -67,7 +74,10 @@
                     android:textColor="#FFFFFF"
                     android:fontFamily="sans-serif"
                     android:textSize="25sp"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:onClick="openFacebook"
+                    android:clickable="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -76,27 +86,32 @@
                 android:paddingTop="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="10dp" >
+                android:paddingBottom="10dp"
+                android:background="#d3d3d3" >
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:src="@drawable/mail"
-                    android:background="#6d84b4"
+                    android:background="#2e3652"
                     android:layout_weight="1"
                     android:paddingLeft="10dp"
                     android:paddingStart="10dp"
-                    android:contentDescription="@string/email" />
+                    android:contentDescription="@string/email"
+                    android:onClick="sendEmail"  />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="@string/email"
-                    android:background="#6d84b4"
+                    android:background="#2e3652"
                     android:layout_weight="1"
                     android:textColor="#FFFFFF"
                     android:fontFamily="sans-serif"
                     android:textSize="25sp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:onClick="sendEmail"
+                    android:clickable="true" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

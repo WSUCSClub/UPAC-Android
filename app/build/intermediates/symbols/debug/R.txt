@@ -407,7 +407,7 @@ int id end 0x7f080010
 int id eventsLayout 0x7f080065
 int id expand_activities_button 0x7f080034
 int id expanded_menu 0x7f08003a
-int id gallery1 0x7f080067
+int id galleryLayout 0x7f080066
 int id home 0x7f080003
 int id homeAsUp 0x7f08000a
 int id icon 0x7f080038
@@ -446,7 +446,6 @@ int id split_action_bar 0x7f08002c
 int id standard 0x7f08001c
 int id submit_area 0x7f080047
 int id tabMode 0x7f080008
-int id textView1 0x7f080066
 int id title 0x7f080039
 int id top 0x7f08001f
 int id top_action_bar 0x7f08002e
