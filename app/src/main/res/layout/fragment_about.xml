@@ -1,12 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton" />
-</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp" >
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/twitter"
+                    android:background="#00aced"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
+                    android:contentDescription="@string/twitter" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/twitter"
+                    android:background="#00aced"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:textSize="25sp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/facebook"
+                    android:background="#6d84b4"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
+                    android:contentDescription="@string/facebook" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/facebook"
+                    android:background="#6d84b4"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:textSize="25sp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp" >
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/mail"
+                    android:background="#6d84b4"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
+                    android:contentDescription="@string/email" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/email"
+                    android:background="#6d84b4"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:textSize="25sp"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -5,5 +5,8 @@
     <string name="action_events_button">Events</string>
     <string name="action_gallery_button">Gallery</string>
     <string name="action_about_button">About</string>
-    <string name="app_id">815750065148490</string>
+    <string name="facebook_app_id">320403298153877</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="email">Email</string>
 </resources>

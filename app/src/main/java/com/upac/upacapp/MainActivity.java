@@ -2,13 +2,15 @@ package com.upac.upacapp;
 
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Color;
-import android.os.AsyncTask;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +30,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends FragmentActivity {
 
-	private static int nextFrag;
 	private Session currentSession;
     private NewFragment events = new NewFragment();
     private NewFragment gallery = new NewFragment();
@@ -46,19 +49,14 @@ public class MainActivity extends FragmentActivity {
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
-        /* The following two lines are poor practice. They were put in place to allow the events images to load.
-         * Consider using AsyncTask to more appropriately get the bitmap image from the URL. */
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         galleryView = getLayoutInflater().inflate(R.layout.fragment_gallery, null);
         aboutView = getLayoutInflater().inflate(R.layout.fragment_about, null);
         Button navBttn;
 
         App parse = new App();
-
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		
 		android.app.ActionBar ab;
 		
@@ -119,7 +117,6 @@ public class MainActivity extends FragmentActivity {
 		        	String location, eventName, description, image;
                     Date date;
                     URL imageURL;
-                    Bitmap mIcon_val;
 
                     eventsView = getLayoutInflater().inflate(R.layout.fragment_events, null);
                     LinearLayout ll = (LinearLayout) eventsView.findViewById(R.id.eventsLayout);
@@ -130,46 +127,58 @@ public class MainActivity extends FragmentActivity {
 
 		        	try{
 						JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
+                        LinearLayout[] lines = new LinearLayout[arr.length()];
 						TextView[] tv = new TextView[arr.length()];
                         ImageView[] iv = new ImageView[arr.length()];
 
                         for (int i = 0; i < ( arr.length() ); i++){
 							JSONObject json_obj = arr.getJSONObject(i);
 
-                            date            = inFormat.parse(json_obj.getString("start_time"));
+                            date = inFormat.parse(json_obj.getString("start_time"));
 
-							location		= json_obj.getString("location");
-							eventName		= json_obj.getString("name");
-							description		= json_obj.getString("description");
+							location = json_obj.getString("location");
+							eventName = json_obj.getString("name");
+							description	= json_obj.getString("description");
 
 							try{
-								image		= json_obj.getJSONObject("cover").getString("source");
+								image = json_obj.getJSONObject("cover").getString("source");
 							}
 							catch(Exception e){
-								image		= "nothing";
+								image = "nothing";
 							}
 
-                            imageURL    = new URL(image);
-
-                            mIcon_val   = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-
-                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(300, 300);
+                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(550, 290, 1f);
 
                             iv[i] = new ImageView(getApplicationContext());
-                            iv[i].setImageBitmap(mIcon_val);
+
+                            imageURL = new URL(image);
+                            DownloadImageTask dit = new DownloadImageTask(imageURL, iv[i]);
+                            dit.execute();
+
                             iv[i].setId(i);
+                            iv[i].setPadding(25, 0, 25, 0);
                             iv[i].setLayoutParams(imgParams);
 
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f);
+                            GradientDrawable gd = new GradientDrawable();
+                            gd.setColor(Color.WHITE);
+                            gd.setStroke(1, Color.BLACK);
+
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f);
 
 							tv[i] = new TextView(getApplicationContext());
 							tv[i].setText("Title: " + eventName + "\n" + "Day: " + dayFormat.format(date) + "    " + "Time: " + timeFormat.format(date) + "\n" + "Location: " + location);
                             tv[i].setTextColor(Color.BLACK);
 							tv[i].setId(i);
+                            tv[i].setPadding(0, 75, 0, 0);
 							tv[i].setLayoutParams(params);
 
-                            ll.addView(iv[i]);
-							ll.addView(tv[i]);
+                            lines[i] = new LinearLayout(getApplicationContext());
+                            lines[i].setBackground(gd);
+                            lines[i].setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+                            lines[i].addView(iv[i]);
+							lines[i].addView(tv[i]);
+
+                            ll.addView(lines[i]);
 
                             nextView = eventsView;
                             getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();

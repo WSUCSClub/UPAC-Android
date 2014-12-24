@@ -57,6 +57,6 @@
 		  </intent-filter>
 		</receiver>
 		
-		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 </manifest>

@@ -198,7 +198,6 @@
     <string name="action_about_button">About</string>
     <string name="action_events_button">Events</string>
     <string name="action_gallery_button">Gallery</string>
-    <string name="app_id">815750065148490</string>
     <string name="app_name">UPAC App</string>
     <!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/build/intermediates/exploded-aar/com.facebook.android/facebook/3.19.0/res/values/values.xml -->
     <eat-comment/>
@@ -230,6 +229,12 @@
     <string name="com_facebook_usersettingsfragment_log_in_button">Log in…</string>
     <string name="com_facebook_usersettingsfragment_logged_in">Logged in</string>
     <string name="com_facebook_usersettingsfragment_not_logged_in">Not logged in</string>
+    <!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="email">Email</string>
+    <string name="facebook">Facebook</string>
+    <string name="facebook_app_id">320403298153877</string>
+    <string name="twitter">Twitter</string>
     <!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
