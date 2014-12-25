@@ -3,8 +3,10 @@ package com.upac.upacapp;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.widget.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class DownloadGalleryImages extends AsyncTask<ImageView, Void, Bitmap> {
@@ -24,6 +26,10 @@ public class DownloadGalleryImages extends AsyncTask<ImageView, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
+        ImageHelper ih = new ImageHelper();
+
+        result = ih.getResizedBitmap(result, 300, 300);
+
         imageView.setImageBitmap(result);
     }
 

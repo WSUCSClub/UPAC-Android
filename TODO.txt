@@ -1,14 +1,12 @@
 Parse
 	1. Connect to the common database used for raffles
-	2. (Optional) Add analytics for the app
+	2. Figure out how to store board member information
+	3. (Optional) Add analytics for the app
 
 Events Page
-	1. (Dynamic) Populate events page with facebook events
-	2. Show date at the left with data from facebook
-	3. Show title to the right of the date with data from facebook
-	4. Show location below title with data from facebook
-	5. Show image as background with data from facebook
-	6. Differentiate between events with raffles and those without
+	1. Make title separate text view and make its text larger
+	2. Differentiate between events with raffles and those without
+	3. Add clickListener to open event details page
 	
 Event Details Page
 	1. Show event image at the top with data from facebook
@@ -25,7 +23,9 @@ Event Details Page
 	3. Show Delete button if raffle is on event
 	
 Gallery Page
-	1. Dynamically populate gallery page with facebook images
+	1. Show different albums/dates
+	2. Add clickListener to display Image details page
+	3. (Optional) Use pagination to prevent huge requests
 
 Image Details Page
 	1. Display a full-screen version of the gallery image selected
@@ -34,4 +34,3 @@ Image Details Page
 About Page
 	1. Show UPAC description at the top of the page
 	2. Show WSU copyright information (Winona State University. All rights reserved © 2014)
-	3. Show links to social media

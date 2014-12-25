@@ -70,84 +70,86 @@ MERGED from com.android.support:support-v4:20.0.0:17:5
 		ADDED from AndroidManifest.xml:20:9
 activity#com.upac.upacapp.MainActivity
 ADDED from AndroidManifest.xml:25:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:28:13
 	android:label
 		ADDED from AndroidManifest.xml:27:13
 	android:name
 		ADDED from AndroidManifest.xml:26:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:28:13
+ADDED from AndroidManifest.xml:29:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:29:17
+ADDED from AndroidManifest.xml:30:17
 	android:name
-		ADDED from AndroidManifest.xml:29:25
+		ADDED from AndroidManifest.xml:30:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:31:17
+ADDED from AndroidManifest.xml:32:17
 	android:name
-		ADDED from AndroidManifest.xml:31:27
+		ADDED from AndroidManifest.xml:32:27
 service#com.parse.PushService
-ADDED from AndroidManifest.xml:35:9
+ADDED from AndroidManifest.xml:36:9
 	android:name
-		ADDED from AndroidManifest.xml:35:18
+		ADDED from AndroidManifest.xml:36:18
 receiver#com.parse.ParseBroadcastReceiver
-ADDED from AndroidManifest.xml:36:3
+ADDED from AndroidManifest.xml:37:3
 	android:name
-		ADDED from AndroidManifest.xml:36:13
+		ADDED from AndroidManifest.xml:37:13
 intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.action.USER_PRESENT
-ADDED from AndroidManifest.xml:37:5
+ADDED from AndroidManifest.xml:38:5
 action#android.intent.action.BOOT_COMPLETED
-ADDED from AndroidManifest.xml:38:7
-	android:name
-		ADDED from AndroidManifest.xml:38:15
-action#android.intent.action.USER_PRESENT
 ADDED from AndroidManifest.xml:39:7
 	android:name
 		ADDED from AndroidManifest.xml:39:15
+action#android.intent.action.USER_PRESENT
+ADDED from AndroidManifest.xml:40:7
+	android:name
+		ADDED from AndroidManifest.xml:40:15
 receiver#com.parse.ParsePushBroadcastReceiver
-ADDED from AndroidManifest.xml:42:3
+ADDED from AndroidManifest.xml:43:3
 	android:exported
-		ADDED from AndroidManifest.xml:43:7
+		ADDED from AndroidManifest.xml:44:7
 	android:name
-		ADDED from AndroidManifest.xml:42:13
+		ADDED from AndroidManifest.xml:43:13
 intent-filter#com.parse.push.intent.DELETE+com.parse.push.intent.OPEN+com.parse.push.intent.RECEIVE
-ADDED from AndroidManifest.xml:44:5
+ADDED from AndroidManifest.xml:45:5
 action#com.parse.push.intent.RECEIVE
-ADDED from AndroidManifest.xml:45:7
-	android:name
-		ADDED from AndroidManifest.xml:45:15
-action#com.parse.push.intent.DELETE
 ADDED from AndroidManifest.xml:46:7
 	android:name
 		ADDED from AndroidManifest.xml:46:15
-action#com.parse.push.intent.OPEN
+action#com.parse.push.intent.DELETE
 ADDED from AndroidManifest.xml:47:7
 	android:name
 		ADDED from AndroidManifest.xml:47:15
+action#com.parse.push.intent.OPEN
+ADDED from AndroidManifest.xml:48:7
+	android:name
+		ADDED from AndroidManifest.xml:48:15
 receiver#com.parse.GcmBroadcastReceiver
-ADDED from AndroidManifest.xml:50:3
+ADDED from AndroidManifest.xml:51:3
 	android:permission
-		ADDED from AndroidManifest.xml:51:7
+		ADDED from AndroidManifest.xml:52:7
 	android:name
-		ADDED from AndroidManifest.xml:50:13
+		ADDED from AndroidManifest.xml:51:13
 intent-filter#com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION+com.upac.upacapp
-ADDED from AndroidManifest.xml:52:5
+ADDED from AndroidManifest.xml:53:5
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:53:7
-	android:name
-		ADDED from AndroidManifest.xml:53:15
-action#com.google.android.c2dm.intent.REGISTRATION
 ADDED from AndroidManifest.xml:54:7
 	android:name
 		ADDED from AndroidManifest.xml:54:15
+action#com.google.android.c2dm.intent.REGISTRATION
+ADDED from AndroidManifest.xml:55:7
+	android:name
+		ADDED from AndroidManifest.xml:55:15
 category#com.upac.upacapp
-ADDED from AndroidManifest.xml:56:7
+ADDED from AndroidManifest.xml:57:7
 	android:name
-		ADDED from AndroidManifest.xml:56:17
+		ADDED from AndroidManifest.xml:57:17
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from AndroidManifest.xml:60:3
+ADDED from AndroidManifest.xml:61:3
 	android:name
-		ADDED from AndroidManifest.xml:60:14
+		ADDED from AndroidManifest.xml:61:14
 	android:value
-		ADDED from AndroidManifest.xml:60:60
+		ADDED from AndroidManifest.xml:61:60
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:20.0.0:16:5

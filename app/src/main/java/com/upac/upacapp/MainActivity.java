@@ -102,7 +102,7 @@ public class MainActivity extends FragmentActivity {
         }
         catch(Exception e){
             Toast.makeText(this, "No application can handle this request."
-                    + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                    + " Please install a web browser",  Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -114,7 +114,7 @@ public class MainActivity extends FragmentActivity {
         }
         catch(Exception e){
             Toast.makeText(this, "No application can handle this request."
-                    + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                    + " Please install a web browser",  Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -197,7 +197,7 @@ public class MainActivity extends FragmentActivity {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f);
 
 							tv[i] = new TextView(getApplicationContext());
-							tv[i].setText("Title: " + eventName + "\n" + "Day: " + dayFormat.format(date) + "    " + "Time: " + timeFormat.format(date) + "\n" + "Location: " + location);
+							tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
                             tv[i].setTextColor(Color.BLACK);
 							tv[i].setId(i);
                             tv[i].setPadding(0, 75, 0, 0);
@@ -210,10 +210,10 @@ public class MainActivity extends FragmentActivity {
 							lines[i].addView(tv[i]);
 
                             ll.addView(lines[i]);
-
-                            nextView = eventsView;
-                            getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
 						}	// End of for loop
+
+                        nextView = eventsView;
+                        getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
 					}
 					catch(Exception e) {
                         e.printStackTrace();
@@ -225,6 +225,7 @@ public class MainActivity extends FragmentActivity {
 
     private void findPhotos(){
         Session session = AppDelegates.loadFBSession(this);
+        final int PERLINE = 3;
 
         Bundle params = new Bundle();
         params.putString("fields", "photos");
@@ -242,41 +243,46 @@ public class MainActivity extends FragmentActivity {
                         galleryView = getLayoutInflater().inflate(R.layout.fragment_gallery, null);
                         LinearLayout ll = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
 
-                        LinearLayout lines = new LinearLayout(getApplicationContext());
-                        LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                        lines.setLayoutParams(params);
-                        lines.setOrientation(LinearLayout.HORIZONTAL);
-                        ll.addView(lines);
-
                         try{
+                            int count = 0;
                             JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONArray("data").getJSONObject(0).getJSONObject("photos").getJSONArray("data");
 
                             ImageView[] iv = new ImageView[arr.length()];
+                            LinearLayout[] lines = new LinearLayout[arr.length() / PERLINE];
 
-                            for (int i = 0; i < ( arr.length() ); i++){
-                                JSONObject json_obj = arr.getJSONObject(i);
+                            for (int x = 0; x < (arr.length() / PERLINE); x++) {
+                                lines[x] = new LinearLayout(getApplicationContext());
+                                LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                                lines[x].setLayoutParams(params);
+                                ll.addView(lines[x]);
 
-                                croppedSRC = json_obj.getString("picture");
-                                fullSRC = json_obj.getString("source");
+                                for (int i = 0; i < PERLINE && count < arr.length(); i++) {
+                                    JSONObject json_obj = arr.getJSONObject(count);
 
-                                LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(200, 200);
+                                    croppedSRC = json_obj.getString("picture");
+                                    fullSRC = json_obj.getString("source");
 
-                                iv[i] = new ImageView(getApplicationContext());
+                                    LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, 360, 1f);
 
-                                croppedURL = new URL(croppedSRC);
-                                fullURL = new URL(fullSRC);
-                                DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, iv[i]);
-                                dgi.execute();
+                                    iv[count] = new ImageView(getApplicationContext());
 
-                                iv[i].setId(i);
-                                iv[i].setPadding(5, 5, 5, 5);
-                                iv[i].setLayoutParams(imgParams);
+                                    croppedURL = new URL(croppedSRC);
+                                    fullURL = new URL(fullSRC);
+                                    DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, iv[count]);
+                                    dgi.execute();
 
-                                lines.addView(iv[i]);
+                                    iv[count].setId(count);
+                                    iv[count].setPadding(2, 2, 2, 2);
+                                    iv[count].setLayoutParams(imgParams);
 
-                                nextView = galleryView;
-                                getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
-                            }	// End of for loop
+                                    lines[x].addView(iv[count]);
+
+                                    count++;
+                                }    // End of for loop
+                            }
+
+                            nextView = galleryView;
+                            getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
                         }
                         catch(Exception e) {
                             e.printStackTrace();
