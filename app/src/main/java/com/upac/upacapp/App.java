@@ -1,13 +1,17 @@
 package com.upac.upacapp;
 
+import android.app.Application;
+import android.util.Log;
+
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
-import com.parse.PushService;
-
-import android.app.Application;
-import android.content.Context;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class App extends Application {
@@ -22,5 +26,29 @@ public class App extends Application {
         dimensions.put("category", "ThisIsATest");
 
         ParseAnalytics.trackEvent("read", dimensions);
+    }
+
+    public List<ParseObject> getBoardMembers(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Member");
+        List<ParseObject> results;
+
+        try {
+            results = query.find();
+        } catch (ParseException e) {
+            results = null;
+            e.printStackTrace();
+        }
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> queryList, ParseException e) {
+                if (e == null) {
+                    Log.d("Name", "Retrieved " + queryList.size() + " members.");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+
+        return results;
     }
 }

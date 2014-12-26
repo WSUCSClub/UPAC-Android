@@ -1,118 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/about_sections">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:background="#d3d3d3" >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:src="@drawable/twitter"
+                android:background="#00aced"
+                android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="5dp"
-                android:background="#d3d3d3" >
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/twitter"
-                    android:background="#00aced"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:contentDescription="@string/twitter"
-                    android:onClick="openTwitter"  />
+                android:paddingStart="10dp"
+                android:contentDescription="@string/twitter"
+                android:onClick="openTwitter"  />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/twitter"
-                    android:background="#00aced"
-                    android:layout_weight="1"
-                    android:textColor="#FFFFFF"
-                    android:fontFamily="sans-serif"
-                    android:textSize="25sp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:onClick="openTwitter"
-                    android:clickable="true" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="5dp"
-                android:background="#d3d3d3" >
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/facebook"
-                    android:background="#6d84b4"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:contentDescription="@string/facebook"
-                    android:onClick="openFacebook" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/facebook"
-                    android:background="#6d84b4"
-                    android:layout_weight="1"
-                    android:textColor="#FFFFFF"
-                    android:fontFamily="sans-serif"
-                    android:textSize="25sp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:onClick="openFacebook"
-                    android:clickable="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:background="#d3d3d3" >
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/mail"
-                    android:background="#2e3652"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:contentDescription="@string/email"
-                    android:onClick="sendEmail"  />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/email"
-                    android:background="#2e3652"
-                    android:layout_weight="1"
-                    android:textColor="#FFFFFF"
-                    android:fontFamily="sans-serif"
-                    android:textSize="25sp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:onClick="sendEmail"
-                    android:clickable="true" />
-            </LinearLayout>
+                android:layout_height="50dp"
+                android:text="@string/twitter"
+                android:background="#00aced"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:onClick="openTwitter"
+                android:clickable="true" />
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:background="#d3d3d3" >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:src="@drawable/facebook"
+                android:background="#6d84b4"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:contentDescription="@string/facebook"
+                android:onClick="openFacebook" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/facebook"
+                android:background="#6d84b4"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:onClick="openFacebook"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:background="#d3d3d3" >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:src="@drawable/mail"
+                android:background="#2e3652"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:contentDescription="@string/email"
+                android:onClick="sendEmail"  />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/email"
+                android:background="#2e3652"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:fontFamily="sans-serif"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:onClick="sendEmail"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/board"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

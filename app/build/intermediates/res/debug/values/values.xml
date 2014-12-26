@@ -199,6 +199,7 @@
     <string name="action_events_button">Events</string>
     <string name="action_gallery_button">Gallery</string>
     <string name="app_name">UPAC App</string>
+    <string name="board">Board Members</string>
     <!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/build/intermediates/exploded-aar/com.facebook.android/facebook/3.19.0/res/values/values.xml -->
     <eat-comment/>
     <string name="com_facebook_choose_friends">Choose Friends</string>

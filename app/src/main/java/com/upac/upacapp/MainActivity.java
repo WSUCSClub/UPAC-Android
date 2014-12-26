@@ -23,14 +23,17 @@ import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
+import com.parse.ParseObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
@@ -72,6 +75,8 @@ public class MainActivity extends FragmentActivity {
 	    
 		findEvents();
         findPhotos();
+        List<ParseObject> memberList = parse.getBoardMembers();
+        buildAboutPage(memberList);
 	}
 	
 	@Override
@@ -183,8 +188,8 @@ public class MainActivity extends FragmentActivity {
                             iv[i] = new ImageView(getApplicationContext());
 
                             imageURL = new URL(image);
-                            DownloadEventsImages dit = new DownloadEventsImages(imageURL, iv[i]);
-                            dit.execute();
+                            DownloadEventImages dri = new DownloadEventImages(imageURL, iv[i]);
+                            dri.execute();
 
                             iv[i].setId(i);
                             iv[i].setPadding(25, 0, 25, 0);
@@ -290,6 +295,61 @@ public class MainActivity extends FragmentActivity {
                     }	// End of onCompleted
                 }	// End of Callback
         ).executeAsync();
+    }
+
+    public void buildAboutPage(List<ParseObject> memberList){
+        String name, position, email;
+        URL imageURL;
+        aboutView = getLayoutInflater().inflate(R.layout.fragment_about, null);
+        LinearLayout ll = (LinearLayout) aboutView.findViewById(R.id.about_sections);
+        LinearLayout[] lines = new LinearLayout[memberList.size()];
+        ImageView[] iv = new ImageView[memberList.size()];
+        TextView[] tv = new TextView[memberList.size()];
+
+        for(int i = 0; i < memberList.size(); i++){
+            try {
+                imageURL = new URL(memberList.get(i).getParseFile("picture").getUrl());
+                name = memberList.get(i).getString("name");
+                position = memberList.get(i).getString("position");
+                email = memberList.get(i).getString("email");
+
+                LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(290, 290);
+
+                iv[i] = new ImageView(getApplicationContext());
+                iv[i].setId(i);
+                iv[i].setLayoutParams(imgParams);
+                iv[i].setPadding(25, 0, 25, 0);
+
+                DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
+                dai.execute();
+
+                LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(0, 290, 1f);
+
+                tv[i] = new TextView(getApplicationContext());
+                tv[i].setText(name + "\n" + position + "\n" + email);
+                tv[i].setTextColor(Color.BLACK);
+                tv[i].setId(i);
+                tv[i].setLayoutParams(textParams);
+                tv[i].setPadding(0, 75, 0, 0);
+
+                GradientDrawable gd = new GradientDrawable();
+                gd.setColor(Color.WHITE);
+                gd.setStroke(5, 0x000000);
+
+                LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
+                lines[i] = new LinearLayout(getApplicationContext());
+                lines[i].setLayoutParams(params);
+                lines[i].addView(iv[i]);
+                lines[i].addView(tv[i]);
+                lines[i].setBackground(gd);
+
+                ll.addView(lines[i]);
+            }
+            catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 	
 	View.OnClickListener openPage = new View.OnClickListener(){

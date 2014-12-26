@@ -11,16 +11,39 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class ImageHelper {
-    private static final int HEIGHT = 580;
-    private static final int WIDTH = 580;
+    private static final int EVENT_HEIGHT = 580;
+    private static final int EVENT_WIDTH = 580;
+    private static final int ABOUT_HEIGHT = 120;
+    private static final int ABOUT_WIDTH = 120;
 
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
-        Bitmap output = Bitmap.createBitmap(WIDTH, HEIGHT, Config.ARGB_8888);
+    public Bitmap getRoundedEventImage(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(EVENT_WIDTH, EVENT_HEIGHT, Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, HEIGHT, WIDTH);
+        final Rect rect = new Rect(0, 0, EVENT_HEIGHT, EVENT_WIDTH);
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
+    public Bitmap getRoundedAboutImage(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(ABOUT_WIDTH, ABOUT_HEIGHT, Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, ABOUT_HEIGHT, ABOUT_WIDTH);
         final RectF rectF = new RectF(rect);
         final float roundPx = pixels;
 
