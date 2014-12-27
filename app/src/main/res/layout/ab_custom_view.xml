@@ -1,37 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        style="?android:attr/buttonBarButtonStyle"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="fill_horizontal"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <Button
-        	style="?android:attr/buttonBarButtonStyle"
-	        android:id="@+id/action_events_button"
-	        android:layout_width="fill_parent"
-	        android:layout_height="match_parent"           
-	        android:layout_weight="1"
-	        android:text="@string/action_events_button"
-	        android:textColor="#ffffff"/>
-        
-        <Button
-        	style="?android:attr/buttonBarButtonStyle"
-	        android:id="@+id/action_gallery_button"
-	        android:layout_width="fill_parent"
-	        android:layout_height="match_parent"           
-	        android:layout_weight="1"
-	        android:text="@string/action_gallery_button"
-	        android:textColor="#ffffff"/>
+            android:id="@+id/action_events_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/action_events_button"
+            android:textColor="#ffffff" />
 
         <Button
-        	style="?android:attr/buttonBarButtonStyle"
-	        android:id="@+id/action_about_button"
-	        android:layout_width="fill_parent"
-	        android:layout_height="match_parent"           
-	        android:layout_weight="1"
-	        android:text="@string/action_about_button"
-	        android:textColor="#ffffff"/>
+            android:id="@+id/action_gallery_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/action_gallery_button"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/action_about_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/action_about_button"
+            android:textColor="#ffffff" />
     </LinearLayout>
+</RelativeLayout>

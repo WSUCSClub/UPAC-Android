@@ -11,8 +11,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class ImageHelper {
-    private static final int EVENT_HEIGHT = 580;
-    private static final int EVENT_WIDTH = 580;
+    private static final int EVENT_HEIGHT = 560;
+    private static final int EVENT_WIDTH = 560;
     private static final int ABOUT_HEIGHT = 120;
     private static final int ABOUT_WIDTH = 120;
 

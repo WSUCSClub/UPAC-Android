@@ -1159,7 +1159,8 @@ containing a value of this type.
         public static final int eventsLayout=0x7f080066;
         public static final int expand_activities_button=0x7f080034;
         public static final int expanded_menu=0x7f08003a;
-        public static final int galleryLayout=0x7f080067;
+        public static final int full_image=0x7f080068;
+        public static final int galleryLayout=0x7f080069;
         public static final int home=0x7f080003;
         public static final int homeAsUp=0x7f08000a;
         public static final int icon=0x7f080038;
@@ -1174,6 +1175,7 @@ containing a value of this type.
         public static final int never=0x7f080016;
         public static final int none=0x7f080012;
         public static final int normal=0x7f080007;
+        public static final int pager=0x7f080067;
         public static final int picker_subtitle=0x7f08005a;
         public static final int progress_circular=0x7f080004;
         public static final int progress_horizontal=0x7f080005;
@@ -1252,8 +1254,9 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment=0x7f030028;
         public static final int fragment_about=0x7f030029;
         public static final int fragment_events=0x7f03002a;
-        public static final int fragment_gallery=0x7f03002b;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002c;
+        public static final int fragment_full_image=0x7f03002b;
+        public static final int fragment_gallery=0x7f03002c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03002d;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;

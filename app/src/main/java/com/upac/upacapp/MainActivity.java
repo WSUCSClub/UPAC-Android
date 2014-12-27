@@ -36,8 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
-
-	private Session currentSession;
+    private Session currentSession;
     private NewFragment events = new NewFragment();
     private NewFragment gallery = new NewFragment();
     private NewFragment about = new NewFragment();
@@ -47,188 +46,182 @@ public class MainActivity extends FragmentActivity {
     private View aboutView;
 
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        galleryView = getLayoutInflater().inflate(R.layout.fragment_gallery, null);
-        aboutView = getLayoutInflater().inflate(R.layout.fragment_about, null);
         Button navBttn;
 
         App parse = new App();
-		
-		android.app.ActionBar ab;
-		
-		ab = getActionBar();
-		ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
-		View abBttn = getLayoutInflater().inflate(R.layout.ab_custom_view, null);
-		
-		navBttn = (Button) abBttn.findViewById(R.id.action_events_button);
-		navBttn.setOnClickListener(openPage);
-		navBttn = (Button) abBttn.findViewById(R.id.action_gallery_button);
-		navBttn.setOnClickListener(openPage);
-		navBttn = (Button) abBttn.findViewById(R.id.action_about_button);
-		navBttn.setOnClickListener(openPage);
-		
-		ab.setCustomView(abBttn);
-		ab.setDisplayShowTitleEnabled(false);
-	    
-		findEvents();
+
+        ActionBar ab;
+
+        ab = getActionBar();
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
+        View abBttn = getLayoutInflater().inflate(R.layout.ab_custom_view, null);
+
+        navBttn = (Button) abBttn.findViewById(R.id.action_events_button);
+        navBttn.setOnClickListener(openPage);
+        navBttn = (Button) abBttn.findViewById(R.id.action_gallery_button);
+        navBttn.setOnClickListener(openPage);
+        navBttn = (Button) abBttn.findViewById(R.id.action_about_button);
+        navBttn.setOnClickListener(openPage);
+
+        ab.setCustomView(abBttn);
+        ab.setDisplayShowTitleEnabled(false);
+        ab.setDisplayShowHomeEnabled(false);
+
+        findEvents();
         findPhotos();
         List<ParseObject> memberList = parse.getBoardMembers();
         buildAboutPage(memberList);
-	}
-	
-	@Override
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-        
+
         AppEventsLogger.deactivateApp(this);
     }
-	 
-	@Override
+
+    @Override
     protected void onResume() {
         super.onResume();
-        
+
         AppEventsLogger.activateApp(this);
     }
-	 
-	@Override
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         Session.saveSession(currentSession, outState);
     }
 
-    public void openFacebook(View v){
+    public void openFacebook(View v) {
         try {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/WSU.UPAC"));
             startActivity(browserIntent);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "No application can handle this request."
-                    + " Please install a web browser",  Toast.LENGTH_LONG).show();
+                    + " Please install a web browser", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
 
-    public void openTwitter(View v){
+    public void openTwitter(View v) {
         try {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/UPACWSU"));
             startActivity(browserIntent);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "No application can handle this request."
-                    + " Please install a web browser",  Toast.LENGTH_LONG).show();
+                    + " Please install a web browser", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
 
-    public void sendEmail(View v){
+    public void sendEmail(View v) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"upac@winona.edu"});
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"upac@winona.edu"});
         try {
             startActivity(Intent.createChooser(i, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
     }
 
-	private void findEvents(){
-		Session session = AppDelegates.loadFBSession(this);
+    private void findEvents() {
+        Session session = AppDelegates.loadFBSession(this);
         Calendar since = Calendar.getInstance();
         since.add(Calendar.DATE, -60);
 
-		Bundle params = new Bundle();
-		params.putString("fields", "events.since(" + since.getTime() + "){description,cover,location,name,start_time}");
+        Bundle params = new Bundle();
+        params.putString("fields", "events.since(" + since.getTime() + "){description,cover,location,name,start_time}");
 
-		new Request(
-			session,
-			"/WSU.UPAC",
-			params,
-			HttpMethod.GET,
-			new Request.Callback() {
-		        public void onCompleted(Response response){
-		        	String location, eventName, description, image;
-                    Date date;
-                    URL imageURL;
+        new Request(
+                session,
+                "/WSU.UPAC",
+                params,
+                HttpMethod.GET,
+                new Request.Callback() {
+                    public void onCompleted(Response response) {
+                        String location, eventName, description, image;
+                        Date date;
+                        URL imageURL;
 
-                    eventsView = getLayoutInflater().inflate(R.layout.fragment_events, null);
-                    LinearLayout ll = (LinearLayout) eventsView.findViewById(R.id.eventsLayout);
+                        eventsView = getLayoutInflater().inflate(R.layout.fragment_events, null);
+                        LinearLayout ll = (LinearLayout) eventsView.findViewById(R.id.eventsLayout);
 
-                    SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-                    SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
+                        SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                        SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
 
-		        	try{
-						JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
-                        LinearLayout[] lines = new LinearLayout[arr.length()];
-						TextView[] tv = new TextView[arr.length()];
-                        ImageView[] iv = new ImageView[arr.length()];
+                        try {
+                            JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
+                            LinearLayout[] lines = new LinearLayout[arr.length()];
+                            TextView[] tv = new TextView[arr.length()];
+                            ImageView[] iv = new ImageView[arr.length()];
 
-                        for (int i = 0; i < ( arr.length() ); i++){
-							JSONObject json_obj = arr.getJSONObject(i);
+                            for (int i = 0; i < (arr.length()); i++) {
+                                JSONObject json_obj = arr.getJSONObject(i);
 
-                            date = inFormat.parse(json_obj.getString("start_time"));
+                                date = inFormat.parse(json_obj.getString("start_time"));
 
-							location = json_obj.getString("location");
-							eventName = json_obj.getString("name");
-							description	= json_obj.getString("description");
+                                location = json_obj.getString("location");
+                                eventName = json_obj.getString("name");
+                                description = json_obj.getString("description");
 
-							try{
-								image = json_obj.getJSONObject("cover").getString("source");
-							}
-							catch(Exception e){
-								image = "nothing";
-							}
+                                try {
+                                    image = json_obj.getJSONObject("cover").getString("source");
+                                } catch (Exception e) {
+                                    image = "nothing";
+                                }
 
-                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(550, 290, 1f);
+                                LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(550, 290, 1f);
 
-                            iv[i] = new ImageView(getApplicationContext());
+                                iv[i] = new ImageView(getApplicationContext());
 
-                            imageURL = new URL(image);
-                            DownloadEventImages dri = new DownloadEventImages(imageURL, iv[i]);
-                            dri.execute();
+                                imageURL = new URL(image);
+                                DownloadEventImages dri = new DownloadEventImages(imageURL, iv[i]);
+                                dri.execute();
 
-                            iv[i].setId(i);
-                            iv[i].setPadding(25, 0, 25, 0);
-                            iv[i].setLayoutParams(imgParams);
+                                iv[i].setId(i);
+                                iv[i].setPadding(25, 0, 25, 0);
+                                iv[i].setLayoutParams(imgParams);
 
-                            GradientDrawable gd = new GradientDrawable();
-                            gd.setColor(Color.WHITE);
-                            gd.setStroke(5, 0x000000);
+                                GradientDrawable gd = new GradientDrawable();
+                                gd.setColor(Color.WHITE);
+                                gd.setStroke(5, 0x000000);
 
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f);
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f);
 
-							tv[i] = new TextView(getApplicationContext());
-							tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
-                            tv[i].setTextColor(Color.BLACK);
-							tv[i].setId(i);
-                            tv[i].setPadding(0, 75, 0, 0);
-							tv[i].setLayoutParams(params);
+                                tv[i] = new TextView(getApplicationContext());
+                                tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
+                                tv[i].setTextColor(Color.BLACK);
+                                tv[i].setId(i);
+                                tv[i].setPadding(0, 75, 0, 0);
+                                tv[i].setLayoutParams(params);
 
-                            lines[i] = new LinearLayout(getApplicationContext());
-                            lines[i].setBackground(gd);
-                            lines[i].setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-                            lines[i].addView(iv[i]);
-							lines[i].addView(tv[i]);
+                                lines[i] = new LinearLayout(getApplicationContext());
+                                lines[i].setBackground(gd);
+                                lines[i].setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+                                lines[i].addView(iv[i]);
+                                lines[i].addView(tv[i]);
 
-                            ll.addView(lines[i]);
-						}	// End of for loop
+                                ll.addView(lines[i]);
+                            }    // End of for loop
 
-                        nextView = eventsView;
-                        getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
-					}
-					catch(Exception e) {
-                        e.printStackTrace();
-                    }
-		        }	// End of onCompleted
-		    }	// End of Callback
-		).executeAsync();
-	}
+                            nextView = eventsView;
+                            getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }    // End of onCompleted
+                }    // End of Callback
+        ).executeAsync();
+    }
 
-    private void findPhotos(){
+    private void findPhotos() {
         Session session = AppDelegates.loadFBSession(this);
         final int PERLINE = 3;
 
@@ -241,14 +234,14 @@ public class MainActivity extends FragmentActivity {
                 params,
                 HttpMethod.GET,
                 new Request.Callback() {
-                    public void onCompleted(Response response){
+                    public void onCompleted(Response response) {
                         String croppedSRC, fullSRC;
                         URL croppedURL, fullURL;
 
                         galleryView = getLayoutInflater().inflate(R.layout.fragment_gallery, null);
                         LinearLayout ll = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
 
-                        try{
+                        try {
                             int count = 0;
                             JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONArray("data").getJSONObject(0).getJSONObject("photos").getJSONArray("data");
 
@@ -288,16 +281,15 @@ public class MainActivity extends FragmentActivity {
 
                             nextView = galleryView;
                             getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
-                        }
-                        catch(Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }	// End of onCompleted
-                }	// End of Callback
+                    }    // End of onCompleted
+                }    // End of Callback
         ).executeAsync();
     }
 
-    public void buildAboutPage(List<ParseObject> memberList){
+    public void buildAboutPage(List<ParseObject> memberList) {
         String name, position, email;
         URL imageURL;
         aboutView = getLayoutInflater().inflate(R.layout.fragment_about, null);
@@ -306,18 +298,21 @@ public class MainActivity extends FragmentActivity {
         ImageView[] iv = new ImageView[memberList.size()];
         TextView[] tv = new TextView[memberList.size()];
 
-        for(int i = 0; i < memberList.size(); i++){
+        for (int i = 0; i < memberList.size(); i++) {
             try {
                 imageURL = new URL(memberList.get(i).getParseFile("picture").getUrl());
                 name = memberList.get(i).getString("name");
                 position = memberList.get(i).getString("position");
                 email = memberList.get(i).getString("email");
 
+                CustomOnClickListener cocl = new CustomOnClickListener(email, this);
+
                 LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(290, 290);
 
                 iv[i] = new ImageView(getApplicationContext());
                 iv[i].setId(i);
                 iv[i].setLayoutParams(imgParams);
+                iv[i].setOnClickListener(cocl);
                 iv[i].setPadding(25, 0, 25, 0);
 
                 DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
@@ -330,6 +325,8 @@ public class MainActivity extends FragmentActivity {
                 tv[i].setTextColor(Color.BLACK);
                 tv[i].setId(i);
                 tv[i].setLayoutParams(textParams);
+                tv[i].setClickable(true);
+                tv[i].setOnClickListener(cocl);
                 tv[i].setPadding(0, 75, 0, 0);
 
                 GradientDrawable gd = new GradientDrawable();
@@ -345,42 +342,40 @@ public class MainActivity extends FragmentActivity {
                 lines[i].setBackground(gd);
 
                 ll.addView(lines[i]);
-            }
-            catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
         }
     }
-	
-	View.OnClickListener openPage = new View.OnClickListener(){
-		public void onClick(View v) {
-			switch(v.getId()){ // Case statement to check which button was pressed
-			case(R.id.action_events_button):
-				nextView = eventsView;
 
-				getFragmentManager().beginTransaction().replace(R.id.container, events)
-					.addToBackStack(null).commit();
-				break;
-			case(R.id.action_gallery_button):
-				nextView = galleryView;
-							
-				getFragmentManager().beginTransaction().replace(R.id.container, gallery)
-					.addToBackStack(null).commit();
-				break;
-			case(R.id.action_about_button):
-				nextView = aboutView;
-			
-				getFragmentManager().beginTransaction().replace(R.id.container, about)
-					.addToBackStack(null).commit();
-				break;
-			}
-		}
-	};
+    View.OnClickListener openPage = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) { // Case statement to check which button was pressed
+                case (R.id.action_events_button):
+                    nextView = eventsView;
 
-	public static class NewFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-			return nextView;
-		}
-	}
+                    getFragmentManager().beginTransaction().replace(R.id.container, events)
+                            .addToBackStack(null).commit();
+                    break;
+                case (R.id.action_gallery_button):
+                    nextView = galleryView;
+
+                    getFragmentManager().beginTransaction().replace(R.id.container, gallery)
+                            .addToBackStack(null).commit();
+                    break;
+                case (R.id.action_about_button):
+                    nextView = aboutView;
+
+                    getFragmentManager().beginTransaction().replace(R.id.container, about).addToBackStack(null).commit();
+                    break;
+            }
+        }
+    };
+
+    public static class NewFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            return nextView;
+        }
+    }
 }
