@@ -121,7 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/board"
-                android:textSize="18sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />

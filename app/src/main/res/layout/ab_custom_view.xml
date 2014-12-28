@@ -17,8 +17,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/events"
+            android:onClick=""
+            android:paddingTop="2dp"
             android:text="@string/action_events_button"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/action_gallery_button"
@@ -26,8 +30,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/gallery"
+            android:paddingTop="2dp"
             android:text="@string/action_gallery_button"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/action_about_button"
@@ -35,7 +42,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/contact"
+            android:paddingTop="2dp"
             android:text="@string/action_about_button"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
     </LinearLayout>
 </RelativeLayout>

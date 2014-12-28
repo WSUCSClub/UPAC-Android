@@ -1,7 +1,6 @@
 Parse
 	1. Connect to the common database used for raffles
-	2. Figure out how to store board member information
-	3. (Optional) Add analytics for the app
+	2. (Optional) Add analytics for the app
 
 Events Page
 	1. Make title separate text view and make its text larger
@@ -17,10 +16,6 @@ Event Details Page
 	6. Show location of event under title with data from facebook
 	7. Show time of event under location with data from facebook
 	8. Show description of event under time with data from facebook
-	-- ADMIN --
-	1. Show create raffle button at the bottom of the image if no raffle exists for this event
-	2. Show Draw! button if raffle is running or complete
-	3. Show Delete button if raffle is on event
 	
 Gallery Page
 	1. Show different albums/dates
@@ -32,5 +27,4 @@ Image Details Page
 	2. Show the date the image was posted to facebook
 	
 About Page
-	1. Show UPAC description at the top of the page
-	2. Show WSU copyright information (Winona State University. All rights reserved © 2014)
+	1. Show WSU copyright information (Winona State University. All rights reserved © 2014)

@@ -18,7 +18,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/action_events_button"
-            android:textColor="#ffffff" />
+            android:textSize="12sp"
+            android:drawableTop="@drawable/events"
+            android:textColor="#ffffff"
+            android:paddingTop="2dp"
+            android:onClick=""/>
 
         <Button
             android:id="@+id/action_gallery_button"
@@ -27,7 +31,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/action_gallery_button"
-            android:textColor="#ffffff" />
+            android:textSize="12sp"
+            android:drawableTop="@drawable/gallery"
+            android:textColor="#ffffff"
+            android:paddingTop="2dp" />
 
         <Button
             android:id="@+id/action_about_button"
@@ -36,6 +43,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/action_about_button"
-            android:textColor="#ffffff" />
+            android:textSize="12sp"
+            android:drawableTop="@drawable/contact"
+            android:textColor="#ffffff"
+            android:paddingTop="2dp" />
     </LinearLayout>
 </RelativeLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/ab_custom_view.xml -->
