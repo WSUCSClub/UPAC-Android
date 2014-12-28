@@ -18,6 +18,7 @@ public class MainActivity extends FragmentActivity {
     private EventsFragment events = new EventsFragment();
     private GalleryFragment gallery = new GalleryFragment();
     private AboutFragment about = new AboutFragment();
+    private ActionBarFragment action = new ActionBarFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +26,11 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         Button navBttn;
 
-        ActionBar ab;
-
-        ab = getActionBar();
+        ActionBar ab = getActionBar();
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayShowHomeEnabled(false);
-        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
-        View abBttn = getLayoutInflater().inflate(R.layout.ab_custom_view, null);
 
-        navBttn = (Button) abBttn.findViewById(R.id.action_events_button);
-        navBttn.setOnClickListener(openPage);
-        navBttn = (Button) abBttn.findViewById(R.id.action_gallery_button);
-        navBttn.setOnClickListener(openPage);
-        navBttn = (Button) abBttn.findViewById(R.id.action_about_button);
-        navBttn.setOnClickListener(openPage);
-
-        ab.setCustomView(abBttn);
-
+        getFragmentManager().beginTransaction().replace(R.id.bottom_bar, action).addToBackStack(null).commit();
         getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
     }
 
@@ -99,24 +88,22 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    View.OnClickListener openPage = new View.OnClickListener() {
-        public void onClick(View v) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    public void openPage(View v) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-            switch (v.getId()) { // Case statement to check which button was pressed
-                case (R.id.action_events_button):
-                    transaction.replace(R.id.container, events).addToBackStack(null).commit();
+        switch (v.getId()) { // Case statement to check which button was pressed
+            case (R.id.action_events_button):
+                transaction.replace(R.id.container, events).addToBackStack(null).commit();
 
-                    break;
-                case (R.id.action_gallery_button):
-                    transaction.replace(R.id.container, gallery).addToBackStack(null).commit();
+                break;
+            case (R.id.action_gallery_button):
+                transaction.replace(R.id.container, gallery).addToBackStack(null).commit();
 
-                    break;
-                case (R.id.action_about_button):
-                    transaction.replace(R.id.container, about).addToBackStack(null).commit();
+                break;
+            case (R.id.action_about_button):
+                transaction.replace(R.id.container, about).addToBackStack(null).commit();
 
-                    break;
-            }
+                break;
         }
-    };
+    }
 }

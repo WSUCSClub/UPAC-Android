@@ -1,16 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.upac.upacapp.MainActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/bottom_bar"
-        android:layout_gravity="bottom">
-    </LinearLayout>
-</FrameLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/activity_main.xml -->
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        </LinearLayout>
+</LinearLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/activity_main.xml -->
