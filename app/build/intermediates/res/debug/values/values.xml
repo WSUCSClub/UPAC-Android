@@ -195,7 +195,7 @@
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="action_about_button">About</string>
+    <string name="action_about_button">Contact</string>
     <string name="action_events_button">Events</string>
     <string name="action_gallery_button">Gallery</string>
     <string name="app_name">UPAC App</string>

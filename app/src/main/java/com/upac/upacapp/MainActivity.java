@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AppEventsLogger;
@@ -19,19 +19,24 @@ public class MainActivity extends FragmentActivity {
     private GalleryFragment gallery = new GalleryFragment();
     private AboutFragment about = new AboutFragment();
     private ActionBarFragment action = new ActionBarFragment();
+    private static View head;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button navBttn;
+        head = getLayoutInflater().inflate(R.layout.head, null);
+        TextView title = (TextView) head.findViewById(R.id.title);
 
         ActionBar ab = getActionBar();
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayShowHomeEnabled(false);
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
+        ab.setCustomView(head);
 
         getFragmentManager().beginTransaction().replace(R.id.bottom_bar, action).addToBackStack(null).commit();
         getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
+        title.setText("EVENTS");
     }
 
     @Override
@@ -90,18 +95,22 @@ public class MainActivity extends FragmentActivity {
 
     public void openPage(View v) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        TextView title = (TextView) head.findViewById(R.id.title);
 
         switch (v.getId()) { // Case statement to check which button was pressed
             case (R.id.action_events_button):
                 transaction.replace(R.id.container, events).addToBackStack(null).commit();
+                title.setText("EVENTS");
 
                 break;
             case (R.id.action_gallery_button):
                 transaction.replace(R.id.container, gallery).addToBackStack(null).commit();
+                title.setText("PHOTOS");
 
                 break;
             case (R.id.action_about_button):
                 transaction.replace(R.id.container, about).addToBackStack(null).commit();
+                title.setText("CONTACT");
 
                 break;
         }
