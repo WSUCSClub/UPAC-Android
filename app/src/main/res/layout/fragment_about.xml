@@ -3,114 +3,84 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/about_sections"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/about_sections">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:background="#d3d3d3"
+            android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:background="#d3d3d3" >
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:src="@drawable/twitter"
-                android:background="#00aced"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingStart="10dp"
-                android:contentDescription="@string/twitter"
-                android:onClick="openTwitter"  />
+            android:paddingTop="10dp">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/twitter"
+                android:layout_gravity="center"
                 android:background="#00aced"
-                android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:fontFamily="sans-serif"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
+                android:drawableLeft="@drawable/twitter"
+                android:drawableStart="@drawable/twitter"
                 android:onClick="openTwitter"
-                android:clickable="true" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/twitter"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:background="#d3d3d3"
             android:paddingBottom="5dp"
-            android:background="#d3d3d3" >
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:src="@drawable/facebook"
-                android:background="#6d84b4"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingStart="10dp"
-                android:contentDescription="@string/facebook"
-                android:onClick="openFacebook" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/facebook"
+                android:layout_gravity="center"
                 android:background="#6d84b4"
-                android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:fontFamily="sans-serif"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
+                android:drawableLeft="@drawable/facebook"
+                android:drawableStart="@drawable/facebook"
                 android:onClick="openFacebook"
-                android:clickable="true" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/facebook"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:background="#d3d3d3"
+            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:background="#d3d3d3" >
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:src="@drawable/mail"
-                android:background="#2e3652"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingStart="10dp"
-                android:contentDescription="@string/email"
-                android:onClick="sendEmail"  />
+            android:paddingTop="5dp">
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/email"
+                android:layout_gravity="center"
                 android:background="#2e3652"
-                android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:fontFamily="sans-serif"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
+                android:drawableLeft="@drawable/mail"
+                android:drawableStart="@drawable/mail"
                 android:onClick="sendEmail"
-                android:clickable="true" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/email"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,12 +90,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/board"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp"
+                android:text="@string/board"
+                android:textColor="#000000"
+                android:background="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

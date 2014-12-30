@@ -1,14 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="fill_horizontal">
+    android:gravity="fill_horizontal"
+    android:background="#694489">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Text Here"
+        android:text=""
+        android:textStyle="bold"
         android:textColor="#ffffff"
         android:textSize="25sp" />
 </RelativeLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/head.xml -->

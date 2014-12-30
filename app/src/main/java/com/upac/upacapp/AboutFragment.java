@@ -1,10 +1,10 @@
 package com.upac.upacapp;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +19,14 @@ import java.net.URL;
 import java.util.List;
 
 public class AboutFragment extends Fragment {
+    public static final String TAG = "about";
     private static View aboutView;
     private static App parse = new App();
-    private static List<ParseObject> memberList;
+    private ViewGroup parent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        parent = container;
         return aboutView;
     }
 
@@ -33,11 +35,11 @@ public class AboutFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            memberList = parse.getBoardMembers();
+            List<ParseObject> memberList = parse.getBoardMembers();
 
             String name, position, email;
             URL imageURL;
-            aboutView = getActivity().getLayoutInflater().inflate(R.layout.fragment_about, null);
+            aboutView = getActivity().getLayoutInflater().inflate(R.layout.fragment_about, parent, false);
             LinearLayout ll = (LinearLayout) aboutView.findViewById(R.id.about_sections);
             LinearLayout[] lines = new LinearLayout[memberList.size()];
             ImageView[] iv = new ImageView[memberList.size()];

@@ -1,11 +1,11 @@
 package com.upac.upacapp;
 
 import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity {
     private GalleryFragment gallery = new GalleryFragment();
     private AboutFragment about = new AboutFragment();
     private ActionBarFragment action = new ActionBarFragment();
+    private EventDetailsPageFragment eventDetails = new EventDetailsPageFragment();
     private static View head;
 
     @Override
@@ -34,8 +35,11 @@ public class MainActivity extends FragmentActivity {
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(head);
 
-        getFragmentManager().beginTransaction().replace(R.id.bottom_bar, action).addToBackStack(null).commit();
-        getFragmentManager().beginTransaction().replace(R.id.container, events).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.bottom_bar, action).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, events, EventsFragment.TAG).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, gallery, GalleryFragment.TAG).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, about, AboutFragment.TAG).commit();
+        getSupportFragmentManager().beginTransaction().hide(gallery).hide(about).show(events).commit();
         title.setText("EVENTS");
     }
 
@@ -94,22 +98,22 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void openPage(View v) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         TextView title = (TextView) head.findViewById(R.id.title);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         switch (v.getId()) { // Case statement to check which button was pressed
             case (R.id.action_events_button):
-                transaction.replace(R.id.container, events).addToBackStack(null).commit();
+                transaction.hide(gallery).hide(about).show(events).commit();
                 title.setText("EVENTS");
 
                 break;
             case (R.id.action_gallery_button):
-                transaction.replace(R.id.container, gallery).addToBackStack(null).commit();
+                transaction.hide(events).hide(about).show(gallery).commit();
                 title.setText("PHOTOS");
 
                 break;
             case (R.id.action_about_button):
-                transaction.replace(R.id.container, about).addToBackStack(null).commit();
+                transaction.hide(gallery).hide(events).show(about).commit();
                 title.setText("CONTACT");
 
                 break;

@@ -1,10 +1,10 @@
 package com.upac.upacapp;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +26,25 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class EventsFragment extends Fragment {
+    public static final String TAG = "events";
     private static View eventsView;
+    private ViewGroup parent;
+    private EventDetailsClickListener eventDetailsListener;
+    private EventDetailsPageFragment eventDetails = new EventDetailsPageFragment();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        parent = container;
         return eventsView;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        eventDetailsListener  = new EventDetailsClickListener(getActivity());
 
         try {
-            eventsView = getActivity().getLayoutInflater().inflate(R.layout.fragment_events, null);
+            eventsView = getActivity().getLayoutInflater().inflate(R.layout.fragment_events, parent, false);
             Session session = AppDelegates.loadFBSession(getActivity());
             Calendar since = Calendar.getInstance();
             since.add(Calendar.DATE, -60);
@@ -108,6 +114,7 @@ public class EventsFragment extends Fragment {
                                     tv[i].setId(i);
                                     tv[i].setPadding(0, 75, 0, 0);
                                     tv[i].setLayoutParams(params);
+                                    tv[i].setOnClickListener(eventDetailsListener);
 
                                     lines[i] = new LinearLayout(getActivity());
                                     lines[i].setBackground(gd);
@@ -123,7 +130,8 @@ public class EventsFragment extends Fragment {
                         }    // End of onCompleted
                     }    // End of Callback
             ).executeAsync();
-        } catch (ClassCastException e) {
+        }
+        catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");
         }
     }

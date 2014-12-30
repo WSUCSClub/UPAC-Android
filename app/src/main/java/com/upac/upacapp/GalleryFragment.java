@@ -1,8 +1,8 @@
 package com.upac.upacapp;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +22,12 @@ import java.net.URL;
 
 public class GalleryFragment extends Fragment {
     public static View galleryView;
+    public static final String TAG = "gallery";
+    private ViewGroup parent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        parent = container;
         return galleryView;
     }
 
@@ -33,7 +36,7 @@ public class GalleryFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            galleryView = getActivity().getLayoutInflater().inflate(R.layout.fragment_gallery, null);
+            galleryView = getActivity().getLayoutInflater().inflate(R.layout.fragment_gallery, parent, false);
             Session session = AppDelegates.loadFBSession(getActivity());
             final int PERLINE = 3;
 

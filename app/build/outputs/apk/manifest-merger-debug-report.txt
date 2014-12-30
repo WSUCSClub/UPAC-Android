@@ -18,138 +18,144 @@ ADDED from AndroidManifest.xml:7:5
 	android:name
 		ADDED from AndroidManifest.xml:7:22
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from AndroidManifest.xml:8:2
+ADDED from AndroidManifest.xml:8:5
 	android:name
-		ADDED from AndroidManifest.xml:8:19
+		ADDED from AndroidManifest.xml:8:22
 uses-permission#android.permission.WAKE_LOCK
-ADDED from AndroidManifest.xml:9:2
+ADDED from AndroidManifest.xml:9:5
 	android:name
-		ADDED from AndroidManifest.xml:9:19
+		ADDED from AndroidManifest.xml:9:22
 uses-permission#android.permission.VIBRATE
-ADDED from AndroidManifest.xml:10:2
+ADDED from AndroidManifest.xml:10:5
 	android:name
-		ADDED from AndroidManifest.xml:10:19
+		ADDED from AndroidManifest.xml:10:22
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from AndroidManifest.xml:11:2
+ADDED from AndroidManifest.xml:11:5
 	android:name
-		ADDED from AndroidManifest.xml:11:19
+		ADDED from AndroidManifest.xml:11:22
 uses-permission#android.permission.GET_ACCOUNTS
-ADDED from AndroidManifest.xml:12:2
+ADDED from AndroidManifest.xml:12:5
 	android:name
-		ADDED from AndroidManifest.xml:12:19
+		ADDED from AndroidManifest.xml:12:22
 uses-permission#com.google.android.c2dm.permission.RECEIVE
-ADDED from AndroidManifest.xml:13:2
+ADDED from AndroidManifest.xml:13:5
 	android:name
-		ADDED from AndroidManifest.xml:13:19
+		ADDED from AndroidManifest.xml:13:22
 permission#com.upac.upacapp.permission.C2D_MESSAGE
-ADDED from AndroidManifest.xml:15:2
+ADDED from AndroidManifest.xml:15:5
 	android:protectionLevel
-		ADDED from AndroidManifest.xml:15:14
+		ADDED from AndroidManifest.xml:17:9
 	android:name
-		ADDED from AndroidManifest.xml:16:6
+		ADDED from AndroidManifest.xml:16:9
 uses-permission#com.upac.upacapp.permission.C2D_MESSAGE
-ADDED from AndroidManifest.xml:17:2
+ADDED from AndroidManifest.xml:18:5
 	android:name
-		ADDED from AndroidManifest.xml:17:19
+		ADDED from AndroidManifest.xml:18:22
 application
-ADDED from AndroidManifest.xml:19:5
+ADDED from AndroidManifest.xml:20:5
 MERGED from com.android.support:support-v4:20.0.0:17:5
 MERGED from com.android.support:appcompat-v7:20.0.0:17:5
 MERGED from com.android.support:support-v4:20.0.0:17:5
 MERGED from com.facebook.android:facebook:3.19.0:24:5
 MERGED from com.android.support:support-v4:20.0.0:17:5
 	android:label
-		ADDED from AndroidManifest.xml:23:9
-	android:allowBackup
-		ADDED from AndroidManifest.xml:21:9
-	android:icon
-		ADDED from AndroidManifest.xml:22:9
-	android:theme
 		ADDED from AndroidManifest.xml:24:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:22:9
+	android:icon
+		ADDED from AndroidManifest.xml:23:9
+	android:theme
+		ADDED from AndroidManifest.xml:25:9
 	android:name
-		ADDED from AndroidManifest.xml:20:9
+		ADDED from AndroidManifest.xml:21:9
 activity#com.upac.upacapp.MainActivity
-ADDED from AndroidManifest.xml:25:9
+ADDED from AndroidManifest.xml:26:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:28:13
+		ADDED from AndroidManifest.xml:29:13
 	android:label
+		ADDED from AndroidManifest.xml:28:13
+	android:name
 		ADDED from AndroidManifest.xml:27:13
-	android:name
-		ADDED from AndroidManifest.xml:26:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:29:13
+ADDED from AndroidManifest.xml:30:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:30:17
+ADDED from AndroidManifest.xml:31:17
 	android:name
-		ADDED from AndroidManifest.xml:30:25
+		ADDED from AndroidManifest.xml:31:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:32:17
+ADDED from AndroidManifest.xml:33:17
 	android:name
-		ADDED from AndroidManifest.xml:32:27
+		ADDED from AndroidManifest.xml:33:27
+activity#com.upac.upacapp.EventDetailsSlidePagerActivity
+ADDED from AndroidManifest.xml:37:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:39:13
+	android:name
+		ADDED from AndroidManifest.xml:38:13
 service#com.parse.PushService
-ADDED from AndroidManifest.xml:36:9
+ADDED from AndroidManifest.xml:42:9
 	android:name
-		ADDED from AndroidManifest.xml:36:18
+		ADDED from AndroidManifest.xml:42:18
 receiver#com.parse.ParseBroadcastReceiver
-ADDED from AndroidManifest.xml:37:3
+ADDED from AndroidManifest.xml:44:9
 	android:name
-		ADDED from AndroidManifest.xml:37:13
+		ADDED from AndroidManifest.xml:44:19
 intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.action.USER_PRESENT
-ADDED from AndroidManifest.xml:38:5
+ADDED from AndroidManifest.xml:45:13
 action#android.intent.action.BOOT_COMPLETED
-ADDED from AndroidManifest.xml:39:7
+ADDED from AndroidManifest.xml:46:17
 	android:name
-		ADDED from AndroidManifest.xml:39:15
+		ADDED from AndroidManifest.xml:46:25
 action#android.intent.action.USER_PRESENT
-ADDED from AndroidManifest.xml:40:7
+ADDED from AndroidManifest.xml:47:17
 	android:name
-		ADDED from AndroidManifest.xml:40:15
+		ADDED from AndroidManifest.xml:47:25
 receiver#com.parse.ParsePushBroadcastReceiver
-ADDED from AndroidManifest.xml:43:3
+ADDED from AndroidManifest.xml:50:9
 	android:exported
-		ADDED from AndroidManifest.xml:44:7
-	android:name
-		ADDED from AndroidManifest.xml:43:13
-intent-filter#com.parse.push.intent.DELETE+com.parse.push.intent.OPEN+com.parse.push.intent.RECEIVE
-ADDED from AndroidManifest.xml:45:5
-action#com.parse.push.intent.RECEIVE
-ADDED from AndroidManifest.xml:46:7
-	android:name
-		ADDED from AndroidManifest.xml:46:15
-action#com.parse.push.intent.DELETE
-ADDED from AndroidManifest.xml:47:7
-	android:name
-		ADDED from AndroidManifest.xml:47:15
-action#com.parse.push.intent.OPEN
-ADDED from AndroidManifest.xml:48:7
-	android:name
-		ADDED from AndroidManifest.xml:48:15
-receiver#com.parse.GcmBroadcastReceiver
-ADDED from AndroidManifest.xml:51:3
-	android:permission
-		ADDED from AndroidManifest.xml:52:7
+		ADDED from AndroidManifest.xml:52:13
 	android:name
 		ADDED from AndroidManifest.xml:51:13
+intent-filter#com.parse.push.intent.DELETE+com.parse.push.intent.OPEN+com.parse.push.intent.RECEIVE
+ADDED from AndroidManifest.xml:53:13
+action#com.parse.push.intent.RECEIVE
+ADDED from AndroidManifest.xml:54:17
+	android:name
+		ADDED from AndroidManifest.xml:54:25
+action#com.parse.push.intent.DELETE
+ADDED from AndroidManifest.xml:55:17
+	android:name
+		ADDED from AndroidManifest.xml:55:25
+action#com.parse.push.intent.OPEN
+ADDED from AndroidManifest.xml:56:17
+	android:name
+		ADDED from AndroidManifest.xml:56:25
+receiver#com.parse.GcmBroadcastReceiver
+ADDED from AndroidManifest.xml:59:9
+	android:permission
+		ADDED from AndroidManifest.xml:61:13
+	android:name
+		ADDED from AndroidManifest.xml:60:13
 intent-filter#com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION+com.upac.upacapp
-ADDED from AndroidManifest.xml:53:5
+ADDED from AndroidManifest.xml:62:13
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:54:7
+ADDED from AndroidManifest.xml:63:17
 	android:name
-		ADDED from AndroidManifest.xml:54:15
+		ADDED from AndroidManifest.xml:63:25
 action#com.google.android.c2dm.intent.REGISTRATION
-ADDED from AndroidManifest.xml:55:7
+ADDED from AndroidManifest.xml:64:17
 	android:name
-		ADDED from AndroidManifest.xml:55:15
+		ADDED from AndroidManifest.xml:64:25
 category#com.upac.upacapp
-ADDED from AndroidManifest.xml:57:7
+ADDED from AndroidManifest.xml:66:17
 	android:name
-		ADDED from AndroidManifest.xml:57:17
+		ADDED from AndroidManifest.xml:66:27
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from AndroidManifest.xml:61:3
+ADDED from AndroidManifest.xml:70:9
 	android:name
-		ADDED from AndroidManifest.xml:61:14
+		ADDED from AndroidManifest.xml:71:13
 	android:value
-		ADDED from AndroidManifest.xml:61:60
+		ADDED from AndroidManifest.xml:72:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:20.0.0:16:5
