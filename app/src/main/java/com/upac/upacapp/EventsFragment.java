@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.HttpMethod;
 import com.facebook.Request;
@@ -29,7 +30,6 @@ public class EventsFragment extends Fragment {
     public static final String TAG = "events";
     private static View eventsView;
     private ViewGroup parent;
-    private EventDetailsClickListener eventDetailsListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class EventsFragment extends Fragment {
                     HttpMethod.GET,
                     new Request.Callback() {
                         public void onCompleted(Response response) {
-                            String location, eventName, description, image;
+                            String location, eventName, image;
                             Date date;
                             URL imageURL;
 
@@ -72,15 +72,23 @@ public class EventsFragment extends Fragment {
                                 LinearLayout[] lines = new LinearLayout[arr.length()];
                                 TextView[] tv = new TextView[arr.length()];
                                 ImageView[] iv = new ImageView[arr.length()];
+                                String[] titles = new String[arr.length()];
+                                String[] locations = new String[arr.length()];
+                                String[] times = new String[arr.length()];
+                                String[] descriptions = new String[arr.length()];
+                                EventDetailsClickListener eventDetailsListener  = new EventDetailsClickListener(getActivity());
 
                                 for (int i = 0; i < (arr.length()); i++) {
                                     JSONObject json_obj = arr.getJSONObject(i);
 
                                     date = inFormat.parse(json_obj.getString("start_time"));
+                                    times[i] = json_obj.getString("start_time");
 
                                     location = json_obj.getString("location");
+                                    locations[i] = json_obj.getString("location");
                                     eventName = json_obj.getString("name");
-                                    description = json_obj.getString("description");
+                                    titles[i] = json_obj.getString("name");
+                                    descriptions[i] = json_obj.getString("description");
 
                                     try {
                                         image = json_obj.getJSONObject("cover").getString("source");
@@ -105,9 +113,7 @@ public class EventsFragment extends Fragment {
                                     gd.setStroke(5, 0x000000);
 
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
-                                    eventDetailsListener  = new EventDetailsClickListener(getActivity());
                                     eventDetailsListener.setOpenedEvent(i);
-                                    eventDetailsListener.setPageAmount(arr.length());
 
                                     tv[i] = new TextView(getActivity());
                                     tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
@@ -125,7 +131,13 @@ public class EventsFragment extends Fragment {
 
                                     ll.addView(lines[i]);
                                 }    // End of for loop
-                            } catch (Exception e) {
+
+                                eventDetailsListener.setPageAmount(arr.length());
+                                eventDetailsListener.setInformation(titles, locations, times, descriptions);
+                            }
+                            catch (Exception e) {
+                                Toast toast = Toast.makeText(getActivity(), "Something went wrong. Please restart the app.", Toast.LENGTH_SHORT);
+                                toast.show();
                                 e.printStackTrace();
                             }
                         }    // End of onCompleted

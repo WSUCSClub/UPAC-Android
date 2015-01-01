@@ -6,11 +6,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 class EventDetailsPagerAdapter extends FragmentStatePagerAdapter {
     private int numPages;
-    private EventDetailsPageFragment page = new EventDetailsPageFragment();
+    private static EventDetailsPageFragment page;
 
-    public EventDetailsPagerAdapter(FragmentManager fm, int pages) {
+    public EventDetailsPagerAdapter(FragmentManager fm, int pages, EventDetailsPageFragment p) {
         super(fm);
         numPages = pages;
+        page = p;
     }
 
     @Override

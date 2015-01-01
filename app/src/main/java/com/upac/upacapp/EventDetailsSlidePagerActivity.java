@@ -7,28 +7,22 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 public class EventDetailsSlidePagerActivity extends FragmentActivity {
-    /**
-     * The pager widget, which handles animation and allows swiping horizontally to access previous
-     * and next wizard steps.
-     */
-    private ViewPager mPager;
-
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
-    private PagerAdapter mPagerAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         int pages = intent.getIntExtra("AllPages", 0);
+        String[] titles = intent.getStringArrayExtra("Titles");
+        String[] locations = intent.getStringArrayExtra("Locations");
+        String[] times = intent.getStringArrayExtra("Times");
+        String[] descriptions = intent.getStringArrayExtra("Descriptions");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
+        ViewPager mPager = (ViewPager) findViewById(R.id.pager);
 
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new EventDetailsPagerAdapter(getSupportFragmentManager(), pages);
+        EventDetailsPageFragment page = new EventDetailsPageFragment();
+        page.setInformation(titles, locations, times, descriptions);
+        PagerAdapter mPagerAdapter = new EventDetailsPagerAdapter(getSupportFragmentManager(), pages, page);
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(intent.getIntExtra("Page", 0));
     }

@@ -19,7 +19,6 @@ public class MainActivity extends FragmentActivity {
     private GalleryFragment gallery = new GalleryFragment();
     private AboutFragment about = new AboutFragment();
     private ActionBarFragment action = new ActionBarFragment();
-    private EventDetailsPageFragment eventDetails = new EventDetailsPageFragment();
     private static View head;
 
     @Override
@@ -118,5 +117,11 @@ public class MainActivity extends FragmentActivity {
 
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+        super.onBackPressed();
     }
 }

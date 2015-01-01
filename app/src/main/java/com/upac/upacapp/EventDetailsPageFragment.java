@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
-    public int mPageNumber;
-    private String title, location, time, description;
+    public static int mPageNumber;
+    private static String[] title, location, time, description;
 
     public EventDetailsPageFragment() {
 
     }
 
-    public void setInformation(String a, String b, String c, String d){
+    public void setInformation(String[] a, String[] b, String[] c, String[] d){
         title = a;
         location = b;
         time = c;
@@ -33,13 +33,16 @@ public class EventDetailsPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_event_description, container, false);
-        ImageView cover = (ImageView) rootView.findViewById(R.id.event_image);
-        TextView title = (TextView) rootView.findViewById(R.id.title);
-        TextView location = (TextView) rootView.findViewById(R.id.location);
-        TextView time = (TextView) rootView.findViewById(R.id.time);
-        TextView description = (TextView) rootView.findViewById(R.id.description);
+        ImageView eventCover = (ImageView) rootView.findViewById(R.id.event_image);
+        TextView eventTitle = (TextView) rootView.findViewById(R.id.title);
+        TextView eventLocation = (TextView) rootView.findViewById(R.id.location);
+        TextView eventTime = (TextView) rootView.findViewById(R.id.time);
+        TextView eventDescription = (TextView) rootView.findViewById(R.id.description);
 
-
+        eventTitle.setText(title[mPageNumber]);
+        eventLocation.setText(location[mPageNumber]);
+        eventTime.setText(time[mPageNumber]);
+        eventDescription.setText(description[mPageNumber]);
 
         return rootView;
     }

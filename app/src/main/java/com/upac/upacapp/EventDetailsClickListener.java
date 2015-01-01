@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 public class EventDetailsClickListener implements OnClickListener {
-    private FragmentActivity context;
-    private int openedEvent;
-    private int pages;
+    private static FragmentActivity context;
+    private static int openedEvent, pages;
+    private static String[] titles, locations, times, descriptions;
 
     public EventDetailsClickListener(FragmentActivity fa) {
         context = fa;
@@ -22,11 +22,22 @@ public class EventDetailsClickListener implements OnClickListener {
         pages = p;
     }
 
+    public void setInformation(String[] a, String[] b, String[] c, String[] d){
+        titles = a;
+        locations = b;
+        times = c;
+        descriptions = d;
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(context, EventDetailsSlidePagerActivity.class);
         intent.putExtra("AllPages", pages);
         intent.putExtra("Page", openedEvent);
+        intent.putExtra("Titles", titles);
+        intent.putExtra("Locations", locations);
+        intent.putExtra("Times", times);
+        intent.putExtra("Descriptions", descriptions);
         context.startActivity(intent);
     }
 }
