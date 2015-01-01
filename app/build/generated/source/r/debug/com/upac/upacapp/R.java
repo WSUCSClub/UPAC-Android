@@ -1069,7 +1069,7 @@ containing a value of this type.
         public static final int com_facebook_list_section_header_background=0x7f02006b;
         public static final int com_facebook_loginbutton_silver=0x7f02006c;
         public static final int com_facebook_logo=0x7f02006d;
-        public static final int com_facebook_picker_default_separator_color=0x7f02008d;
+        public static final int com_facebook_picker_default_separator_color=0x7f02008f;
         public static final int com_facebook_picker_item_background=0x7f02006e;
         public static final int com_facebook_picker_list_focused=0x7f02006f;
         public static final int com_facebook_picker_list_longpressed=0x7f020070;
@@ -1100,7 +1100,9 @@ containing a value of this type.
         public static final int gallery=0x7f020089;
         public static final int ic_launcher=0x7f02008a;
         public static final int mail=0x7f02008b;
-        public static final int twitter=0x7f02008c;
+        public static final int near=0x7f02008c;
+        public static final int recents=0x7f02008d;
+        public static final int twitter=0x7f02008e;
     }
     public static final class id {
         public static final int about_sections=0x7f080067;
@@ -1161,11 +1163,11 @@ containing a value of this type.
         public static final int dropdown=0x7f080019;
         public static final int edit_query=0x7f08003e;
         public static final int end=0x7f080010;
-        public static final int eventsLayout=0x7f08006a;
+        public static final int eventsLayout=0x7f08006c;
         public static final int expand_activities_button=0x7f080034;
         public static final int expanded_menu=0x7f08003a;
-        public static final int full_image=0x7f08006b;
-        public static final int galleryLayout=0x7f08006c;
+        public static final int full_image=0x7f08006d;
+        public static final int galleryLayout=0x7f08006e;
         public static final int home=0x7f080003;
         public static final int homeAsUp=0x7f08000a;
         public static final int icon=0x7f080038;
@@ -1176,12 +1178,13 @@ containing a value of this type.
         public static final int left=0x7f080021;
         public static final int listMode=0x7f080006;
         public static final int list_item=0x7f080037;
+        public static final int location=0x7f080069;
         public static final int middle=0x7f080011;
         public static final int never=0x7f080016;
         public static final int none=0x7f080012;
         public static final int normal=0x7f080007;
         public static final int pager=0x7f08004c;
-        public static final int pager_text=0x7f080069;
+        public static final int pager_text=0x7f08006b;
         public static final int picker_subtitle=0x7f08005c;
         public static final int progress_circular=0x7f080004;
         public static final int progress_horizontal=0x7f080005;
@@ -1206,6 +1209,7 @@ containing a value of this type.
         public static final int standard=0x7f08001c;
         public static final int submit_area=0x7f080047;
         public static final int tabMode=0x7f080008;
+        public static final int time=0x7f08006a;
         public static final int title=0x7f080039;
         public static final int top=0x7f08001f;
         public static final int top_action_bar=0x7f08002e;

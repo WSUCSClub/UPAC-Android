@@ -3,11 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/pager_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.2"
-        android:padding="16dp"
-        android:text="Lorem Ipsum" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:contentDescription="Content Description here" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Title here"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/near"
+            android:drawableStart="@drawable/near"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Location here" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/recents"
+            android:drawableStart="@drawable/recents"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Time here" />
+
+
+        <TextView
+            android:id="@+id/pager_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:padding="16dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Description here" />
+    </LinearLayout>
 </ScrollView><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/fragment_event_description.xml -->

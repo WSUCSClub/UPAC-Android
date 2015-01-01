@@ -320,7 +320,7 @@ int drawable com_facebook_list_divider 0x7f02006a
 int drawable com_facebook_list_section_header_background 0x7f02006b
 int drawable com_facebook_loginbutton_silver 0x7f02006c
 int drawable com_facebook_logo 0x7f02006d
-int drawable com_facebook_picker_default_separator_color 0x7f02008d
+int drawable com_facebook_picker_default_separator_color 0x7f02008f
 int drawable com_facebook_picker_item_background 0x7f02006e
 int drawable com_facebook_picker_list_focused 0x7f02006f
 int drawable com_facebook_picker_list_longpressed 0x7f020070
@@ -351,7 +351,9 @@ int drawable facebook 0x7f020088
 int drawable gallery 0x7f020089
 int drawable ic_launcher 0x7f02008a
 int drawable mail 0x7f02008b
-int drawable twitter 0x7f02008c
+int drawable near 0x7f02008c
+int drawable recents 0x7f02008d
+int drawable twitter 0x7f02008e
 int id about_sections 0x7f080067
 int id action_about_button 0x7f080027
 int id action_bar 0x7f08002a
@@ -410,11 +412,11 @@ int id disableHome 0x7f080009
 int id dropdown 0x7f080019
 int id edit_query 0x7f08003e
 int id end 0x7f080010
-int id eventsLayout 0x7f08006a
+int id eventsLayout 0x7f08006c
 int id expand_activities_button 0x7f080034
 int id expanded_menu 0x7f08003a
-int id full_image 0x7f08006b
-int id galleryLayout 0x7f08006c
+int id full_image 0x7f08006d
+int id galleryLayout 0x7f08006e
 int id home 0x7f080003
 int id homeAsUp 0x7f08000a
 int id icon 0x7f080038
@@ -425,12 +427,13 @@ int id large 0x7f080023
 int id left 0x7f080021
 int id listMode 0x7f080006
 int id list_item 0x7f080037
+int id location 0x7f080069
 int id middle 0x7f080011
 int id never 0x7f080016
 int id none 0x7f080012
 int id normal 0x7f080007
 int id pager 0x7f08004c
-int id pager_text 0x7f080069
+int id pager_text 0x7f08006b
 int id picker_subtitle 0x7f08005c
 int id progress_circular 0x7f080004
 int id progress_horizontal 0x7f080005
@@ -455,6 +458,7 @@ int id split_action_bar 0x7f08002c
 int id standard 0x7f08001c
 int id submit_area 0x7f080047
 int id tabMode 0x7f080008
+int id time 0x7f08006a
 int id title 0x7f080039
 int id top 0x7f08001f
 int id top_action_bar 0x7f08002e

@@ -30,7 +30,6 @@ public class EventsFragment extends Fragment {
     private static View eventsView;
     private ViewGroup parent;
     private EventDetailsClickListener eventDetailsListener;
-    private EventDetailsPageFragment eventDetails = new EventDetailsPageFragment();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class EventsFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        eventDetailsListener  = new EventDetailsClickListener(getActivity());
 
         try {
             eventsView = getActivity().getLayoutInflater().inflate(R.layout.fragment_events, parent, false);
@@ -107,6 +105,9 @@ public class EventsFragment extends Fragment {
                                     gd.setStroke(5, 0x000000);
 
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+                                    eventDetailsListener  = new EventDetailsClickListener(getActivity());
+                                    eventDetailsListener.setOpenedEvent(i);
+                                    eventDetailsListener.setPageAmount(arr.length());
 
                                     tv[i] = new TextView(getActivity());
                                     tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
