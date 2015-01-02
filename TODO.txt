@@ -8,14 +8,10 @@ Events Page
 	3. Add clickListener to open event details page
 	
 Event Details Page
-	1. Show event image at the top with data from facebook
-	2. (Dynamic) Show raffle button if user may enter a raffle
-	3. (Dynamic) Show that a user has entered a raffle if the requirements have been met
-	4. (Dynamic) Show time window for raffle if it is available
-	5. Show title of even under image with data from facebook
-	6. Show location of event under title with data from facebook
-	7. Show time of event under location with data from facebook
-	8. Show description of event under time with data from facebook
+	1. (Dynamic) Show raffle button if user may enter a raffle
+	2. (Dynamic) Show that a user has entered a raffle if the requirements have been met
+	3. (Dynamic) Show time window for raffle if it is available
+	4. Format event information better
 	
 Gallery Page
 	1. Show different albums/dates

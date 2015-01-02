@@ -7,21 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.URL;
 
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
     public static int mPageNumber;
-    private static String[] title, location, time, description;
+    private static String[] title, location, time, description, images;
 
     public EventDetailsPageFragment() {
 
     }
 
-    public void setInformation(String[] a, String[] b, String[] c, String[] d){
+    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e) {
         title = a;
         location = b;
         time = c;
         description = d;
+        images = e;
     }
 
     @Override
@@ -38,6 +42,16 @@ public class EventDetailsPageFragment extends Fragment {
         TextView eventLocation = (TextView) rootView.findViewById(R.id.location);
         TextView eventTime = (TextView) rootView.findViewById(R.id.time);
         TextView eventDescription = (TextView) rootView.findViewById(R.id.description);
+
+        try {
+            URL imageURL = new URL(images[mPageNumber]);
+            DownloadDetailsImages ddi = new DownloadDetailsImages(imageURL, eventCover);
+            ddi.execute();
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(getActivity(), "Something went wrong in downloading the image.", Toast.LENGTH_SHORT);
+            toast.show();
+            e.printStackTrace();
+        }
 
         eventTitle.setText(title[mPageNumber]);
         eventLocation.setText(location[mPageNumber]);

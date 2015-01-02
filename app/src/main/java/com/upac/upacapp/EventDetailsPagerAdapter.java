@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 class EventDetailsPagerAdapter extends FragmentStatePagerAdapter {
-    private int numPages;
+    private static int numPages;
     private static EventDetailsPageFragment page;
 
     public EventDetailsPagerAdapter(FragmentManager fm, int pages, EventDetailsPageFragment p) {

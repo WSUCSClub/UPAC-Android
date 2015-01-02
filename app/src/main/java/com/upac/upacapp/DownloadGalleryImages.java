@@ -3,10 +3,8 @@ package com.upac.upacapp;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.widget.ImageView;
 
-import java.io.IOException;
 import java.net.URL;
 
 public class DownloadGalleryImages extends AsyncTask<ImageView, Void, Bitmap> {
@@ -14,7 +12,7 @@ public class DownloadGalleryImages extends AsyncTask<ImageView, Void, Bitmap> {
     URL imageURL;
     Bitmap mIcon_val;
 
-    public DownloadGalleryImages(URL iu, ImageView iv){
+    public DownloadGalleryImages(URL iu, ImageView iv) {
         imageURL = iu;
         imageView = iv;
     }
@@ -36,8 +34,7 @@ public class DownloadGalleryImages extends AsyncTask<ImageView, Void, Bitmap> {
     private Bitmap download_Image() {
         try {
             mIcon_val = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

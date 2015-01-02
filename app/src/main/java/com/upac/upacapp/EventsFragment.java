@@ -74,24 +74,27 @@ public class EventsFragment extends Fragment {
                                 ImageView[] iv = new ImageView[arr.length()];
                                 String[] titles = new String[arr.length()];
                                 String[] locations = new String[arr.length()];
-                                String[] times = new String[arr.length()];
+                                String[] dates = new String[arr.length()];
                                 String[] descriptions = new String[arr.length()];
+                                String[] images = new String[arr.length()];
                                 EventDetailsClickListener eventDetailsListener  = new EventDetailsClickListener(getActivity());
 
                                 for (int i = 0; i < (arr.length()); i++) {
                                     JSONObject json_obj = arr.getJSONObject(i);
 
                                     date = inFormat.parse(json_obj.getString("start_time"));
-                                    times[i] = json_obj.getString("start_time");
+                                    dates[i] = date.toString();
 
                                     location = json_obj.getString("location");
                                     locations[i] = json_obj.getString("location");
                                     eventName = json_obj.getString("name");
-                                    titles[i] = json_obj.getString("name");
+                                    eventName = eventName.replaceAll("UPAC Presents: ", "");
+                                    titles[i] = eventName;
                                     descriptions[i] = json_obj.getString("description");
 
                                     try {
                                         image = json_obj.getJSONObject("cover").getString("source");
+                                        images[i] = json_obj.getJSONObject("cover").getString("source");
                                     } catch (Exception e) {
                                         image = "nothing";
                                     }
@@ -125,7 +128,7 @@ public class EventsFragment extends Fragment {
 
                                     lines[i] = new LinearLayout(getActivity());
                                     lines[i].setBackground(gd);
-                                    lines[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                                    lines[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                                     lines[i].addView(iv[i]);
                                     lines[i].addView(tv[i]);
 
@@ -133,7 +136,7 @@ public class EventsFragment extends Fragment {
                                 }    // End of for loop
 
                                 eventDetailsListener.setPageAmount(arr.length());
-                                eventDetailsListener.setInformation(titles, locations, times, descriptions);
+                                eventDetailsListener.setInformation(titles, locations, dates, descriptions, images);
                             }
                             catch (Exception e) {
                                 Toast toast = Toast.makeText(getActivity(), "Something went wrong. Please restart the app.", Toast.LENGTH_SHORT);
