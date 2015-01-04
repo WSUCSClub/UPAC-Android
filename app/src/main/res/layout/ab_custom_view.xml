@@ -21,7 +21,7 @@
             android:onClick="openPage"
             android:paddingTop="2dp"
             android:text="@string/action_events_button"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/action_gallery_button"

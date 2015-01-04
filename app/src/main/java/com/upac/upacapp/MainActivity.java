@@ -120,7 +120,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         finish();
         super.onBackPressed();
     }

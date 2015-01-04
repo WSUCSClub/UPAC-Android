@@ -28,13 +28,14 @@ public class App extends Application {
         ParseAnalytics.trackEvent("read", dimensions);
     }
 
-    public List<ParseObject> getBoardMembers(){
+    public List<ParseObject> getBoardMembers() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Member");
         List<ParseObject> results;
 
         try {
             results = query.find();
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             results = null;
             e.printStackTrace();
         }
@@ -43,6 +44,31 @@ public class App extends Application {
             public void done(List<ParseObject> queryList, ParseException e) {
                 if (e == null) {
                     Log.d("Name", "Retrieved " + queryList.size() + " members.");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+
+        return results;
+    }
+
+    public List<ParseObject> getRaffles(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
+        List<ParseObject> results;
+
+        try {
+            results = query.find();
+        }
+        catch (ParseException e) {
+            results = null;
+            e.printStackTrace();
+        }
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> queryList, ParseException e) {
+                if (e == null) {
+                    Log.d("Name", queryList.size() + " events have raffles.");
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }

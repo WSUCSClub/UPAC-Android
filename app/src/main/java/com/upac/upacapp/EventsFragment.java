@@ -17,6 +17,7 @@ import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
+import com.parse.ParseObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class EventsFragment extends Fragment {
     public static final String TAG = "events";
@@ -69,32 +71,46 @@ public class EventsFragment extends Fragment {
 
                             try {
                                 JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
+                                App parse = new App();
+
+                                List<ParseObject> raffles = parse.getRaffles();
+                                String[] eventRaffles = new String[raffles.size()];
+                                boolean hasRaffle = false;
+
+                                for(int x = 0; x < raffles.size(); x++) {
+                                    eventRaffles[x] = raffles.get(x).getString("eventId");
+                                }
+
                                 LinearLayout[] lines = new LinearLayout[arr.length()];
                                 TextView[] tv = new TextView[arr.length()];
                                 ImageView[] iv = new ImageView[arr.length()];
                                 String[] titles = new String[arr.length()];
                                 String[] locations = new String[arr.length()];
                                 String[] dates = new String[arr.length()];
+                                String[] times = new String[arr.length()];
                                 String[] descriptions = new String[arr.length()];
                                 String[] images = new String[arr.length()];
-                                EventDetailsClickListener eventDetailsListener  = new EventDetailsClickListener(getActivity());
+                                String[] ids = new String[arr.length()];
+                                EventDetailsClickListener[] listeners = new EventDetailsClickListener[arr.length()];
 
                                 for (int i = 0; i < (arr.length()); i++) {
-                                    JSONObject json_obj = arr.getJSONObject(i);
+                                    JSONObject jsonObj = arr.getJSONObject(i);
 
-                                    date = inFormat.parse(json_obj.getString("start_time"));
-                                    dates[i] = date.toString();
+                                    date = inFormat.parse(jsonObj.getString("start_time"));
+                                    dates[i] = dayFormat.format(date);
+                                    times[i] = timeFormat.format(date);
 
-                                    location = json_obj.getString("location");
-                                    locations[i] = json_obj.getString("location");
-                                    eventName = json_obj.getString("name");
+                                    location = jsonObj.getString("location");
+                                    locations[i] = jsonObj.getString("location");
+                                    eventName = jsonObj.getString("name");
                                     eventName = eventName.replaceAll("UPAC Presents: ", "");
                                     titles[i] = eventName;
-                                    descriptions[i] = json_obj.getString("description");
+                                    descriptions[i] = jsonObj.getString("description");
+                                    ids[i] = jsonObj.getString("id");
 
                                     try {
-                                        image = json_obj.getJSONObject("cover").getString("source");
-                                        images[i] = json_obj.getJSONObject("cover").getString("source");
+                                        image = jsonObj.getJSONObject("cover").getString("source");
+                                        images[i] = jsonObj.getJSONObject("cover").getString("source");
                                     } catch (Exception e) {
                                         image = "nothing";
                                     }
@@ -111,12 +127,9 @@ public class EventsFragment extends Fragment {
                                     iv[i].setPadding(25, 0, 25, 0);
                                     iv[i].setLayoutParams(imgParams);
 
-                                    GradientDrawable gd = new GradientDrawable();
-                                    gd.setColor(Color.WHITE);
-                                    gd.setStroke(5, 0x000000);
-
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
-                                    eventDetailsListener.setOpenedEvent(i);
+                                    listeners[i] = new EventDetailsClickListener(getActivity());
+                                    listeners[i].setOpenedEvent(i);
 
                                     tv[i] = new TextView(getActivity());
                                     tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
@@ -124,7 +137,26 @@ public class EventsFragment extends Fragment {
                                     tv[i].setId(i);
                                     tv[i].setPadding(0, 75, 0, 0);
                                     tv[i].setLayoutParams(params);
-                                    tv[i].setOnClickListener(eventDetailsListener);
+                                    tv[i].setOnClickListener(listeners[i]);
+
+                                    GradientDrawable gd = new GradientDrawable();
+
+                                    hasRaffle = false;
+
+                                    for(String p : eventRaffles){
+                                        if(ids[i].equals(p)){
+                                            hasRaffle = true;
+                                        }
+                                    }
+
+                                    if(hasRaffle){
+                                        gd.setColor(Color.parseColor("#ECECFF"));
+                                    }
+                                    else {
+                                        gd.setColor(Color.WHITE);
+                                    }
+
+                                    gd.setStroke(1, Color.parseColor("#E1E1E1"));
 
                                     lines[i] = new LinearLayout(getActivity());
                                     lines[i].setBackground(gd);
@@ -135,10 +167,11 @@ public class EventsFragment extends Fragment {
                                     ll.addView(lines[i]);
                                 }    // End of for loop
 
-                                eventDetailsListener.setPageAmount(arr.length());
-                                eventDetailsListener.setInformation(titles, locations, dates, descriptions, images);
-                            }
-                            catch (Exception e) {
+                                for (EventDetailsClickListener e : listeners) {
+                                    e.setPageAmount(arr.length());
+                                    e.setInformation(titles, locations, dates, times, descriptions, images);
+                                }
+                            } catch (Exception e) {
                                 Toast toast = Toast.makeText(getActivity(), "Something went wrong. Please restart the app.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 e.printStackTrace();
@@ -146,8 +179,7 @@ public class EventsFragment extends Fragment {
                         }    // End of onCompleted
                     }    // End of Callback
             ).executeAsync();
-        }
-        catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");
         }
     }

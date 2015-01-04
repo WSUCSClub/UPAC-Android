@@ -14,18 +14,19 @@ import java.net.URL;
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
     public static int mPageNumber;
-    private static String[] title, location, time, description, images;
+    private static String[] title, location, time, description, images, date;
 
     public EventDetailsPageFragment() {
 
     }
 
-    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e) {
+    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e, String[] f) {
         title = a;
         location = b;
-        time = c;
-        description = d;
-        images = e;
+        date = c;
+        time = d;
+        description = e;
+        images = f;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class EventDetailsPageFragment extends Fragment {
 
         eventTitle.setText(title[mPageNumber]);
         eventLocation.setText(location[mPageNumber]);
-        eventTime.setText(time[mPageNumber]);
+        eventTime.setText(date[mPageNumber] + " " + time[mPageNumber]);
         eventDescription.setText(description[mPageNumber]);
 
         return rootView;

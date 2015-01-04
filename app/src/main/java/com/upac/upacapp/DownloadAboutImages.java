@@ -13,7 +13,7 @@ public class DownloadAboutImages extends AsyncTask<ImageView, Void, Bitmap> {
     Bitmap mIcon_val;
     private static final int ROUNDING = 1000;
 
-    public DownloadAboutImages(URL iu, ImageView iv){
+    public DownloadAboutImages(URL iu, ImageView iv) {
         imageURL = iu;
         imageView = iv;
     }
@@ -35,8 +35,7 @@ public class DownloadAboutImages extends AsyncTask<ImageView, Void, Bitmap> {
     private Bitmap download_Image() {
         try {
             mIcon_val = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
