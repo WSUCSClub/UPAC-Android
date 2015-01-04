@@ -71,14 +71,19 @@ public class EventsFragment extends Fragment {
 
                             try {
                                 JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
+
                                 App parse = new App();
 
                                 List<ParseObject> raffles = parse.getRaffles();
                                 String[] eventRaffles = new String[raffles.size()];
-                                boolean hasRaffle = false;
+
+                                Date today = new Date();
 
                                 for(int x = 0; x < raffles.size(); x++) {
-                                    eventRaffles[x] = raffles.get(x).getString("eventId");
+                                    if(raffles.get(x).getDate("endDate").compareTo(today) > 0 && raffles.get(x).getDate("date").compareTo(today) < 0)
+                                        eventRaffles[x] = raffles.get(x).getString("eventId");
+                                    else
+                                        eventRaffles[x] = "-1";
                                 }
 
                                 LinearLayout[] lines = new LinearLayout[arr.length()];
@@ -91,6 +96,7 @@ public class EventsFragment extends Fragment {
                                 String[] descriptions = new String[arr.length()];
                                 String[] images = new String[arr.length()];
                                 String[] ids = new String[arr.length()];
+                                boolean[] hasRaffle = new boolean[arr.length()];
                                 EventDetailsClickListener[] listeners = new EventDetailsClickListener[arr.length()];
 
                                 for (int i = 0; i < (arr.length()); i++) {
@@ -141,15 +147,15 @@ public class EventsFragment extends Fragment {
 
                                     GradientDrawable gd = new GradientDrawable();
 
-                                    hasRaffle = false;
+                                    hasRaffle[i] = false;
 
                                     for(String p : eventRaffles){
                                         if(ids[i].equals(p)){
-                                            hasRaffle = true;
+                                            hasRaffle[i] = true;
                                         }
                                     }
 
-                                    if(hasRaffle){
+                                    if(hasRaffle[i]){
                                         gd.setColor(Color.parseColor("#ECECFF"));
                                     }
                                     else {
@@ -169,7 +175,7 @@ public class EventsFragment extends Fragment {
 
                                 for (EventDetailsClickListener e : listeners) {
                                     e.setPageAmount(arr.length());
-                                    e.setInformation(titles, locations, dates, times, descriptions, images);
+                                    e.setInformation(titles, locations, dates, times, descriptions, images, hasRaffle, ids);
                                 }
                             } catch (Exception e) {
                                 Toast toast = Toast.makeText(getActivity(), "Something went wrong. Please restart the app.", Toast.LENGTH_SHORT);

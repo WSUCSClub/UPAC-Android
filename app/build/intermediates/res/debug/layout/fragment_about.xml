@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="#6d84b4"
+            android:background="@color/com_facebook_blue"
             android:drawableLeft="@drawable/facebook"
             android:drawableStart="@drawable/facebook"
             android:onClick="openFacebook"

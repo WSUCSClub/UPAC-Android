@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,19 +15,22 @@ import java.net.URL;
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
     public static int mPageNumber;
-    private static String[] title, location, time, description, images, date;
+    private static String[] title, location, time, description, images, date, ids;
+    private static boolean[] hasRaffle;
 
     public EventDetailsPageFragment() {
 
     }
 
-    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e, String[] f) {
+    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e, String[] f, boolean[] g, String[] h) {
         title = a;
         location = b;
         date = c;
         time = d;
         description = e;
         images = f;
+        hasRaffle = g;
+        ids = h;
     }
 
     @Override
@@ -36,13 +40,14 @@ public class EventDetailsPageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_event_description, container, false);
+    public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_event_description, container, false);
         ImageView eventCover = (ImageView) rootView.findViewById(R.id.event_image);
         TextView eventTitle = (TextView) rootView.findViewById(R.id.title);
         TextView eventLocation = (TextView) rootView.findViewById(R.id.location);
         TextView eventTime = (TextView) rootView.findViewById(R.id.time);
         TextView eventDescription = (TextView) rootView.findViewById(R.id.description);
+        Button raffleButton = (Button) rootView.findViewById(R.id.raffle_button);
 
         try {
             URL imageURL = new URL(images[mPageNumber]);
@@ -58,6 +63,25 @@ public class EventDetailsPageFragment extends Fragment {
         eventLocation.setText(location[mPageNumber]);
         eventTime.setText(date[mPageNumber] + " " + time[mPageNumber]);
         eventDescription.setText(description[mPageNumber]);
+
+        if (hasRaffle[mPageNumber]) {
+            raffleButton.setVisibility(View.VISIBLE);
+
+            RaffleSQLiteHelper entry = new RaffleSQLiteHelper(getActivity());
+            String ticketID = entry.getEntries(ids[mPageNumber]);
+
+            if (ticketID != null) {
+                System.out.println("Entered");
+
+                raffleButton.setText("Ticket number: #" + ticketID);
+                raffleButton.setClickable(false);
+            }
+            else{
+                RaffleEntryClickListener enterRaffle = new RaffleEntryClickListener(raffleButton, entry, ids[mPageNumber]);
+
+                raffleButton.setOnClickListener(enterRaffle);
+            }
+        }
 
         return rootView;
     }

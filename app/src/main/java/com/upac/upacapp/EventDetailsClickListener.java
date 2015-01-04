@@ -9,7 +9,8 @@ public class EventDetailsClickListener implements OnClickListener {
     private static FragmentActivity context;
     private static int pages;
     private int openedEvent;
-    private static String[] titles, locations, times, descriptions, images, dates;
+    private static String[] titles, locations, times, descriptions, images, dates, ids;
+    private static boolean[] hasRaffle;
 
     public EventDetailsClickListener(FragmentActivity fa) {
         context = fa;
@@ -23,13 +24,15 @@ public class EventDetailsClickListener implements OnClickListener {
         pages = p;
     }
 
-    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e, String[] f) {
+    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e, String[] f, boolean[] g, String[] h) {
         titles = a;
         locations = b;
         dates = c;
         times = d;
         descriptions = e;
         images = f;
+        hasRaffle = g;
+        ids = h;
     }
 
     @Override
@@ -43,6 +46,8 @@ public class EventDetailsClickListener implements OnClickListener {
         intent.putExtra("Times", times);
         intent.putExtra("Descriptions", descriptions);
         intent.putExtra("Images", images);
+        intent.putExtra("Has_Raffle", hasRaffle);
+        intent.putExtra("IDs", ids);
         context.startActivity(intent);
     }
 }

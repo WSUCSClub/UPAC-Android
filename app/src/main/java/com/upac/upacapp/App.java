@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -34,8 +35,7 @@ public class App extends Application {
 
         try {
             results = query.find();
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             results = null;
             e.printStackTrace();
         }
@@ -53,14 +53,13 @@ public class App extends Application {
         return results;
     }
 
-    public List<ParseObject> getRaffles(){
+    public List<ParseObject> getRaffles() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
         List<ParseObject> results;
 
         try {
             results = query.find();
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             results = null;
             e.printStackTrace();
         }
@@ -76,5 +75,24 @@ public class App extends Application {
         });
 
         return results;
+    }
+
+    public void addEntry(String eventId, String t) {
+        final String ticketId = t;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
+
+        query.whereEqualTo("eventId", eventId);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> raffle, ParseException e) {
+                if (e == null) {
+                    if (raffle.size() != 0) {
+                        raffle.get(0).add("entries", ticketId);
+                        raffle.get(0).saveInBackground();
+                        Log.d("addParseEntry", ticketId);
+                    }
+                } else
+                    e.printStackTrace();
+            }
+        });
     }
 }
