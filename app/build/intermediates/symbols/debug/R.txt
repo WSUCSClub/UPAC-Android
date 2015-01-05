@@ -513,7 +513,7 @@ int layout com_facebook_usersettingsfragment 0x7f030029
 int layout fragment_about 0x7f03002a
 int layout fragment_event_description 0x7f03002b
 int layout fragment_events 0x7f03002c
-int layout fragment_full_image 0x7f03002d
+int layout fragment_full_gallery_photo 0x7f03002d
 int layout fragment_gallery 0x7f03002e
 int layout head 0x7f03002f
 int layout support_simple_spinner_dropdown_item 0x7f030030

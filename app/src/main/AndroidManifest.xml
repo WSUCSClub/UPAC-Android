@@ -38,6 +38,10 @@
             android:name=".EventDetailsSlidePagerActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".GallerySlidePagerActivity"
+            android:screenOrientation="portrait"></activity>
+
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver">

@@ -41,6 +41,9 @@
         <activity
             android:name="com.upac.upacapp.EventDetailsSlidePagerActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.upac.upacapp.GallerySlidePagerActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.parse.PushService" />
 

@@ -1268,7 +1268,7 @@ containing a value of this type.
         public static final int fragment_about=0x7f03002a;
         public static final int fragment_event_description=0x7f03002b;
         public static final int fragment_events=0x7f03002c;
-        public static final int fragment_full_image=0x7f03002d;
+        public static final int fragment_full_gallery_photo=0x7f03002d;
         public static final int fragment_gallery=0x7f03002e;
         public static final int head=0x7f03002f;
         public static final int support_simple_spinner_dropdown_item=0x7f030030;
