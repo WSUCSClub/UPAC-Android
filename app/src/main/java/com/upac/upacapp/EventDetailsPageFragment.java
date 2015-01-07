@@ -71,8 +71,6 @@ public class EventDetailsPageFragment extends Fragment {
             String ticketID = entry.getEntries(ids[mPageNumber]);
 
             if (ticketID != null) {
-                System.out.println("Entered");
-
                 raffleButton.setText("Ticket number: #" + ticketID);
                 raffleButton.setClickable(false);
             }

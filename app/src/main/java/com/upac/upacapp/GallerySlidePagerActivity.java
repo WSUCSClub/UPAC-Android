@@ -24,7 +24,7 @@ public class GallerySlidePagerActivity extends FragmentActivity {
         PagerAdapter mPagerAdapter = new GalleryPagerAdapter(getSupportFragmentManager(), pages, page);
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(intent.getIntExtra("Page", 0));
-        mPager.setOffscreenPageLimit(pages);
+        mPager.setOffscreenPageLimit(6);
 
         View head = getLayoutInflater().inflate(R.layout.head, null);
 
@@ -37,7 +37,6 @@ public class GallerySlidePagerActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
         super.onBackPressed();
     }
 }

@@ -69,7 +69,7 @@ public class App extends Application {
                 if (e == null) {
                     Log.d("Name", queryList.size() + " events have raffles.");
                 } else {
-                    Log.d("score", "Error: " + e.getMessage());
+                    Log.d("events", "Error: " + e.getMessage());
                 }
             }
         });
@@ -88,7 +88,6 @@ public class App extends Application {
                     if (raffle.size() != 0) {
                         raffle.get(0).add("entries", ticketId);
                         raffle.get(0).saveInBackground();
-                        Log.d("addParseEntry", ticketId);
                     }
                 } else
                     e.printStackTrace();

@@ -57,7 +57,6 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
 
         try {
             ticketID = cursor.getString(cursor.getColumnIndex(TICKET_ID));
-            Log.d("getEntries(" + eventId + ")", ticketID);
         }
         catch(CursorIndexOutOfBoundsException e){
             System.out.println("There are no entries");
@@ -69,7 +68,6 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void addEntry(String eventId, String entryId){
-        Log.d("addLocalEntry", entryId);
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

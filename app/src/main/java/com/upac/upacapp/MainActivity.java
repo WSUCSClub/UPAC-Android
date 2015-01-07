@@ -16,8 +16,8 @@ import com.facebook.Session;
 public class MainActivity extends FragmentActivity {
     private Session currentSession;
     private EventsFragment events = new EventsFragment();
-    private GalleryFragment gallery = new GalleryFragment();
-    private AboutFragment about = new AboutFragment();
+    private GalleryFragment gallery;
+    private AboutFragment about;
     private ActionBarFragment action = new ActionBarFragment();
     private static View head;
 
@@ -36,9 +36,7 @@ public class MainActivity extends FragmentActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.bottom_bar, action).addToBackStack(null).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.container, events, EventsFragment.TAG).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.container, gallery, GalleryFragment.TAG).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.container, about, AboutFragment.TAG).commit();
-        getSupportFragmentManager().beginTransaction().hide(gallery).hide(about).show(events).commit();
+        getSupportFragmentManager().beginTransaction().show(events).commit();
         title.setText("EVENTS");
     }
 
@@ -107,12 +105,30 @@ public class MainActivity extends FragmentActivity {
 
                 break;
             case (R.id.action_gallery_button):
-                transaction.hide(events).hide(about).show(gallery).commit();
+                if(gallery == null) {
+                    gallery = new GalleryFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.container, gallery, GalleryFragment.TAG).commit();
+                }
+
+                if(about != null)
+                    transaction.hide(events).hide(about).show(gallery).commit();
+                else
+                    transaction.hide(events).show(gallery).commit();
+
                 title.setText("PHOTOS");
 
                 break;
             case (R.id.action_about_button):
-                transaction.hide(gallery).hide(events).show(about).commit();
+                if(about == null) {
+                    about = new AboutFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.container, about, AboutFragment.TAG).commit();
+                }
+
+                if(gallery != null)
+                    transaction.hide(gallery).hide(events).show(about).commit();
+                else
+                    transaction.hide(events).show(about).commit();
+
                 title.setText("CONTACT");
 
                 break;

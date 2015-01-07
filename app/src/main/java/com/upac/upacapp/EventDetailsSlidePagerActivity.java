@@ -40,13 +40,10 @@ public class EventDetailsSlidePagerActivity extends FragmentActivity {
         ab.setDisplayShowHomeEnabled(false);
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(head);
-
-        RaffleSQLiteHelper entries = new RaffleSQLiteHelper(this);
     }
 
     @Override
     public void onBackPressed() {
-        finish();
         super.onBackPressed();
     }
 }

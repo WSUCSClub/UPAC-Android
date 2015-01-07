@@ -20,9 +20,12 @@ import com.facebook.Session;
 import com.parse.ParseObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,8 +82,8 @@ public class EventsFragment extends Fragment {
 
                                 Date today = new Date();
 
-                                for(int x = 0; x < raffles.size(); x++) {
-                                    if(raffles.get(x).getDate("endDate").compareTo(today) > 0 && raffles.get(x).getDate("date").compareTo(today) < 0)
+                                for (int x = 0; x < raffles.size(); x++) {
+                                    if (raffles.get(x).getDate("endDate").compareTo(today) > 0 && raffles.get(x).getDate("date").compareTo(today) < 0)
                                         eventRaffles[x] = raffles.get(x).getString("eventId");
                                     else
                                         eventRaffles[x] = "-1";
@@ -149,16 +152,15 @@ public class EventsFragment extends Fragment {
 
                                     hasRaffle[i] = false;
 
-                                    for(String p : eventRaffles){
-                                        if(ids[i].equals(p)){
+                                    for (String p : eventRaffles) {
+                                        if (ids[i].equals(p)) {
                                             hasRaffle[i] = true;
                                         }
                                     }
 
-                                    if(hasRaffle[i]){
+                                    if (hasRaffle[i]) {
                                         gd.setColor(Color.parseColor("#ECECFF"));
-                                    }
-                                    else {
+                                    } else {
                                         gd.setColor(Color.WHITE);
                                     }
 
@@ -177,8 +179,17 @@ public class EventsFragment extends Fragment {
                                     e.setPageAmount(arr.length());
                                     e.setInformation(titles, locations, dates, times, descriptions, images, hasRaffle, ids);
                                 }
-                            } catch (Exception e) {
-                                Toast toast = Toast.makeText(getActivity(), "Something went wrong. Please restart the app.", Toast.LENGTH_SHORT);
+                            } catch (MalformedURLException m){
+                                Toast toast = Toast.makeText(getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
+                                toast.show();
+                                m.printStackTrace();
+                            }
+                            catch (ParseException p) {
+                                Toast toast = Toast.makeText(getActivity(), "Error parsing dates.", Toast.LENGTH_SHORT);
+                                toast.show();
+                                p.printStackTrace();
+                            } catch (JSONException e) {
+                                Toast toast = Toast.makeText(getActivity(), "Could not get Facebook events. Please restart the app.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 e.printStackTrace();
                             }
