@@ -1,26 +1,15 @@
 Parse
-	1. Connect to the common database used for raffles
-	2. (Optional) Add analytics for the app
+	1. Add analytics for when a user opens the gallery, events, and about sections
 
 Events Page
 	1. Make title separate text view and make its text larger
-	2. Differentiate between events with raffles and those without
-	3. Add clickListener to open event details page
-	
+
 Event Details Page
-	1. (Dynamic) Show raffle button if user may enter a raffle
-	2. (Dynamic) Show that a user has entered a raffle if the requirements have been met
-	3. (Dynamic) Show time window for raffle if it is available
-	4. Format event information better
+	1. Make the title of the page dynamically show the event title
 	
 Gallery Page
-	1. Show different albums/dates
-	2. Add clickListener to display Image details page
-	3. (Optional) Use pagination to prevent huge requests
+	1. Use pagination to prevent huge requests
 
 Image Details Page
-	1. Display a full-screen version of the gallery image selected
+	1. Make the title of the page dynamically show the image name
 	2. Show the date the image was posted to facebook
-	
-About Page
-	1. Show WSU copyright information (Winona State University. All rights reserved © 2014)

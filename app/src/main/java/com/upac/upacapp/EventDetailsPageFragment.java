@@ -11,6 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
@@ -47,7 +50,19 @@ public class EventDetailsPageFragment extends Fragment {
         TextView eventLocation = (TextView) rootView.findViewById(R.id.location);
         TextView eventTime = (TextView) rootView.findViewById(R.id.time);
         TextView eventDescription = (TextView) rootView.findViewById(R.id.description);
-        Button raffleButton = (Button) rootView.findViewById(R.id.raffle_button);
+        Button interactButton = (Button) rootView.findViewById(R.id.interact_button);
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
+        Date eventDate = new Date();
+
+        try{
+            eventDate = dayFormat.parse(date[mPageNumber]);
+        }
+        catch(ParseException p){
+            Toast toast = Toast.makeText(getActivity(), "Error parsing dates.", Toast.LENGTH_SHORT);
+            toast.show();
+            p.printStackTrace();
+        }
 
         try {
             URL imageURL = new URL(images[mPageNumber]);
@@ -65,19 +80,24 @@ public class EventDetailsPageFragment extends Fragment {
         eventDescription.setText(description[mPageNumber]);
 
         if (hasRaffle[mPageNumber]) {
-            raffleButton.setVisibility(View.VISIBLE);
+            interactButton.setVisibility(View.VISIBLE);
 
             RaffleSQLiteHelper entry = new RaffleSQLiteHelper(getActivity());
             String ticketID = entry.getEntries(ids[mPageNumber]);
 
             if (ticketID != null) {
-                raffleButton.setText("Ticket number: #" + ticketID);
-                raffleButton.setClickable(false);
-            }
-            else{
-                RaffleEntryClickListener enterRaffle = new RaffleEntryClickListener(raffleButton, entry, ids[mPageNumber]);
+                interactButton.setText("Ticket: #" + ticketID);
+                interactButton.setClickable(false);
+            } else {
+                RaffleEntryClickListener enterRaffle = new RaffleEntryClickListener(interactButton, entry, ids[mPageNumber]);
 
-                raffleButton.setOnClickListener(enterRaffle);
+                interactButton.setOnClickListener(enterRaffle);
+            }
+        }
+        else{
+            if(eventDate.compareTo(new Date()) >= 0) {
+                interactButton.setVisibility(View.VISIBLE);
+                interactButton.setText("Notify Me");
             }
         }
 

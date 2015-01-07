@@ -179,12 +179,11 @@ public class EventsFragment extends Fragment {
                                     e.setPageAmount(arr.length());
                                     e.setInformation(titles, locations, dates, times, descriptions, images, hasRaffle, ids);
                                 }
-                            } catch (MalformedURLException m){
+                            } catch (MalformedURLException m) {
                                 Toast toast = Toast.makeText(getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 m.printStackTrace();
-                            }
-                            catch (ParseException p) {
+                            } catch (ParseException p) {
                                 Toast toast = Toast.makeText(getActivity(), "Error parsing dates.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 p.printStackTrace();

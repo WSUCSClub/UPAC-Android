@@ -64,7 +64,7 @@ public class GalleryFragment extends Fragment {
                             try {
                                 JSONArray albums = response.getGraphObject().getInnerJSONObject().getJSONArray("data");
                                 JSONArray photos = new JSONArray();
-                                for(int i = 0; i < albums.length(); i++){
+                                for (int i = 0; i < albums.length(); i++) {
                                     JSONObject album = albums.getJSONObject(i);
                                     photos.put(album.getJSONObject("photos").getJSONArray("data"));
                                     allPhotos += photos.getJSONArray(i).length();
@@ -82,7 +82,7 @@ public class GalleryFragment extends Fragment {
 
                                 TextView[] albumNames = new TextView[photos.length()];
 
-                                for(int c = 0; c < photos.length(); c++) {
+                                for (int c = 0; c < photos.length(); c++) {
                                     int albumCount = 0;
 
                                     LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -137,13 +137,11 @@ public class GalleryFragment extends Fragment {
                                     g.setPageAmount(allPhotos);
                                     g.setInformation(fullSRC);
                                 }
-                            }
-                            catch (MalformedURLException m){
+                            } catch (MalformedURLException m) {
                                 Toast toast = Toast.makeText(getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 m.printStackTrace();
-                            }
-                            catch (JSONException e) {
+                            } catch (JSONException e) {
                                 Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please restart the app.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 e.printStackTrace();

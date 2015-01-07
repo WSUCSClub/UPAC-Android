@@ -116,7 +116,7 @@ action#android.intent.action.USER_PRESENT
 ADDED from AndroidManifest.xml:50:17
 	android:name
 		ADDED from AndroidManifest.xml:50:25
-receiver#com.parse.ParsePushBroadcastReceiver
+receiver#com.upac.upacapp.Receiver
 ADDED from AndroidManifest.xml:53:9
 	android:exported
 		ADDED from AndroidManifest.xml:55:13
@@ -162,6 +162,12 @@ ADDED from AndroidManifest.xml:73:9
 		ADDED from AndroidManifest.xml:74:13
 	android:value
 		ADDED from AndroidManifest.xml:75:13
+meta-data#com.parse.push.notification_icon
+ADDED from AndroidManifest.xml:77:9
+	android:resource
+		ADDED from AndroidManifest.xml:79:13
+	android:name
+		ADDED from AndroidManifest.xml:78:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:20.0.0:16:5

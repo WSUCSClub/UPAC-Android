@@ -320,7 +320,7 @@ int drawable com_facebook_list_divider 0x7f02006a
 int drawable com_facebook_list_section_header_background 0x7f02006b
 int drawable com_facebook_loginbutton_silver 0x7f02006c
 int drawable com_facebook_logo 0x7f02006d
-int drawable com_facebook_picker_default_separator_color 0x7f02008f
+int drawable com_facebook_picker_default_separator_color 0x7f020090
 int drawable com_facebook_picker_item_background 0x7f02006e
 int drawable com_facebook_picker_list_focused 0x7f02006f
 int drawable com_facebook_picker_list_longpressed 0x7f020070
@@ -352,8 +352,9 @@ int drawable gallery 0x7f020089
 int drawable ic_launcher 0x7f02008a
 int drawable mail 0x7f02008b
 int drawable near 0x7f02008c
-int drawable recents 0x7f02008d
-int drawable twitter 0x7f02008e
+int drawable notify_icon 0x7f02008d
+int drawable recents 0x7f02008e
+int drawable twitter 0x7f02008f
 int id about_sections 0x7f080067
 int id action_about_button 0x7f080027
 int id action_bar 0x7f08002a
@@ -425,6 +426,7 @@ int id icon 0x7f080038
 int id ifRoom 0x7f080015
 int id image 0x7f080035
 int id inline 0x7f08001e
+int id interact_button 0x7f08006a
 int id large 0x7f080023
 int id left 0x7f080021
 int id listMode 0x7f080006
@@ -439,7 +441,6 @@ int id picker_subtitle 0x7f08005c
 int id progress_circular 0x7f080004
 int id progress_horizontal 0x7f080005
 int id radio 0x7f08003d
-int id raffle_button 0x7f08006a
 int id right 0x7f080022
 int id search_badge 0x7f080040
 int id search_bar 0x7f08003f

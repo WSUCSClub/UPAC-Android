@@ -1,11 +1,13 @@
 package com.upac.upacapp;
 
 import android.app.ActionBar;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,18 @@ public class MainActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, events, EventsFragment.TAG).commit();
         getSupportFragmentManager().beginTransaction().show(events).commit();
         title.setText("EVENTS");
+
+/*        NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.notify_icon)
+                .setContentTitle("My notification")
+                .setContentText("Hello World!");
+
+        int mNotificationId = 001;
+
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        mNotifyMgr.notify(mNotificationId, mBuilder.build()); */
     }
 
     @Override
@@ -100,17 +114,23 @@ public class MainActivity extends FragmentActivity {
 
         switch (v.getId()) { // Case statement to check which button was pressed
             case (R.id.action_events_button):
-                transaction.hide(gallery).hide(about).show(events).commit();
+                if(gallery != null && about != null)
+                    transaction.hide(gallery).hide(about).show(events).commit();
+                else if(gallery == null)
+                    transaction.hide(about).show(events).commit();
+                else
+                    transaction.hide(gallery).show(events).commit();
+
                 title.setText("EVENTS");
 
                 break;
             case (R.id.action_gallery_button):
-                if(gallery == null) {
+                if (gallery == null) {
                     gallery = new GalleryFragment();
                     getSupportFragmentManager().beginTransaction().add(R.id.container, gallery, GalleryFragment.TAG).commit();
                 }
 
-                if(about != null)
+                if (about != null)
                     transaction.hide(events).hide(about).show(gallery).commit();
                 else
                     transaction.hide(events).show(gallery).commit();
@@ -119,12 +139,12 @@ public class MainActivity extends FragmentActivity {
 
                 break;
             case (R.id.action_about_button):
-                if(about == null) {
+                if (about == null) {
                     about = new AboutFragment();
                     getSupportFragmentManager().beginTransaction().add(R.id.container, about, AboutFragment.TAG).commit();
                 }
 
-                if(gallery != null)
+                if (gallery != null)
                     transaction.hide(gallery).hide(events).show(about).commit();
                 else
                     transaction.hide(events).show(about).commit();

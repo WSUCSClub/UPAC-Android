@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class RaffleSQLiteHelper extends SQLiteOpenHelper {
 
@@ -38,7 +37,7 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public String getEntries(String eventId){
+    public String getEntries(String eventId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String ticketID = null;
 
@@ -46,7 +45,7 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
                 db.query(DATABASE_NAME, // a. table
                         COLUMNS, // b. column names
                         " event_id = ?", // c. selections
-                        new String[] { String.valueOf(eventId) }, // d. selections args
+                        new String[]{String.valueOf(eventId)}, // d. selections args
                         null, // e. group by
                         null, // f. having
                         null, // g. order by
@@ -57,8 +56,7 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
 
         try {
             ticketID = cursor.getString(cursor.getColumnIndex(TICKET_ID));
-        }
-        catch(CursorIndexOutOfBoundsException e){
+        } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("There are no entries");
         }
 
@@ -67,7 +65,7 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
         return ticketID;
     }
 
-    public void addEntry(String eventId, String entryId){
+    public void addEntry(String eventId, String entryId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

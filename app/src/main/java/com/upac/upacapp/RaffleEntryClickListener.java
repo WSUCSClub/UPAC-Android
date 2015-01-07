@@ -35,12 +35,11 @@ public class RaffleEntryClickListener implements View.OnClickListener {
             hashtext = hashtext.toUpperCase();
 
             hashtext = hashtext.substring(0, Math.min(hashtext.length(), 5));
-        }
-        catch(NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             System.out.println("Error");
         }
 
-        if(!hashtext.equals(null)) {
+        if (!hashtext.equals(null)) {
             App parse = new App();
 
             parse.addEntry(eventId, hashtext);

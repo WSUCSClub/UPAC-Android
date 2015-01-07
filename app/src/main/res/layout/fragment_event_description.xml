@@ -16,8 +16,8 @@
             android:contentDescription="Content Description here" />
 
         <Button
-            android:id="@+id/raffle_button"
-            android:layout_width="200dp"
+            android:id="@+id/interact_button"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Enter Raffle"
