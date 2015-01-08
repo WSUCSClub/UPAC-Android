@@ -10,4 +10,5 @@
     <string name="twitter">Twitter</string>
     <string name="email">Email</string>
     <string name="board">Board Members</string>
+    <string name="splash">Splash Image</string>
 </resources>

@@ -235,6 +235,7 @@
     <string name="email">Email</string>
     <string name="facebook">Facebook</string>
     <string name="facebook_app_id">320403298153877</string>
+    <string name="splash">Splash Image</string>
     <string name="twitter">Twitter</string>
     <!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/values/styles.xml -->
     <eat-comment/>

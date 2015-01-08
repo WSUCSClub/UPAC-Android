@@ -54,7 +54,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.upac.upacapp.Receiver"
+            android:name="com.upac.upacapp.ParseReceiver"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />

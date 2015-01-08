@@ -1,5 +1,10 @@
 package com.upac.upacapp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -94,12 +99,12 @@ public class EventDetailsPageFragment extends Fragment {
                 interactButton.setOnClickListener(enterRaffle);
             }
         }
-        else{
+/*        else{
             if(eventDate.compareTo(new Date()) >= 0) {
                 interactButton.setVisibility(View.VISIBLE);
                 interactButton.setText("Notify Me");
             }
-        }
+        }*/
 
         return rootView;
     }

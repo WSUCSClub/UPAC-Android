@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="fill_horizontal"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/action_events_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/events"
+            android:onClick="openPage"
+            android:paddingTop="2dp"
+            android:text="@string/action_events_button"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/action_gallery_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/gallery"
+            android:onClick="openPage"
+            android:paddingTop="2dp"
+            android:text="@string/action_gallery_button"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/action_about_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/contact"
+            android:onClick="openPage"
+            android:paddingTop="2dp"
+            android:text="@string/action_about_button"
+            android:textSize="12sp" />
+    </LinearLayout>
+</RelativeLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/ab_custom_view.xml -->

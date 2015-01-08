@@ -1069,7 +1069,7 @@ containing a value of this type.
         public static final int com_facebook_list_section_header_background=0x7f02006b;
         public static final int com_facebook_loginbutton_silver=0x7f02006c;
         public static final int com_facebook_logo=0x7f02006d;
-        public static final int com_facebook_picker_default_separator_color=0x7f020090;
+        public static final int com_facebook_picker_default_separator_color=0x7f020091;
         public static final int com_facebook_picker_item_background=0x7f02006e;
         public static final int com_facebook_picker_list_focused=0x7f02006f;
         public static final int com_facebook_picker_list_longpressed=0x7f020070;
@@ -1097,13 +1097,14 @@ containing a value of this type.
         public static final int contact=0x7f020086;
         public static final int events=0x7f020087;
         public static final int facebook=0x7f020088;
-        public static final int gallery=0x7f020089;
-        public static final int ic_launcher=0x7f02008a;
-        public static final int mail=0x7f02008b;
-        public static final int near=0x7f02008c;
-        public static final int notify_icon=0x7f02008d;
-        public static final int recents=0x7f02008e;
-        public static final int twitter=0x7f02008f;
+        public static final int full_launch_bg=0x7f020089;
+        public static final int gallery=0x7f02008a;
+        public static final int ic_launcher=0x7f02008b;
+        public static final int mail=0x7f02008c;
+        public static final int near=0x7f02008d;
+        public static final int notify_icon=0x7f02008e;
+        public static final int recents=0x7f02008f;
+        public static final int twitter=0x7f020090;
     }
     public static final class id {
         public static final int about_sections=0x7f080067;
@@ -1272,7 +1273,8 @@ containing a value of this type.
         public static final int fragment_full_gallery_photo=0x7f03002d;
         public static final int fragment_gallery=0x7f03002e;
         public static final int head=0x7f03002f;
-        public static final int support_simple_spinner_dropdown_item=0x7f030030;
+        public static final int splash=0x7f030030;
+        public static final int support_simple_spinner_dropdown_item=0x7f030031;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0a0000;
@@ -1324,7 +1326,8 @@ containing a value of this type.
         public static final int email=0x7f0a002e;
         public static final int facebook=0x7f0a002f;
         public static final int facebook_app_id=0x7f0a0030;
-        public static final int twitter=0x7f0a0031;
+        public static final int splash=0x7f0a0031;
+        public static final int twitter=0x7f0a0032;
     }
     public static final class style {
         /** 

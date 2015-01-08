@@ -1,13 +1,16 @@
 package com.upac.upacapp;
 
 import android.app.ActionBar;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         head = getLayoutInflater().inflate(R.layout.head, null);
         TextView title = (TextView) head.findViewById(R.id.title);
@@ -41,16 +45,20 @@ public class MainActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().show(events).commit();
         title.setText("EVENTS");
 
-/*        NotificationCompat.Builder mBuilder =
-            new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.notify_icon)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!");
+/*        AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Receiver receiver = new Receiver();
+        IntentFilter filter = new IntentFilter("ALARM_ACTION");
+        registerReceiver(receiver, filter);
+
+        Intent intent = new Intent("ALARM_ACTION");
+        intent.putExtra("param", "My scheduled action");
+        PendingIntent operation = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarms.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, operation) ;
 
         int mNotificationId = 001;
-
-        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build()); */
     }
 
@@ -114,9 +122,9 @@ public class MainActivity extends FragmentActivity {
 
         switch (v.getId()) { // Case statement to check which button was pressed
             case (R.id.action_events_button):
-                if(gallery != null && about != null)
+                if (gallery != null && about != null)
                     transaction.hide(gallery).hide(about).show(events).commit();
-                else if(gallery == null)
+                else if (gallery == null)
                     transaction.hide(about).show(events).commit();
                 else
                     transaction.hide(gallery).show(events).commit();

@@ -2,6 +2,7 @@ package com.upac.upacapp;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ public class EventsFragment extends Fragment {
     public static final String TAG = "events";
     private static View eventsView;
     private ViewGroup parent;
+    public boolean isDone = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class EventsFragment extends Fragment {
                             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
 
                             try {
-                                JSONArray arr = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
+                                JSONArray events = response.getGraphObject().getInnerJSONObject().getJSONObject("events").getJSONArray("data");
 
                                 App parse = new App();
 
@@ -89,21 +91,23 @@ public class EventsFragment extends Fragment {
                                         eventRaffles[x] = "-1";
                                 }
 
-                                LinearLayout[] lines = new LinearLayout[arr.length()];
-                                TextView[] tv = new TextView[arr.length()];
-                                ImageView[] iv = new ImageView[arr.length()];
-                                String[] titles = new String[arr.length()];
-                                String[] locations = new String[arr.length()];
-                                String[] dates = new String[arr.length()];
-                                String[] times = new String[arr.length()];
-                                String[] descriptions = new String[arr.length()];
-                                String[] images = new String[arr.length()];
-                                String[] ids = new String[arr.length()];
-                                boolean[] hasRaffle = new boolean[arr.length()];
-                                EventDetailsClickListener[] listeners = new EventDetailsClickListener[arr.length()];
+                                LinearLayout[] lines = new LinearLayout[events.length()];
+                                LinearLayout[] infoLayout = new LinearLayout[events.length()];
+                                TextView[] eventTitle = new TextView[events.length()];
+                                TextView[] eventInfo = new TextView[events.length()];
+                                ImageView[] eventImage = new ImageView[events.length()];
+                                String[] titles = new String[events.length()];
+                                String[] locations = new String[events.length()];
+                                String[] dates = new String[events.length()];
+                                String[] times = new String[events.length()];
+                                String[] descriptions = new String[events.length()];
+                                String[] images = new String[events.length()];
+                                String[] ids = new String[events.length()];
+                                boolean[] hasRaffle = new boolean[events.length()];
+                                EventDetailsClickListener[] listeners = new EventDetailsClickListener[events.length()];
 
-                                for (int i = 0; i < (arr.length()); i++) {
-                                    JSONObject jsonObj = arr.getJSONObject(i);
+                                for (int i = 0; i < (events.length()); i++) {
+                                    JSONObject jsonObj = events.getJSONObject(i);
 
                                     date = inFormat.parse(jsonObj.getString("start_time"));
                                     dates[i] = dayFormat.format(date);
@@ -126,27 +130,44 @@ public class EventsFragment extends Fragment {
 
                                     LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(550, 290, 1f);
 
-                                    iv[i] = new ImageView(getActivity());
+                                    eventImage[i] = new ImageView(getActivity());
 
                                     imageURL = new URL(image);
-                                    DownloadEventImages dri = new DownloadEventImages(imageURL, iv[i]);
+                                    DownloadEventImages dri = new DownloadEventImages(imageURL, eventImage[i]);
                                     dri.execute();
 
-                                    iv[i].setId(i);
-                                    iv[i].setPadding(25, 0, 25, 0);
-                                    iv[i].setLayoutParams(imgParams);
+                                    eventImage[i].setId(i);
+                                    eventImage[i].setPadding(25, 0, 25, 0);
+                                    eventImage[i].setLayoutParams(imgParams);
 
-                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                                     listeners[i] = new EventDetailsClickListener(getActivity());
                                     listeners[i].setOpenedEvent(i);
 
-                                    tv[i] = new TextView(getActivity());
-                                    tv[i].setText(eventName + "\n" + dayFormat.format(date) + "\n" + timeFormat.format(date) + "\n" + location);
-                                    tv[i].setTextColor(Color.BLACK);
-                                    tv[i].setId(i);
-                                    tv[i].setPadding(0, 75, 0, 0);
-                                    tv[i].setLayoutParams(params);
-                                    tv[i].setOnClickListener(listeners[i]);
+                                    LinearLayout.LayoutParams infoParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+                                    infoLayout[i] = new LinearLayout(getActivity());
+                                    infoLayout[i].setLayoutParams(infoParams);
+                                    infoLayout[i].setOrientation(LinearLayout.VERTICAL);
+
+                                    eventTitle[i] = new TextView(getActivity());
+                                    eventTitle[i].setText(eventName);
+                                    eventTitle[i].setTextColor(Color.BLACK);
+                                    eventTitle[i].setTextSize(18);
+                                    eventTitle[i].setPadding(0, 40, 0, 0);
+                                    eventTitle[i].setLayoutParams(params);
+                                    eventTitle[i].setTypeface(null, Typeface.BOLD);
+                                    eventTitle[i].setOnClickListener(listeners[i]);
+
+                                    eventInfo[i] = new TextView(getActivity());
+                                    eventInfo[i].setText(dates[i] + "\n" + times[i] + "\n" + location);
+                                    eventInfo[i].setTextColor(Color.BLACK);
+                                    eventInfo[i].setTextSize(16);
+                                    eventInfo[i].setId(i);
+                                    eventInfo[i].setLayoutParams(params);
+                                    eventInfo[i].setOnClickListener(listeners[i]);
+
+                                    infoLayout[i].addView(eventTitle[i]);
+                                    infoLayout[i].addView(eventInfo[i]);
 
                                     GradientDrawable gd = new GradientDrawable();
 
@@ -169,14 +190,14 @@ public class EventsFragment extends Fragment {
                                     lines[i] = new LinearLayout(getActivity());
                                     lines[i].setBackground(gd);
                                     lines[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                                    lines[i].addView(iv[i]);
-                                    lines[i].addView(tv[i]);
+                                    lines[i].addView(eventImage[i]);
+                                    lines[i].addView(infoLayout[i]);
 
                                     ll.addView(lines[i]);
                                 }    // End of for loop
 
                                 for (EventDetailsClickListener e : listeners) {
-                                    e.setPageAmount(arr.length());
+                                    e.setPageAmount(events.length());
                                     e.setInformation(titles, locations, dates, times, descriptions, images, hasRaffle, ids);
                                 }
                             } catch (MalformedURLException m) {
@@ -191,7 +212,13 @@ public class EventsFragment extends Fragment {
                                 Toast toast = Toast.makeText(getActivity(), "Could not get Facebook events. Please restart the app.", Toast.LENGTH_SHORT);
                                 toast.show();
                                 e.printStackTrace();
+                            } catch (Exception e){
+                                Toast toast = Toast.makeText(getActivity(), "Something unexpected went wrong. Please restart the app.", Toast.LENGTH_SHORT);
+                                toast.show();
+                                e.printStackTrace();
                             }
+
+                            isDone = true;
                         }    // End of onCompleted
                     }    // End of Callback
             ).executeAsync();
