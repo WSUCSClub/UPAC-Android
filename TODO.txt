@@ -6,6 +6,7 @@ Events Page
 
 Event Details Page
 	1. Make the title of the page dynamically show the event title
+	2. Add a notification system to the Notify Me button to alert users a day and an hour before an event
 	
 Gallery Page
 	1. Use pagination to prevent huge requests

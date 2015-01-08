@@ -40,18 +40,6 @@ public class MainActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, events, EventsFragment.TAG).commit();
         getSupportFragmentManager().beginTransaction().show(events).commit();
         title.setText("EVENTS");
-
-/*        NotificationCompat.Builder mBuilder =
-            new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.notify_icon)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!");
-
-        int mNotificationId = 001;
-
-        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        mNotifyMgr.notify(mNotificationId, mBuilder.build()); */
     }
 
     @Override
