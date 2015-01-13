@@ -1,12 +1,7 @@
 package com.upac.upacapp;
 
 import android.app.ActionBar;
-import android.app.AlarmManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,11 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AppEventsLogger;
-import com.facebook.Session;
-
 public class MainActivity extends FragmentActivity {
-    private Session currentSession;
     private EventsFragment events = new EventsFragment();
     private GalleryFragment gallery;
     private AboutFragment about;
@@ -44,43 +35,6 @@ public class MainActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.container, events, EventsFragment.TAG).commit();
         getSupportFragmentManager().beginTransaction().show(events).commit();
         title.setText("EVENTS");
-
-/*        AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        Receiver receiver = new Receiver();
-        IntentFilter filter = new IntentFilter("ALARM_ACTION");
-        registerReceiver(receiver, filter);
-
-        Intent intent = new Intent("ALARM_ACTION");
-        intent.putExtra("param", "My scheduled action");
-        PendingIntent operation = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarms.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, operation) ;
-
-        int mNotificationId = 001;
-        NotificationManager mNotifyMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(mNotificationId, mBuilder.build()); */
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        AppEventsLogger.deactivateApp(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        AppEventsLogger.activateApp(this);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        Session.saveSession(currentSession, outState);
     }
 
     public void openFacebook(View v) {

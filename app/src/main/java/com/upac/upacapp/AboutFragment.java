@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 
@@ -41,57 +42,66 @@ public class AboutFragment extends Fragment {
             URL imageURL;
             aboutView = getActivity().getLayoutInflater().inflate(R.layout.fragment_about, parent, false);
             LinearLayout ll = (LinearLayout) aboutView.findViewById(R.id.about_sections);
-            LinearLayout[] lines = new LinearLayout[memberList.size()];
-            ImageView[] iv = new ImageView[memberList.size()];
-            TextView[] tv = new TextView[memberList.size()];
 
-            for (int i = 0; i < memberList.size(); i++) {
-                try {
-                    imageURL = new URL(memberList.get(i).getParseFile("picture").getUrl());
-                    name = memberList.get(i).getString("name");
-                    position = memberList.get(i).getString("position");
-                    email = memberList.get(i).getString("email");
+            try {
+                System.out.println("This happened");
+                LinearLayout[] lines = new LinearLayout[memberList.size()];
+                System.out.println("This also happened");
+                ImageView[] iv = new ImageView[memberList.size()];
+                TextView[] tv = new TextView[memberList.size()];
 
-                    EmailBoardMemberClickListener cocl = new EmailBoardMemberClickListener(email, getActivity());
+                for (int i = 0; i < memberList.size(); i++) {
+                    try {
+                        imageURL = new URL(memberList.get(i).getParseFile("picture").getUrl());
+                        name = memberList.get(i).getString("name");
+                        position = memberList.get(i).getString("position");
+                        email = memberList.get(i).getString("email");
 
-                    LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(290, 290);
+                        EmailBoardMemberClickListener cocl = new EmailBoardMemberClickListener(email, getActivity());
 
-                    iv[i] = new ImageView(getActivity());
-                    iv[i].setId(i);
-                    iv[i].setLayoutParams(imgParams);
-                    iv[i].setOnClickListener(cocl);
-                    iv[i].setPadding(25, 0, 25, 0);
+                        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(290, 290);
 
-                    DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
-                    dai.execute();
+                        iv[i] = new ImageView(getActivity());
+                        iv[i].setId(i);
+                        iv[i].setLayoutParams(imgParams);
+                        iv[i].setOnClickListener(cocl);
+                        iv[i].setPadding(25, 0, 25, 0);
 
-                    LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(0, 290, 1f);
+                        DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
+                        dai.execute();
 
-                    tv[i] = new TextView(getActivity());
-                    tv[i].setText(name + "\n" + position + "\n" + email);
-                    tv[i].setTextColor(Color.BLACK);
-                    tv[i].setId(i);
-                    tv[i].setLayoutParams(textParams);
-                    tv[i].setClickable(true);
-                    tv[i].setOnClickListener(cocl);
-                    tv[i].setPadding(0, 75, 0, 0);
+                        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(0, 290, 1f);
 
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setColor(Color.WHITE);
-                    gd.setStroke(5, 0x000000);
+                        tv[i] = new TextView(getActivity());
+                        tv[i].setText(name + "\n" + position + "\n" + email);
+                        tv[i].setTextColor(Color.BLACK);
+                        tv[i].setId(i);
+                        tv[i].setLayoutParams(textParams);
+                        tv[i].setClickable(true);
+                        tv[i].setOnClickListener(cocl);
+                        tv[i].setPadding(0, 75, 0, 0);
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                        GradientDrawable gd = new GradientDrawable();
+                        gd.setColor(Color.WHITE);
+                        gd.setStroke(5, 0x000000);
 
-                    lines[i] = new LinearLayout(getActivity());
-                    lines[i].setLayoutParams(params);
-                    lines[i].addView(iv[i]);
-                    lines[i].addView(tv[i]);
-                    lines[i].setBackground(gd);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
-                    ll.addView(lines[i]);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                        lines[i] = new LinearLayout(getActivity());
+                        lines[i].setLayoutParams(params);
+                        lines[i].addView(iv[i]);
+                        lines[i].addView(tv[i]);
+                        lines[i].setBackground(gd);
+
+                        ll.addView(lines[i]);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
                 }
+            } catch(NullPointerException e){
+                Toast toast = Toast.makeText(getActivity(), "Cannot access Parse files. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+                toast.show();
+                e.printStackTrace();
             }
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");

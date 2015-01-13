@@ -209,11 +209,11 @@ public class EventsFragment extends Fragment {
                                 toast.show();
                                 p.printStackTrace();
                             } catch (JSONException e) {
-                                Toast toast = Toast.makeText(getActivity(), "Could not get Facebook events. Please restart the app.", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getActivity(), "Could not get Facebook events. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
-                            } catch (Exception e){
-                                Toast toast = Toast.makeText(getActivity(), "Something unexpected went wrong. Please restart the app.", Toast.LENGTH_SHORT);
+                            } catch (NullPointerException e){
+                                Toast toast = Toast.makeText(getActivity(), "Cannot access Facebook events. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
                             }

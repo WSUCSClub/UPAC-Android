@@ -86,7 +86,7 @@ public class GalleryFragment extends Fragment {
                                     int albumCount = 0;
 
                                     LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                    textParams.gravity = Gravity.LEFT;
+                                    textParams.gravity = Gravity.START;
                                     albumNames[c] = new TextView(getActivity());
                                     albumNames[c].setLayoutParams(textParams);
                                     albumNames[c].setText(albums.getJSONObject(c).getString("name"));
@@ -108,7 +108,7 @@ public class GalleryFragment extends Fragment {
                                             fullSRC[count] = json_obj.getString("source");
 
                                             LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, 360, 1f);
-                                            imgParams.gravity = Gravity.LEFT;
+                                            imgParams.gravity = Gravity.START;
 
                                             iv[count] = new ImageView(getActivity());
 
@@ -142,7 +142,11 @@ public class GalleryFragment extends Fragment {
                                 toast.show();
                                 m.printStackTrace();
                             } catch (JSONException e) {
-                                Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please restart the app.", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+                                toast.show();
+                                e.printStackTrace();
+                            } catch (NullPointerException e){
+                                Toast toast = Toast.makeText(getActivity(), "Cannot access Facebook photos. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
                             }

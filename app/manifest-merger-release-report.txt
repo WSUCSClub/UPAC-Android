@@ -116,7 +116,7 @@ action#android.intent.action.USER_PRESENT
 ADDED from AndroidManifest.xml:50:17
 	android:name
 		ADDED from AndroidManifest.xml:50:25
-receiver#com.upac.upacapp.Receiver
+receiver#com.upac.upacapp.ParseReceiver
 ADDED from AndroidManifest.xml:53:9
 	android:exported
 		ADDED from AndroidManifest.xml:55:13
