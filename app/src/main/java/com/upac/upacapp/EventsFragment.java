@@ -52,7 +52,6 @@ public class EventsFragment extends Fragment {
             eventsView = getActivity().getLayoutInflater().inflate(R.layout.fragment_events, parent, false);
             Session session = AppDelegates.loadFBSession(getActivity());
             Calendar since = Calendar.getInstance();
-            since.add(Calendar.DATE, -60);
 
             Bundle params = new Bundle();
             params.putString("fields", "events.since(" + since.getTime() + "){description,cover,location,name,start_time}");
@@ -107,7 +106,7 @@ public class EventsFragment extends Fragment {
                                 EventDetailsClickListener[] listeners = new EventDetailsClickListener[events.length()];
 
                                 for (int i = 0; i < (events.length()); i++) {
-                                    JSONObject jsonObj = events.getJSONObject(i);
+                                    JSONObject jsonObj = events.getJSONObject(events.length() - i - 1);
 
                                     date = inFormat.parse(jsonObj.getString("start_time"));
                                     dates[i] = dayFormat.format(date);
@@ -116,8 +115,7 @@ public class EventsFragment extends Fragment {
                                     location = jsonObj.getString("location");
                                     locations[i] = jsonObj.getString("location");
                                     eventName = jsonObj.getString("name");
-                                    eventName = eventName.replaceAll("UPAC Presents: ", "");
-                                    titles[i] = eventName;
+                                    titles[i] = eventName.replaceAll("UPAC Presents: ", "");;
                                     descriptions[i] = jsonObj.getString("description");
                                     ids[i] = jsonObj.getString("id");
 
@@ -136,13 +134,16 @@ public class EventsFragment extends Fragment {
                                     DownloadEventImages dri = new DownloadEventImages(imageURL, eventImage[i]);
                                     dri.execute();
 
+                                    listeners[i] = new EventDetailsClickListener(getActivity());
+                                    listeners[i].setOpenedEvent(i);
+
                                     eventImage[i].setId(i);
                                     eventImage[i].setPadding(25, 0, 25, 0);
                                     eventImage[i].setLayoutParams(imgParams);
+                                    eventImage[i].setClickable(true);
+                                    eventImage[i].setOnClickListener(listeners[i]);
 
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                    listeners[i] = new EventDetailsClickListener(getActivity());
-                                    listeners[i].setOpenedEvent(i);
 
                                     LinearLayout.LayoutParams infoParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
                                     infoLayout[i] = new LinearLayout(getActivity());
