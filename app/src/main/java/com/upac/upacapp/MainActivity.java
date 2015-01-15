@@ -78,10 +78,10 @@ public class MainActivity extends FragmentActivity {
             case (R.id.action_events_button):
                 if (gallery != null && about != null)
                     transaction.hide(gallery).hide(about).show(events).commit();
-                else if (gallery == null)
-                    transaction.hide(about).show(events).commit();
-                else
+                else if (gallery != null)
                     transaction.hide(gallery).show(events).commit();
+                else if (about != null)
+                    transaction.hide(about).show(events).commit();
 
                 title.setText("EVENTS");
 

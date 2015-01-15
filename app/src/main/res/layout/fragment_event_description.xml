@@ -30,7 +30,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Title here"
-            android:textSize="25sp" />
+            android:textSize="26sp"/>
 
         <TextView
             android:id="@+id/location"
@@ -42,7 +42,7 @@
             android:paddingRight="15dp"
             android:text="Location here"
             android:textColor="#808080"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/time"
@@ -53,8 +53,9 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Time here"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#808080"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
 
         <TextView
@@ -65,6 +66,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Description here"
-            android:textSize="18sp" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="22sp" />
     </LinearLayout>
 </ScrollView>

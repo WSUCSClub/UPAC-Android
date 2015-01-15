@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,8 +141,6 @@ public class EventsFragment extends Fragment {
                                     eventImage[i].setId(i);
                                     eventImage[i].setPadding(25, 0, 25, 0);
                                     eventImage[i].setLayoutParams(imgParams);
-                                    eventImage[i].setClickable(true);
-                                    eventImage[i].setOnClickListener(listeners[i]);
 
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -151,21 +150,19 @@ public class EventsFragment extends Fragment {
                                     infoLayout[i].setOrientation(LinearLayout.VERTICAL);
 
                                     eventTitle[i] = new TextView(getActivity());
-                                    eventTitle[i].setText(eventName);
+                                    eventTitle[i].setText(titles[i]);
                                     eventTitle[i].setTextColor(Color.BLACK);
-                                    eventTitle[i].setTextSize(18);
-                                    eventTitle[i].setPadding(0, 40, 0, 0);
+                                    eventTitle[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                                    eventTitle[i].setPadding(0, 25, 0, 0);
                                     eventTitle[i].setLayoutParams(params);
-                                    eventTitle[i].setTypeface(null, Typeface.BOLD);
-                                    eventTitle[i].setOnClickListener(listeners[i]);
 
                                     eventInfo[i] = new TextView(getActivity());
                                     eventInfo[i].setText(dates[i] + "\n" + times[i] + "\n" + location);
                                     eventInfo[i].setTextColor(Color.BLACK);
-                                    eventInfo[i].setTextSize(16);
+                                    eventInfo[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                                    eventInfo[i].setPadding(0, 0, 0, 25);
                                     eventInfo[i].setId(i);
                                     eventInfo[i].setLayoutParams(params);
-                                    eventInfo[i].setOnClickListener(listeners[i]);
 
                                     infoLayout[i].addView(eventTitle[i]);
                                     infoLayout[i].addView(eventInfo[i]);
@@ -193,6 +190,8 @@ public class EventsFragment extends Fragment {
                                     lines[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                                     lines[i].addView(eventImage[i]);
                                     lines[i].addView(infoLayout[i]);
+                                    lines[i].setClickable(true);
+                                    lines[i].setOnClickListener(listeners[i]);
 
                                     ll.addView(lines[i]);
                                 }    // End of for loop

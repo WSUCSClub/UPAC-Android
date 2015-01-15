@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,11 @@ public class AboutFragment extends Fragment {
             try {
                 System.out.println("This happened");
                 LinearLayout[] lines = new LinearLayout[memberList.size()];
+                LinearLayout[] infoLayout = new LinearLayout[memberList.size()];
                 System.out.println("This also happened");
                 ImageView[] iv = new ImageView[memberList.size()];
-                TextView[] tv = new TextView[memberList.size()];
+                TextView[] contactName = new TextView[memberList.size()];
+                TextView[] contactInfo = new TextView[memberList.size()];
 
                 for (int i = 0; i < memberList.size(); i++) {
                     try {
@@ -64,22 +67,36 @@ public class AboutFragment extends Fragment {
                         iv[i] = new ImageView(getActivity());
                         iv[i].setId(i);
                         iv[i].setLayoutParams(imgParams);
-                        iv[i].setOnClickListener(cocl);
                         iv[i].setPadding(25, 0, 25, 0);
 
                         DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
                         dai.execute();
 
-                        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(0, 290, 1f);
+                        LinearLayout.LayoutParams infoParam = new LinearLayout.LayoutParams(0, 290, 1f);
 
-                        tv[i] = new TextView(getActivity());
-                        tv[i].setText(name + "\n" + position + "\n" + email);
-                        tv[i].setTextColor(Color.BLACK);
-                        tv[i].setId(i);
-                        tv[i].setLayoutParams(textParams);
-                        tv[i].setClickable(true);
-                        tv[i].setOnClickListener(cocl);
-                        tv[i].setPadding(0, 75, 0, 0);
+                        infoLayout[i] = new LinearLayout(getActivity());
+                        infoLayout[i].setLayoutParams(infoParam);
+                        infoLayout[i].setOrientation(LinearLayout.VERTICAL);
+
+                        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                        contactName[i] = new TextView(getActivity());
+                        contactName[i].setText(name);
+                        contactName[i].setTextColor(Color.BLACK);
+                        contactName[i].setLayoutParams(textParams);
+                        contactName[i].setPadding(0, 25, 0, 0);
+                        contactName[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+
+                        contactInfo[i] = new TextView(getActivity());
+                        contactInfo[i].setText(position + "\n" + email);
+                        contactInfo[i].setTextColor(Color.BLACK);
+                        contactInfo[i].setId(i);
+                        contactInfo[i].setLayoutParams(textParams);
+                        contactInfo[i].setPadding(0, 0, 0, 25);
+                        contactInfo[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+                        infoLayout[i].addView(contactName[i]);
+                        infoLayout[i].addView(contactInfo[i]);
 
                         GradientDrawable gd = new GradientDrawable();
                         gd.setColor(Color.WHITE);
@@ -90,8 +107,10 @@ public class AboutFragment extends Fragment {
                         lines[i] = new LinearLayout(getActivity());
                         lines[i].setLayoutParams(params);
                         lines[i].addView(iv[i]);
-                        lines[i].addView(tv[i]);
+                        lines[i].addView(infoLayout[i]);
                         lines[i].setBackground(gd);
+                        lines[i].setClickable(true);
+                        lines[i].setOnClickListener(cocl);
 
                         ll.addView(lines[i]);
                     } catch (MalformedURLException e) {

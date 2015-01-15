@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +91,7 @@ public class GalleryFragment extends Fragment {
                                     albumNames[c] = new TextView(getActivity());
                                     albumNames[c].setLayoutParams(textParams);
                                     albumNames[c].setText(albums.getJSONObject(c).getString("name"));
-                                    albumNames[c].setTextSize(18);
+                                    albumNames[c].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                                     albumNames[c].setTypeface(null, Typeface.BOLD);
                                     albumNames[c].setPadding(20, 5, 20, 5);
                                     ll.addView(albumNames[c]);
