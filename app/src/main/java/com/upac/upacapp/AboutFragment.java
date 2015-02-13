@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +46,8 @@ public class AboutFragment extends Fragment {
             LinearLayout ll = (LinearLayout) aboutView.findViewById(R.id.about_sections);
 
             try {
-                System.out.println("This happened");
                 LinearLayout[] lines = new LinearLayout[memberList.size()];
                 LinearLayout[] infoLayout = new LinearLayout[memberList.size()];
-                System.out.println("This also happened");
                 ImageView[] iv = new ImageView[memberList.size()];
                 TextView[] contactName = new TextView[memberList.size()];
                 TextView[] contactInfo = new TextView[memberList.size()];
@@ -62,7 +61,12 @@ public class AboutFragment extends Fragment {
 
                         EmailBoardMemberClickListener cocl = new EmailBoardMemberClickListener(email, getActivity());
 
-                        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(290, 290);
+                        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+                        int width = displayMetrics.widthPixels;
+                        int imgHeight = width / 4;
+                        int imgWidth = (int) Math.ceil(width / 2.8);
+
+                        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(imgWidth, imgHeight, 3f);
 
                         iv[i] = new ImageView(getActivity());
                         iv[i].setId(i);
@@ -72,7 +76,7 @@ public class AboutFragment extends Fragment {
                         DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
                         dai.execute();
 
-                        LinearLayout.LayoutParams infoParam = new LinearLayout.LayoutParams(0, 290, 1f);
+                        LinearLayout.LayoutParams infoParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 7f);
 
                         infoLayout[i] = new LinearLayout(getActivity());
                         infoLayout[i].setLayoutParams(infoParam);
@@ -99,8 +103,7 @@ public class AboutFragment extends Fragment {
                         infoLayout[i].addView(contactInfo[i]);
 
                         GradientDrawable gd = new GradientDrawable();
-                        gd.setColor(Color.WHITE);
-                        gd.setStroke(5, 0x000000);
+                        gd.setStroke(1, Color.parseColor("#E1E1E1"));
 
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 

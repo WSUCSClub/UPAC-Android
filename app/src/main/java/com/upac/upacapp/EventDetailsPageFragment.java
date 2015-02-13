@@ -1,30 +1,28 @@
 package com.upac.upacapp;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
     public static int mPageNumber;
     private static String[] title, location, time, description, images, date, ids;
     private static boolean[] hasRaffle;
+    private ScheduleClient scheduleClient;
 
     public EventDetailsPageFragment() {
 
@@ -49,6 +47,9 @@ public class EventDetailsPageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
+        scheduleClient = new ScheduleClient(getActivity());
+        scheduleClient.doBindService();
+
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_event_description, container, false);
         ImageView eventCover = (ImageView) rootView.findViewById(R.id.event_image);
         TextView eventTitle = (TextView) rootView.findViewById(R.id.title);
@@ -56,18 +57,6 @@ public class EventDetailsPageFragment extends Fragment {
         TextView eventTime = (TextView) rootView.findViewById(R.id.time);
         TextView eventDescription = (TextView) rootView.findViewById(R.id.description);
         Button interactButton = (Button) rootView.findViewById(R.id.interact_button);
-
-        SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
-        Date eventDate = new Date();
-
-        try{
-            eventDate = dayFormat.parse(date[mPageNumber]);
-        }
-        catch(ParseException p){
-            Toast toast = Toast.makeText(getActivity(), "Error parsing dates.", Toast.LENGTH_SHORT);
-            toast.show();
-            p.printStackTrace();
-        }
 
         try {
             URL imageURL = new URL(images[mPageNumber]);
@@ -79,15 +68,21 @@ public class EventDetailsPageFragment extends Fragment {
             e.printStackTrace();
         }
 
+        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+        int height = displayMetrics.heightPixels;
+        int imgHeight = (int) (height / 2.3);
+
+        eventCover.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, imgHeight));
         eventTitle.setText(title[mPageNumber]);
         eventLocation.setText(location[mPageNumber]);
         eventTime.setText(date[mPageNumber] + " " + time[mPageNumber]);
         eventDescription.setText(description[mPageNumber]);
 
+        RaffleSQLiteHelper entry = new RaffleSQLiteHelper(getActivity());
+
         if (hasRaffle[mPageNumber]) {
             interactButton.setVisibility(View.VISIBLE);
 
-            RaffleSQLiteHelper entry = new RaffleSQLiteHelper(getActivity());
             String ticketID = entry.getEntries(ids[mPageNumber]);
 
             if (ticketID != null) {
@@ -98,13 +93,32 @@ public class EventDetailsPageFragment extends Fragment {
 
                 interactButton.setOnClickListener(enterRaffle);
             }
-        }
-/*        else{
-            if(eventDate.compareTo(new Date()) >= 0) {
+        } else {
+            NotifySQLiteHelper notified = new NotifySQLiteHelper(getActivity());
+
+            String notification = notified.getEntries(ids[mPageNumber]);
+
+            if (notification == null) {
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy hh:mm a", java.util.Locale.getDefault());
+
+                try {
+                    cal.setTime(sdf.parse(date[mPageNumber] + " " + time[mPageNumber]));
+
+                    NotifyMeClickListener notifyMe = new NotifyMeClickListener(interactButton, notified, cal, getActivity(), scheduleClient, ids[mPageNumber]);
+
+                    interactButton.setVisibility(View.VISIBLE);
+                    interactButton.setText("Notify Me");
+                    interactButton.setOnClickListener(notifyMe);
+                } catch (ParseException p) {
+                    p.printStackTrace();
+                }
+            } else {
                 interactButton.setVisibility(View.VISIBLE);
-                interactButton.setText("Notify Me");
+                interactButton.setText("To be notified");
+                interactButton.setClickable(false);
             }
-        }*/
+        }
 
         return rootView;
     }
@@ -117,5 +131,14 @@ public class EventDetailsPageFragment extends Fragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onStop() {
+        // When our activity is stopped ensure we also stop the connection to the service
+        // this stops us leaking our activity into the system *bad*
+        if (scheduleClient != null)
+            scheduleClient.doUnbindService();
+        super.onStop();
     }
 }

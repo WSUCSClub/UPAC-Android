@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class RaffleSQLiteHelper extends SQLiteOpenHelper {
-
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "raffle_entries";
     private static final String EVENT_ID = "event_id";
@@ -21,12 +20,10 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // SQL statement to create book table
         String CREATE_RAFFLE_TABLE = "CREATE TABLE raffle_entries ( " +
                 "event_id DOUBLE PRIMARY KEY UNIQUE, " +
                 "ticket_id STRING)";
 
-        // create books table
         db.execSQL(CREATE_RAFFLE_TABLE);
     }
 
@@ -69,8 +66,8 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(EVENT_ID, eventId); // get title
-        values.put(TICKET_ID, entryId); // get author
+        values.put(EVENT_ID, eventId);
+        values.put(TICKET_ID, entryId);
 
         db.insert(DATABASE_NAME, // table
                 null, //nullColumnHack

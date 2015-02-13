@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,7 +45,10 @@ public class GalleryFragment extends Fragment {
         try {
             galleryView = getActivity().getLayoutInflater().inflate(R.layout.fragment_gallery, parent, false);
             Session session = AppDelegates.loadFBSession(getActivity());
-            final double PER_LINE = 3.0;
+
+            DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+            final int width = displayMetrics.widthPixels;
+            final int PER_LINE = width / 240;
 
             Bundle params = new Bundle();
             params.putString("fields", "name,photos");
@@ -83,6 +87,8 @@ public class GalleryFragment extends Fragment {
 
                                 TextView[] albumNames = new TextView[photos.length()];
 
+                                int imgHeight = width / PER_LINE;
+
                                 for (int c = 0; c < photos.length(); c++) {
                                     int albumCount = 0;
 
@@ -96,7 +102,7 @@ public class GalleryFragment extends Fragment {
                                     albumNames[c].setPadding(20, 5, 20, 5);
                                     ll.addView(albumNames[c]);
 
-                                    for (int x = 0; x < photos.getJSONArray(c).length(); x++) {
+                                    for (int x = 0; x < lineCount; x++) {
                                         lines[x] = new LinearLayout(getActivity());
                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                                         lines[x].setLayoutParams(params);
@@ -108,7 +114,7 @@ public class GalleryFragment extends Fragment {
                                             croppedSRC = json_obj.getString("picture");
                                             fullSRC[count] = json_obj.getString("source");
 
-                                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, 360, 1f);
+                                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, imgHeight, 1f);
                                             imgParams.gravity = Gravity.START;
 
                                             iv[count] = new ImageView(getActivity());

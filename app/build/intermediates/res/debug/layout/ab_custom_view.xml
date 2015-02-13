@@ -18,10 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/events"
-            android:onClick="openPage"
-            android:paddingTop="2dp"
-            android:text="@string/action_events_button"
-            android:textSize="12sp" />
+            android:onClick="openPage" />
 
         <Button
             android:id="@+id/action_gallery_button"
@@ -30,10 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/gallery"
-            android:onClick="openPage"
-            android:paddingTop="2dp"
-            android:text="@string/action_gallery_button"
-            android:textSize="12sp" />
+            android:onClick="openPage" />
 
         <Button
             android:id="@+id/action_about_button"
@@ -42,9 +36,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/contact"
-            android:onClick="openPage"
-            android:paddingTop="2dp"
-            android:text="@string/action_about_button"
-            android:textSize="12sp" />
+            android:onClick="openPage" />
     </LinearLayout>
 </RelativeLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/ab_custom_view.xml -->

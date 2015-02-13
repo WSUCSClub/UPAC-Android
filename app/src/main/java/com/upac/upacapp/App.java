@@ -41,11 +41,7 @@ public class App extends Application {
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
-                if (e == null) {
-                    Log.d("Name", "Retrieved " + queryList.size() + " members.");
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
+
             }
         });
 
@@ -65,11 +61,7 @@ public class App extends Application {
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> queryList, ParseException e) {
-                if (e == null) {
-                    Log.d("Name", queryList.size() + " events have raffles.");
-                } else {
-                    Log.d("events", "Error: " + e.getMessage());
-                }
+
             }
         });
 

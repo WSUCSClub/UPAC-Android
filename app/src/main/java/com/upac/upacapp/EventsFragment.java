@@ -2,10 +2,10 @@ package com.upac.upacapp;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +37,6 @@ public class EventsFragment extends Fragment {
     public static final String TAG = "events";
     private static View eventsView;
     private ViewGroup parent;
-    public boolean isDone = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,7 +115,8 @@ public class EventsFragment extends Fragment {
                                     location = jsonObj.getString("location");
                                     locations[i] = jsonObj.getString("location");
                                     eventName = jsonObj.getString("name");
-                                    titles[i] = eventName.replaceAll("UPAC Presents: ", "");;
+                                    titles[i] = eventName.replaceAll("UPAC Presents: ", "");
+                                    ;
                                     descriptions[i] = jsonObj.getString("description");
                                     ids[i] = jsonObj.getString("id");
 
@@ -127,7 +127,12 @@ public class EventsFragment extends Fragment {
                                         image = "nothing";
                                     }
 
-                                    LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(550, 290, 1f);
+                                    DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+                                    int width = displayMetrics.widthPixels;
+                                    int imgHeight = width / 4;
+                                    int imgWidth = (int) Math.ceil(width / 2.8);
+
+                                    LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(imgWidth, imgHeight, 3f);
 
                                     eventImage[i] = new ImageView(getActivity());
 
@@ -142,12 +147,12 @@ public class EventsFragment extends Fragment {
                                     eventImage[i].setPadding(25, 0, 25, 0);
                                     eventImage[i].setLayoutParams(imgParams);
 
-                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                                    LinearLayout.LayoutParams infoParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+                                    LinearLayout.LayoutParams infoParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 7f);
                                     infoLayout[i] = new LinearLayout(getActivity());
                                     infoLayout[i].setLayoutParams(infoParams);
                                     infoLayout[i].setOrientation(LinearLayout.VERTICAL);
+
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                                     eventTitle[i] = new TextView(getActivity());
                                     eventTitle[i].setText(titles[i]);
@@ -177,11 +182,8 @@ public class EventsFragment extends Fragment {
                                         }
                                     }
 
-                                    if (hasRaffle[i]) {
+                                    if (hasRaffle[i])
                                         gd.setColor(Color.parseColor("#ECECFF"));
-                                    } else {
-                                        gd.setColor(Color.WHITE);
-                                    }
 
                                     gd.setStroke(1, Color.parseColor("#E1E1E1"));
 
@@ -212,13 +214,11 @@ public class EventsFragment extends Fragment {
                                 Toast toast = Toast.makeText(getActivity(), "Could not get Facebook events. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
-                            } catch (NullPointerException e){
+                            } catch (NullPointerException e) {
                                 Toast toast = Toast.makeText(getActivity(), "Cannot access Facebook events. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
                             }
-
-                            isDone = true;
                         }    // End of onCompleted
                     }    // End of Callback
             ).executeAsync();
