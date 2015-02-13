@@ -10,8 +10,8 @@
         android:id="@+id/container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
-
+        android:layout_weight="9.25"
+        android:background="#ffffff">
     </FrameLayout>
 
     <LinearLayout
@@ -19,8 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight=".9"
+        android:layout_weight=".75"
         android:orientation="horizontal">
-
     </LinearLayout>
 </LinearLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/activity_main.xml -->
