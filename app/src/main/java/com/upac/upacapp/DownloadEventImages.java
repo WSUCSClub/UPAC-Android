@@ -3,6 +3,7 @@ package com.upac.upacapp;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
 import java.net.URL;
@@ -13,7 +14,7 @@ public class DownloadEventImages extends AsyncTask<ImageView, Void, Bitmap> {
     Bitmap mIcon_val;
     private static final int ROUNDING = 1000;
 
-    public DownloadEventImages(URL iu, ImageView iv) {
+    public DownloadEventImages(URL iu, ImageView iv, int w, int h, double d) {
         imageURL = iu;
         imageView = iv;
     }
@@ -27,6 +28,7 @@ public class DownloadEventImages extends AsyncTask<ImageView, Void, Bitmap> {
     protected void onPostExecute(Bitmap result) {
         ImageHelper ih = new ImageHelper();
 
+        result = ih.getResizedBitmap(result, 720, 720);
         result = ih.getRoundedEventImage(result, ROUNDING);
 
         imageView.setImageBitmap(result);

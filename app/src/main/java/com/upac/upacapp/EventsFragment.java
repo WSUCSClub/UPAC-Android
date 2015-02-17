@@ -137,8 +137,8 @@ public class EventsFragment extends Fragment {
                                     eventImage[i] = new ImageView(getActivity());
 
                                     imageURL = new URL(image);
-                                    DownloadEventImages dri = new DownloadEventImages(imageURL, eventImage[i]);
-                                    dri.execute();
+                                    DownloadEventImages dei = new DownloadEventImages(imageURL, eventImage[i], imgWidth, imgHeight, displayMetrics.density);
+                                    dei.execute();
 
                                     listeners[i] = new EventDetailsClickListener(getActivity());
                                     listeners[i].setOpenedEvent(i);
