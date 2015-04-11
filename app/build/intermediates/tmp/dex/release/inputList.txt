@@ -1,9 +1,0 @@
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\classes\release
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\support-annotations-20.0.0-8c6a40a20e9a9b81c77003bcbbfe619d1bf474b0.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\bolts-android-1.1.2-356f58bbd948718fa4c8b299ce1276673104245a.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\ParseCrashReporting-1.8.0-7244fecb6387de6a88c227d1015b0216a007195c.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\internal_impl-20.0.0-6ee45447304c4f6d990cc4d6ac421d17293b4017.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\classes-9cabf5a5adcab124a0f99fcfe0137c83863cdbcd.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\classes-ac50214bfd4fb6e2f0224bdc354beb55a2ce15ba.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\classes-3d4b557ce529df4e004569702209c2d9d3a51f46.jar
-C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\release\Parse-1.8.0-ce403023e72f9b65cc5b462a5d7c8c4355fcb29f.jar

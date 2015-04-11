@@ -25,7 +25,7 @@ public class App extends Application {
         Map<String, String> dimensions = new HashMap<String, String>();
         dimensions.put("category", "ThisIsATest");
 
-        ParseAnalytics.trackEvent("read", dimensions);
+        ParseAnalytics.trackEventInBackground("read", dimensions);
     }
 
     public List<ParseObject> getBoardMembers() {
@@ -38,12 +38,6 @@ public class App extends Application {
             results = null;
             e.printStackTrace();
         }
-
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> queryList, ParseException e) {
-
-            }
-        });
 
         return results;
     }
@@ -58,12 +52,6 @@ public class App extends Application {
             results = null;
             e.printStackTrace();
         }
-
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> queryList, ParseException e) {
-
-            }
-        });
 
         return results;
     }

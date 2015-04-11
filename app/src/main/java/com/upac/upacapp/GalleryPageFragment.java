@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class GalleryPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
-    public static int mPageNumber;
+    protected static int mPageNumber;
     private static String[] imageURLs;
 
     public GalleryPageFragment() {

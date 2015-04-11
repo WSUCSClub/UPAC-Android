@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 public class EventDetailsPageFragment extends Fragment {
     public static final String ARG_PAGE = "page";
-    public static int mPageNumber;
+    protected static int mPageNumber;
     private static String[] title, location, time, description, images, date, ids;
     private static boolean[] hasRaffle;
     private ScheduleClient scheduleClient;

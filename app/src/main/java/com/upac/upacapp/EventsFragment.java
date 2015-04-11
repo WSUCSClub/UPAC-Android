@@ -48,6 +48,11 @@ public class EventsFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        final DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+        final int width = displayMetrics.widthPixels;
+        final int imgHeight = width / 4;
+        final int imgWidth = (int) Math.ceil(width / 2.8);
+
         try {
             eventsView = getActivity().getLayoutInflater().inflate(R.layout.fragment_events, parent, false);
             Session session = AppDelegates.loadFBSession(getActivity());
@@ -63,11 +68,11 @@ public class EventsFragment extends Fragment {
                     HttpMethod.GET,
                     new Request.Callback() {
                         public void onCompleted(Response response) {
-                            String location, eventName, image;
+                            String eventName;
                             Date date;
                             URL imageURL;
 
-                            LinearLayout ll = (LinearLayout) eventsView.findViewById(R.id.eventsLayout);
+                            LinearLayout eventsLayout = (LinearLayout) eventsView.findViewById(R.id.eventsLayout);
 
                             SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
                             SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM dd, yyyy", java.util.Locale.getDefault());
@@ -90,10 +95,7 @@ public class EventsFragment extends Fragment {
                                         eventRaffles[x] = "-1";
                                 }
 
-                                LinearLayout[] lines = new LinearLayout[events.length()];
                                 LinearLayout[] infoLayout = new LinearLayout[events.length()];
-                                TextView[] eventTitle = new TextView[events.length()];
-                                TextView[] eventInfo = new TextView[events.length()];
                                 ImageView[] eventImage = new ImageView[events.length()];
                                 String[] titles = new String[events.length()];
                                 String[] locations = new String[events.length()];
@@ -112,31 +114,18 @@ public class EventsFragment extends Fragment {
                                     dates[i] = dayFormat.format(date);
                                     times[i] = timeFormat.format(date);
 
-                                    location = jsonObj.getString("location");
                                     locations[i] = jsonObj.getString("location");
                                     eventName = jsonObj.getString("name");
                                     titles[i] = eventName.replaceAll("UPAC Presents: ", "");
-                                    ;
                                     descriptions[i] = jsonObj.getString("description");
                                     ids[i] = jsonObj.getString("id");
-
-                                    try {
-                                        image = jsonObj.getJSONObject("cover").getString("source");
-                                        images[i] = jsonObj.getJSONObject("cover").getString("source");
-                                    } catch (Exception e) {
-                                        image = "nothing";
-                                    }
-
-                                    DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-                                    int width = displayMetrics.widthPixels;
-                                    int imgHeight = width / 4;
-                                    int imgWidth = (int) Math.ceil(width / 2.8);
+                                    images[i] = jsonObj.getJSONObject("cover").getString("source");
 
                                     LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(imgWidth, imgHeight, 3f);
 
                                     eventImage[i] = new ImageView(getActivity());
 
-                                    imageURL = new URL(image);
+                                    imageURL = new URL(images[i]);
                                     DownloadEventImages dei = new DownloadEventImages(imageURL, eventImage[i], imgWidth, imgHeight, displayMetrics.density);
                                     dei.execute();
 
@@ -154,25 +143,8 @@ public class EventsFragment extends Fragment {
 
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                                    eventTitle[i] = new TextView(getActivity());
-                                    eventTitle[i].setText(titles[i]);
-                                    eventTitle[i].setTextColor(Color.BLACK);
-                                    eventTitle[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                                    eventTitle[i].setPadding(0, 25, 0, 0);
-                                    eventTitle[i].setLayoutParams(params);
-
-                                    eventInfo[i] = new TextView(getActivity());
-                                    eventInfo[i].setText(dates[i] + "\n" + times[i] + "\n" + location);
-                                    eventInfo[i].setTextColor(Color.BLACK);
-                                    eventInfo[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                                    eventInfo[i].setPadding(0, 0, 0, 25);
-                                    eventInfo[i].setId(i);
-                                    eventInfo[i].setLayoutParams(params);
-
-                                    infoLayout[i].addView(eventTitle[i]);
-                                    infoLayout[i].addView(eventInfo[i]);
-
-                                    GradientDrawable gd = new GradientDrawable();
+                                    addEventTitle(infoLayout[i], titles[i], params);
+                                    addEventInfo(infoLayout[i], dates[i], times[i], locations[i], params);
 
                                     hasRaffle[i] = false;
 
@@ -182,20 +154,14 @@ public class EventsFragment extends Fragment {
                                         }
                                     }
 
+                                    GradientDrawable gd = new GradientDrawable();
+
                                     if (hasRaffle[i])
                                         gd.setColor(Color.parseColor("#ECECFF"));
 
                                     gd.setStroke(1, Color.parseColor("#E1E1E1"));
 
-                                    lines[i] = new LinearLayout(getActivity());
-                                    lines[i].setBackground(gd);
-                                    lines[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                                    lines[i].addView(eventImage[i]);
-                                    lines[i].addView(infoLayout[i]);
-                                    lines[i].setClickable(true);
-                                    lines[i].setOnClickListener(listeners[i]);
-
-                                    ll.addView(lines[i]);
+                                    addLine(gd, eventImage[i], infoLayout[i], listeners[i], eventsLayout);
                                 }    // End of for loop
 
                                 for (EventDetailsClickListener e : listeners) {
@@ -225,5 +191,39 @@ public class EventsFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");
         }
+    }
+
+    private void addEventTitle(LinearLayout infoLayout, String title, LinearLayout.LayoutParams params){
+        TextView eventTitle = new TextView(getActivity());
+        eventTitle.setText(title);
+        eventTitle.setTextColor(Color.BLACK);
+        eventTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        eventTitle.setPadding(0, 25, 0, 0);
+        eventTitle.setLayoutParams(params);
+
+        infoLayout.addView(eventTitle);
+    }
+
+    private void addEventInfo(LinearLayout infoLayout, String date, String time, String location, LinearLayout.LayoutParams params){
+        TextView eventInfo = new TextView(getActivity());
+        eventInfo.setText(date + "\n" + time + "\n" + location);
+        eventInfo.setTextColor(Color.BLACK);
+        eventInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        eventInfo.setPadding(0, 0, 0, 25);
+        eventInfo.setLayoutParams(params);
+
+        infoLayout.addView(eventInfo);
+    }
+
+    private void addLine(GradientDrawable gradient, ImageView eventImage, LinearLayout infoLayout, EventDetailsClickListener listener, LinearLayout eventsLayout){
+        LinearLayout line = new LinearLayout(getActivity());
+        line.setBackground(gradient);
+        line.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        line.addView(eventImage);
+        line.addView(infoLayout);
+        line.setClickable(true);
+        line.setOnClickListener(listener);
+
+        eventsLayout.addView(line);
     }
 }

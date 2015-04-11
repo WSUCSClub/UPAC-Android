@@ -13,18 +13,9 @@ public class AppDelegates extends Activity {
         public void call(final Session session, SessionState state, Exception exception) {
             // If there is an exception...
             if (exception != null) {
-                // Handle fail case here.
-                return;
-            }
-
-            // If session is just opened...
-            if (state == SessionState.OPENED) {
-                // Handle success case here.
-                return;
+                exception.printStackTrace();
             }
         }
-
-        ;
     };
 
     public static Session loadFBSession(Activity activity) {

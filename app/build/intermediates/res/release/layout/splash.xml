@@ -1,6 +1,0 @@
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:contentDescription="@string/splash"
-    android:src="@drawable/full_launch_bg" /><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/splash.xml -->

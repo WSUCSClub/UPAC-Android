@@ -28,7 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GalleryFragment extends Fragment {
-    public static View galleryView;
+    protected static View galleryView;
     public static final String TAG = "gallery";
     private ViewGroup parent;
 
@@ -60,82 +60,57 @@ public class GalleryFragment extends Fragment {
                     HttpMethod.GET,
                     new Request.Callback() {
                         public void onCompleted(Response response) {
-                            String croppedSRC;
-                            URL croppedURL;
-
-                            LinearLayout ll = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
+                            LinearLayout imagesLayout = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
                             int allPhotos = 0;
 
                             try {
                                 JSONArray albums = response.getGraphObject().getInnerJSONObject().getJSONArray("data");
                                 JSONArray photos = new JSONArray();
+                                JSONObject album;
+
                                 for (int i = 0; i < albums.length(); i++) {
-                                    JSONObject album = albums.getJSONObject(i);
+                                    album = albums.getJSONObject(i);
                                     photos.put(album.getJSONObject("photos").getJSONArray("data"));
                                     allPhotos += photos.getJSONArray(i).length();
                                 }
 
-                                int lineCount = (int) Math.ceil(allPhotos / PER_LINE);
+                                int lineCount = allPhotos / PER_LINE;
 
-                                ImageView[] iv = new ImageView[allPhotos];
-                                LinearLayout[] lines = new LinearLayout[lineCount];
+                                ImageView galleryImage;
+                                LinearLayout line;
+                                JSONObject json_obj;
 
                                 String[] fullSRC = new String[allPhotos];
                                 GalleryClickListener[] listeners = new GalleryClickListener[allPhotos];
 
                                 int count = 0;
 
-                                TextView[] albumNames = new TextView[photos.length()];
-
                                 int imgHeight = width / PER_LINE;
 
-                                for (int c = 0; c < photos.length(); c++) {
-                                    int albumCount = 0;
+                                for (int albumNum = 0; albumNum < photos.length(); albumNum++) {
+                                    int imageCount = 0;
 
-                                    LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                    textParams.gravity = Gravity.START;
-                                    albumNames[c] = new TextView(getActivity());
-                                    albumNames[c].setLayoutParams(textParams);
-                                    albumNames[c].setText(albums.getJSONObject(c).getString("name"));
-                                    albumNames[c].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                                    albumNames[c].setTypeface(null, Typeface.BOLD);
-                                    albumNames[c].setPadding(20, 5, 20, 5);
-                                    ll.addView(albumNames[c]);
+                                    addAlbumName(albums, imagesLayout, albumNum);
 
-                                    for (int x = 0; x < lineCount; x++) {
-                                        lines[x] = new LinearLayout(getActivity());
-                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                                        lines[x].setLayoutParams(params);
-                                        ll.addView(lines[x]);
+                                    for (int lineNum = 0; lineNum < lineCount; lineNum++) {
+                                        line = addLine(imagesLayout);
 
-                                        for (int i = 0; i < PER_LINE && albumCount < photos.getJSONArray(c).length(); i++) {
-                                            JSONObject json_obj = photos.getJSONArray(c).getJSONObject(albumCount);
-
-                                            croppedSRC = json_obj.getString("picture");
+                                        for (int i = 0; i < PER_LINE && imageCount < photos.getJSONArray(albumNum).length(); i++) {
+                                            json_obj = photos.getJSONArray(albumNum).getJSONObject(imageCount);
                                             fullSRC[count] = json_obj.getString("source");
+                                            galleryImage = new ImageView(getActivity());
 
-                                            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, imgHeight, 1f);
-                                            imgParams.gravity = Gravity.START;
-
-                                            iv[count] = new ImageView(getActivity());
-
-                                            croppedURL = new URL(croppedSRC);
-                                            DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, iv[count]);
-                                            dgi.execute();
+                                            getImage(json_obj, galleryImage);
 
                                             listeners[count] = new GalleryClickListener(getActivity());
                                             listeners[count].setOpenedImage(count);
 
-                                            iv[count].setId(count);
-                                            iv[count].setPadding(2, 2, 2, 2);
-                                            iv[count].setLayoutParams(imgParams);
-                                            iv[count].setClickable(true);
-                                            iv[count].setOnClickListener(listeners[count]);
+                                            setGalleryImageParameters(galleryImage, count, imgHeight, listeners[count]);
 
-                                            lines[x].addView(iv[count]);
+                                            line.addView(galleryImage);
 
                                             count++;
-                                            albumCount++;
+                                            imageCount++;
                                         }    // End of for loop
                                     }   // End of for loop
                                 }   // End of for loop
@@ -144,15 +119,11 @@ public class GalleryFragment extends Fragment {
                                     g.setPageAmount(allPhotos);
                                     g.setInformation(fullSRC);
                                 }
-                            } catch (MalformedURLException m) {
-                                Toast toast = Toast.makeText(getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
-                                toast.show();
-                                m.printStackTrace();
                             } catch (JSONException e) {
                                 Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
-                            } catch (NullPointerException e){
+                            } catch (NullPointerException e) {
                                 Toast toast = Toast.makeText(getActivity(), "Cannot access Facebook photos. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
@@ -163,5 +134,64 @@ public class GalleryFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");
         }
+    }
+
+    private void addAlbumName(JSONArray albums, LinearLayout imagesLayout, int object) {
+        TextView albumName;
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textParams.gravity = Gravity.START;
+        albumName = new TextView(getActivity());
+        albumName.setLayoutParams(textParams);
+        try {
+            albumName.setText(albums.getJSONObject(object).getString("name"));
+        } catch (JSONException e) {
+            Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+            toast.show();
+            e.printStackTrace();
+        }
+        albumName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        albumName.setTypeface(null, Typeface.BOLD);
+        albumName.setPadding(20, 5, 20, 5);
+        imagesLayout.addView(albumName);
+    }
+
+    private LinearLayout addLine(LinearLayout imagesLayout) {
+        LinearLayout line = new LinearLayout(getActivity());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        line.setLayoutParams(params);
+        imagesLayout.addView(line);
+
+        return line;
+    }
+
+    private void getImage(JSONObject json_obj, ImageView galleryImage) {
+        try {
+            String croppedSRC = json_obj.getString("picture");
+            try {
+                URL croppedURL = new URL(croppedSRC);
+                DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, galleryImage);
+
+                dgi.execute();
+            } catch (MalformedURLException m) {
+                Toast toast = Toast.makeText(getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
+                toast.show();
+                m.printStackTrace();
+            }
+        } catch (JSONException e) {
+            Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+            toast.show();
+            e.printStackTrace();
+        }
+    }
+
+    private void setGalleryImageParameters(ImageView galleryImage, int count, int imgHeight, GalleryClickListener listener) {
+        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, imgHeight, 1f);
+        imgParams.gravity = Gravity.START;
+
+        galleryImage.setId(count);
+        galleryImage.setPadding(2, 2, 2, 2);
+        galleryImage.setLayoutParams(imgParams);
+        galleryImage.setClickable(true);
+        galleryImage.setOnClickListener(listener);
     }
 }
