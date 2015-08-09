@@ -41,4 +41,4 @@
             android:onClick="openPage"
             android:text="@string/action_about_button" />
     </LinearLayout>
-</RelativeLayout><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/ab_custom_view.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/CKosidowski11/Documents/GitHub/UPAC-Android/app/src/main/res/layout/ab_custom_view.xml -->

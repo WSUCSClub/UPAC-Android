@@ -1,4 +1,4 @@
 <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" /><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/activity_screen_slide.xml -->
+    android:layout_height="match_parent" /><!-- From: file:/C:/Users/CKosidowski11/Documents/GitHub/UPAC-Android/app/src/main/res/layout/activity_screen_slide.xml -->

@@ -8,4 +8,4 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/galleryLayout"></LinearLayout>
-</ScrollView><!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/app/src/main/res/layout/fragment_gallery.xml -->
+</ScrollView><!-- From: file:/C:/Users/CKosidowski11/Documents/GitHub/UPAC-Android/app/src/main/res/layout/fragment_gallery.xml -->

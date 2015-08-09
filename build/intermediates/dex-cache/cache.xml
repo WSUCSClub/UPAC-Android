@@ -2,60 +2,60 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\libs\ParseCrashReporting-1.8.0.jar"
+        jar="C:\Users\CKosidowski11\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-bbcecf178a4ea51fea5f776cc10cf9196ca48bc0.jar" />
+    </item>
+    <item
+        jar="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\classes-3017c69265d012ca134a1d1550d476b6829aee7e.jar" />
+    </item>
+    <item
+        jar="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\classes-4aee03a69f0739cdbb145487967804ad1c24d939.jar" />
+    </item>
+    <item
+        jar="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\exploded-aar\com.facebook.android\facebook\3.19.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="156cd4311d883e341c71d6c4d42c505c73e5147e">
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\classes-93df2e5b8a71a9e7914555ed64887eabd1f38515.jar" />
+    </item>
+    <item
+        jar="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\libs\ParseCrashReporting-1.8.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="55e71442ecbce939ce2a1ad75d1a4408a61d6804">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\ParseCrashReporting-1.8.0-7244fecb6387de6a88c227d1015b0216a007195c.jar" />
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\ParseCrashReporting-1.8.0-6e12cea1fe4516b80f073cb8b146c42c1b9c5cb7.jar" />
+    </item>
+    <item
+        jar="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\libs\Parse-1.8.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="61cf79e2775b882ac0ea32d60ea2dbbf6f245cea">
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\Parse-1.8.0-028c5f068c0be65dc5731a42fa5a3165f775176e.jar" />
     </item>
     <item
         jar="C:\Users\CKosidowski11\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.2\91c20388c9a45f62b5ed8fe0502bb76ff6251fc7\bolts-android-1.1.2.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.2-356f58bbd948718fa4c8b299ce1276673104245a.jar" />
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.2-356f58bbd948718fa4c8b299ce1276673104245a.jar" />
     </item>
     <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\libs\Parse-1.8.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="61cf79e2775b882ac0ea32d60ea2dbbf6f245cea">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\Parse-1.8.0-ce403023e72f9b65cc5b462a5d7c8c4355fcb29f.jar" />
-    </item>
-    <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\exploded-aar\com.facebook.android\facebook\3.19.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="c672d091914f0c7d431fd0a66ed765578eac08c1">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\classes-ac50214bfd4fb6e2f0224bdc354beb55a2ce15ba.jar" />
-    </item>
-    <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-8c6a40a20e9a9b81c77003bcbbfe619d1bf474b0.jar" />
-    </item>
-    <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\classes-3d4b557ce529df4e004569702209c2d9d3a51f46.jar" />
-    </item>
-    <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jar="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\jars\libs\internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-6ee45447304c4f6d990cc4d6ac421d17293b4017.jar" />
-    </item>
-    <item
-        jar="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
-        <dex dex="C:\Users\CKosidowski11\Desktop\Android\UPAC Workspace\UPACApp\app\build\intermediates\pre-dexed\debug\classes-9cabf5a5adcab124a0f99fcfe0137c83863cdbcd.jar" />
+        <dex dex="C:\Users\CKosidowski11\Documents\GitHub\UPAC-Android\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-21e46d0aa0e7f5a3c834ddd6f8289f9ddba776d1.jar" />
     </item>
 
 </items>

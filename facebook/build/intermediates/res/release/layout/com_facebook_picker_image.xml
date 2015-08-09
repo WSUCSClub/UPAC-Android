@@ -22,4 +22,4 @@
     android:layout_height="50dip"
     android:layout_gravity="center_vertical"
     android:src="@drawable/com_facebook_profile_default_icon" />
-<!-- From: file:/C:/Users/CKosidowski11/Desktop/Android/UPAC%20Workspace/UPACApp/facebook/res/layout/com_facebook_picker_image.xml -->
+<!-- From: file:/C:/Users/CKosidowski11/Documents/GitHub/UPAC-Android/facebook/res/layout/com_facebook_picker_image.xml -->
