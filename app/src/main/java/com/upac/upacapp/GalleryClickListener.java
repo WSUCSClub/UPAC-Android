@@ -10,25 +10,25 @@ public class GalleryClickListener implements View.OnClickListener {
     private int openedPage;
     private static String[] imageURL;
 
-    public GalleryClickListener(FragmentActivity fa) {
+    public GalleryClickListener(final FragmentActivity fa) {
         context = fa;
     }
 
-    public void setOpenedImage(int p) {
+    public void setOpenedImage(final int p) {
         openedPage = p;
     }
 
-    public void setPageAmount(int p) {
+    public void setPageAmount(final int p) {
         pages = p;
     }
 
-    public void setInformation(String[] img) {
+    public void setInformation(final String[] img) {
         imageURL = img;
     }
 
     @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(context, GallerySlidePagerActivity.class);
+    public void onClick(final View v) {
+        final Intent intent = new Intent(context, GallerySlidePagerActivity.class);
         intent.putExtra("AllPages", pages);
         intent.putExtra("Page", openedPage);
         intent.putExtra("ImageURLs", imageURL);

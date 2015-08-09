@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,29 +29,29 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GalleryFragment extends Fragment {
-    protected static View galleryView;
+    private static View galleryView;
     public static final String TAG = "gallery";
     private ViewGroup parent;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         parent = container;
         return galleryView;
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(final Activity activity) {
         super.onAttach(activity);
 
         try {
-            galleryView = getActivity().getLayoutInflater().inflate(R.layout.fragment_gallery, parent, false);
-            Session session = AppDelegates.loadFBSession(getActivity());
+            galleryView = this.getActivity().getLayoutInflater().inflate(R.layout.fragment_gallery, parent, false);
+            final Session session = AppDelegates.loadFBSession(this.getActivity());
 
-            DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+            final DisplayMetrics displayMetrics = this.getActivity().getResources().getDisplayMetrics();
             final int width = displayMetrics.widthPixels;
             final int PER_LINE = width / 240;
 
-            Bundle params = new Bundle();
+            final Bundle params = new Bundle();
             params.putString("fields", "name,photos");
 
             new Request(
@@ -59,46 +60,41 @@ public class GalleryFragment extends Fragment {
                     params,
                     HttpMethod.GET,
                     new Request.Callback() {
-                        public void onCompleted(Response response) {
-                            LinearLayout imagesLayout = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
-                            int allPhotos = 0;
+                        public void onCompleted(final Response response) {
+                            final LinearLayout imagesLayout = (LinearLayout) galleryView.findViewById(R.id.galleryLayout);
 
                             try {
-                                JSONArray albums = response.getGraphObject().getInnerJSONObject().getJSONArray("data");
-                                JSONArray photos = new JSONArray();
-                                JSONObject album;
+                                final JSONArray albums = response.getGraphObject().getInnerJSONObject().getJSONArray("data");
+                                final JSONArray photos = new JSONArray();
+                                final int albumCount = albums.length();
+                                int allPhotos = 0;
 
-                                for (int i = 0; i < albums.length(); i++) {
-                                    album = albums.getJSONObject(i);
+                                for (int i = 0; i < albumCount; i++) {
+                                    final JSONObject album = albums.getJSONObject(i);
                                     photos.put(album.getJSONObject("photos").getJSONArray("data"));
                                     allPhotos += photos.getJSONArray(i).length();
                                 }
 
-                                int lineCount = allPhotos / PER_LINE;
-
-                                ImageView galleryImage;
-                                LinearLayout line;
-                                JSONObject json_obj;
-
-                                String[] fullSRC = new String[allPhotos];
-                                GalleryClickListener[] listeners = new GalleryClickListener[allPhotos];
+                                final int lineCount = allPhotos / PER_LINE;
+                                final String[] fullSRC = new String[allPhotos];
+                                final GalleryClickListener[] listeners = new GalleryClickListener[allPhotos];
+                                final int imgHeight = width / PER_LINE;
+                                final int photoCount = photos.length();
 
                                 int count = 0;
 
-                                int imgHeight = width / PER_LINE;
-
-                                for (int albumNum = 0; albumNum < photos.length(); albumNum++) {
+                                for (int albumNum = 0; albumNum < photoCount; albumNum++) {
                                     int imageCount = 0;
 
                                     addAlbumName(albums, imagesLayout, albumNum);
 
                                     for (int lineNum = 0; lineNum < lineCount; lineNum++) {
-                                        line = addLine(imagesLayout);
+                                        final LinearLayout line = addLine(imagesLayout);
 
                                         for (int i = 0; i < PER_LINE && imageCount < photos.getJSONArray(albumNum).length(); i++) {
-                                            json_obj = photos.getJSONArray(albumNum).getJSONObject(imageCount);
+                                            final JSONObject json_obj = photos.getJSONArray(albumNum).getJSONObject(imageCount);
                                             fullSRC[count] = json_obj.getString("source");
-                                            galleryImage = new ImageView(getActivity());
+                                            final ImageView galleryImage = new ImageView(getActivity());
 
                                             getImage(json_obj, galleryImage);
 
@@ -119,33 +115,34 @@ public class GalleryFragment extends Fragment {
                                     g.setPageAmount(allPhotos);
                                     g.setInformation(fullSRC);
                                 }
-                            } catch (JSONException e) {
-                                Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+                            } catch (final JSONException e) {
+                                final Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your " +
+                                        "internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
-                            } catch (NullPointerException e) {
-                                Toast toast = Toast.makeText(getActivity(), "Cannot access Facebook photos. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+                            } catch (final NullPointerException e) {
+                                final Toast toast = Toast.makeText(getActivity(), "Cannot access Facebook photos. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
                                 toast.show();
                                 e.printStackTrace();
                             }
                         }    // End of onCompleted
                     }    // End of Callback
             ).executeAsync();
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");
         }
     }
 
-    private void addAlbumName(JSONArray albums, LinearLayout imagesLayout, int object) {
-        TextView albumName;
-        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    private void addAlbumName(final JSONArray albums, final LinearLayout imagesLayout, final int object) {
+        final LayoutParams textParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         textParams.gravity = Gravity.START;
-        albumName = new TextView(getActivity());
+        final TextView albumName = new TextView(this.getActivity());
         albumName.setLayoutParams(textParams);
         try {
             albumName.setText(albums.getJSONObject(object).getString("name"));
         } catch (JSONException e) {
-            Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+            final Toast toast = Toast.makeText(this.getActivity(), "Could not get gallery photos from Facebook. Please check your internet " +
+                    "connection and restart the app.", Toast.LENGTH_LONG);
             toast.show();
             e.printStackTrace();
         }
@@ -155,37 +152,38 @@ public class GalleryFragment extends Fragment {
         imagesLayout.addView(albumName);
     }
 
-    private LinearLayout addLine(LinearLayout imagesLayout) {
-        LinearLayout line = new LinearLayout(getActivity());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+    private LinearLayout addLine(final LinearLayout imagesLayout) {
+        final LinearLayout line = new LinearLayout(this.getActivity());
+        final LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         line.setLayoutParams(params);
         imagesLayout.addView(line);
 
         return line;
     }
 
-    private void getImage(JSONObject json_obj, ImageView galleryImage) {
+    private void getImage(final JSONObject json_obj, final ImageView galleryImage) {
         try {
-            String croppedSRC = json_obj.getString("picture");
+            final String croppedSRC = json_obj.getString("picture");
             try {
-                URL croppedURL = new URL(croppedSRC);
-                DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, galleryImage);
+                final URL croppedURL = new URL(croppedSRC);
+                final DownloadGalleryImages dgi = new DownloadGalleryImages(croppedURL, galleryImage);
 
                 dgi.execute();
-            } catch (MalformedURLException m) {
-                Toast toast = Toast.makeText(getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
+            } catch (final MalformedURLException e) {
+                final Toast toast = Toast.makeText(this.getActivity(), "Malformed URL.", Toast.LENGTH_SHORT);
                 toast.show();
-                m.printStackTrace();
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            Toast toast = Toast.makeText(getActivity(), "Could not get gallery photos from Facebook. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+        } catch (final JSONException e) {
+            final Toast toast = Toast.makeText(this.getActivity(), "Could not get gallery photos from Facebook. Please check your internet " +
+                    "connection and restart the app.", Toast.LENGTH_LONG);
             toast.show();
             e.printStackTrace();
         }
     }
 
-    private void setGalleryImageParameters(ImageView galleryImage, int count, int imgHeight, GalleryClickListener listener) {
-        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(0, imgHeight, 1f);
+    private void setGalleryImageParameters(final ImageView galleryImage, final int count, final int imgHeight, final GalleryClickListener listener) {
+        final LayoutParams imgParams = new LayoutParams(0, imgHeight, 1f);
         imgParams.gravity = Gravity.START;
 
         galleryImage.setId(count);

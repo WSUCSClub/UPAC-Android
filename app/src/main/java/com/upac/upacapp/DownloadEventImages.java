@@ -3,41 +3,43 @@ package com.upac.upacapp;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class DownloadEventImages extends AsyncTask<ImageView, Void, Bitmap> {
-    ImageView imageView;
-    URL imageURL;
-    Bitmap mIcon_val;
+    private ImageView imageView;
+    private URL imageURL;
+    private Bitmap mIcon_val;
     private static final int ROUNDING = 1000;
+    private static final int EVENT_XY_PIXELS = 720;
 
-    public DownloadEventImages(URL iu, ImageView iv, int w, int h, double d) {
+    public DownloadEventImages(final URL iu, final ImageView iv) {
         imageURL = iu;
         imageView = iv;
     }
 
     @Override
-    protected Bitmap doInBackground(ImageView... imageViews) {
-        return download_Image();
+    protected Bitmap doInBackground(final ImageView... imageViews) {
+        return this.download_Image();
     }
 
     @Override
-    protected void onPostExecute(Bitmap result) {
-        ImageHelper ih = new ImageHelper();
+    protected void onPostExecute(final Bitmap result) {
+        final ImageHelper imageHelper = new ImageHelper();
+        Bitmap returnResult = result;
 
-        result = ih.getResizedBitmap(result, 720, 720);
-        result = ih.getRoundedEventImage(result, ROUNDING);
+        returnResult = imageHelper.getResizedBitmap(returnResult, EVENT_XY_PIXELS, EVENT_XY_PIXELS);
+        returnResult = imageHelper.getRoundedEventImage(returnResult, ROUNDING);
 
-        imageView.setImageBitmap(result);
+        imageView.setImageBitmap(returnResult);
     }
 
     private Bitmap download_Image() {
         try {
             mIcon_val = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        } catch (Exception e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 

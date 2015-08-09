@@ -10,25 +10,25 @@ import android.view.View;
 
 public class GallerySlidePagerActivity extends FragmentActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        int pages = intent.getIntExtra("AllPages", 0);
-        String[] URLs = intent.getStringArrayExtra("ImageURLs");
+    protected void onCreate(final Bundle savedInstanceState) {
+        final Intent intent = this.getIntent();
+        final int pages = intent.getIntExtra("AllPages", 0);
+        final String[] URLs = intent.getStringArrayExtra("ImageURLs");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_screen_slide);
-        ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+        this.setContentView(R.layout.activity_screen_slide);
+        final ViewPager mPager = (ViewPager) this.findViewById(R.id.pager);
 
-        GalleryPageFragment page = new GalleryPageFragment();
+        final GalleryPageFragment page = new GalleryPageFragment();
         page.setInformation(URLs);
-        PagerAdapter mPagerAdapter = new GalleryPagerAdapter(getSupportFragmentManager(), pages, page);
+        final PagerAdapter mPagerAdapter = new GalleryPagerAdapter(this.getSupportFragmentManager(), pages, page);
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(intent.getIntExtra("Page", 0));
         mPager.setOffscreenPageLimit(6);
 
-        View head = getLayoutInflater().inflate(R.layout.head, null);
+        final View head = this.getLayoutInflater().inflate(R.layout.head, null);
 
-        ActionBar ab = getActionBar();
+        final ActionBar ab = this.getActionBar();
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayShowHomeEnabled(false);
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);

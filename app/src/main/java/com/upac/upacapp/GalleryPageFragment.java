@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GalleryPageFragment extends Fragment {
@@ -19,27 +20,27 @@ public class GalleryPageFragment extends Fragment {
 
     }
 
-    public void setInformation(String[] img) {
+    public void setInformation(final String[] img) {
         imageURLs = img;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPageNumber = getArguments().getInt(ARG_PAGE);
+        mPageNumber = this.getArguments().getInt(ARG_PAGE);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_full_gallery_photo, container, false);
-        ImageView fullImage = (ImageView) rootView.findViewById(R.id.full_image);
+    public View onCreateView(final LayoutInflater inf, final ViewGroup container, final Bundle savedInstanceState) {
+        final View rootView = this.getActivity().getLayoutInflater().inflate(R.layout.fragment_full_gallery_photo, container, false);
+        final ImageView fullImage = (ImageView) rootView.findViewById(R.id.full_image);
 
         try {
-            URL imageURL = new URL(imageURLs[mPageNumber]);
-            DownloadDetailsImages ddi = new DownloadDetailsImages(imageURL, fullImage);
+            final URL imageURL = new URL(imageURLs[mPageNumber]);
+            final DownloadDetailsImages ddi = new DownloadDetailsImages(imageURL, fullImage);
             ddi.execute();
-        } catch (Exception e) {
-            Toast toast = Toast.makeText(getActivity(), "Something went wrong in downloading the image.", Toast.LENGTH_SHORT);
+        } catch (final MalformedURLException e) {
+            final Toast toast = Toast.makeText(this.getActivity(), "Something went wrong in downloading the image.", Toast.LENGTH_SHORT);
             toast.show();
             e.printStackTrace();
         }
@@ -47,9 +48,9 @@ public class GalleryPageFragment extends Fragment {
         return rootView;
     }
 
-    public GalleryPageFragment create(int pageNumber) {
-        GalleryPageFragment fragment = new GalleryPageFragment();
-        Bundle args = new Bundle();
+    public GalleryPageFragment create(final int pageNumber) {
+        final GalleryPageFragment fragment = new GalleryPageFragment();
+        final Bundle args = new Bundle();
 
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);

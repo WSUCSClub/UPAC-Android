@@ -1,7 +1,6 @@
 package com.upac.upacapp;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -20,21 +19,21 @@ public class App extends Application {
         super.onCreate();
 
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, Secrets.parseAppId, Secrets.parseClientKey);
+        Parse.initialize(this, Secrets.PARSE_APP_ID, Secrets.PARSE_CLIENT_KEY);
 
-        Map<String, String> dimensions = new HashMap<String, String>();
+        final Map<String, String> dimensions = new HashMap<>();
         dimensions.put("category", "ThisIsATest");
 
         ParseAnalytics.trackEventInBackground("read", dimensions);
     }
 
     public List<ParseObject> getBoardMembers() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Member");
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Member");
         List<ParseObject> results;
 
         try {
             results = query.find();
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             results = null;
             e.printStackTrace();
         }
@@ -43,12 +42,12 @@ public class App extends Application {
     }
 
     public List<ParseObject> getRaffles() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
         List<ParseObject> results;
 
         try {
             results = query.find();
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             results = null;
             e.printStackTrace();
         }
@@ -56,20 +55,20 @@ public class App extends Application {
         return results;
     }
 
-    public void addEntry(String eventId, String t) {
-        final String ticketId = t;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
+    public void addEntry(final String eventId, final String ticketId) {
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Raffle");
 
         query.whereEqualTo("eventId", eventId);
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> raffle, ParseException e) {
+            public void done(final List<ParseObject> raffle, final ParseException e) {
                 if (e == null) {
-                    if (raffle.size() != 0) {
+                    if (!raffle.isEmpty()) {
                         raffle.get(0).add("entries", ticketId);
                         raffle.get(0).saveInBackground();
                     }
-                } else
+                } else {
                     e.printStackTrace();
+                }
             }
         });
     }

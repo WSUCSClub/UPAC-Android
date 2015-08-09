@@ -4,13 +4,15 @@ import android.app.Activity;
 
 import com.facebook.AccessToken;
 import com.facebook.Session;
+import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AppDelegates extends Activity {
-    final static Session.StatusCallback ssnStsCllbck = new Session.StatusCallback() {
-        public void call(final Session session, SessionState state, Exception exception) {
+    static final StatusCallback ssnStsCllbck = new StatusCallback() {
+        public void call(final Session session, final SessionState state, final Exception exception) {
             // If there is an exception...
             if (exception != null) {
                 exception.printStackTrace();
@@ -18,19 +20,16 @@ public class AppDelegates extends Activity {
         }
     };
 
-    public static Session loadFBSession(Activity activity) {
-        ArrayList<String> permissions = new ArrayList<String>() {{
-            add("name");
-        }};
+    public static Session loadFBSession(final Activity activity) {
+        final List<String> permissions = new ArrayList<>();
+        permissions.add("name");
 
         try {
-            if (Session.getActiveSession().getState() != null) {
-                return Session.openActiveSession(activity, false, ssnStsCllbck);
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            return Session.openActiveSessionWithAccessToken(activity, AccessToken.createFromExistingAccessToken(Secrets.fbAccessToken, null, null, null, permissions), ssnStsCllbck);
+            return Session.getActiveSession().getState() != null ? Session.openActiveSession(activity, false, ssnStsCllbck) : null;
+
+        } catch (final RuntimeException e) {
+            return Session.openActiveSessionWithAccessToken(activity, AccessToken.createFromExistingAccessToken(Secrets.FB_ACCESS_TOKEN.toString(),
+                    null, null, null, permissions), ssnStsCllbck);
         }
     }
 }

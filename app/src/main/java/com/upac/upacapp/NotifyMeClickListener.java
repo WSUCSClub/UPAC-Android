@@ -5,12 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class NotifyMeClickListener implements View.OnClickListener {
     private Button notifyButton;
@@ -20,7 +15,7 @@ public class NotifyMeClickListener implements View.OnClickListener {
     private Context cont;
     private String entryID;
 
-    public NotifyMeClickListener(Button b, NotifySQLiteHelper e, Calendar c, Context t, ScheduleClient s, String i) {
+    public NotifyMeClickListener(final Button b, final NotifySQLiteHelper e, final Calendar c, final Context t, final ScheduleClient s, final String i) {
         notifyButton = b;
         entry = e;
         date = c;
@@ -30,7 +25,7 @@ public class NotifyMeClickListener implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         date.add(Calendar.HOUR, -1);
         scheduleClient.setAlarmForNotification(date);
 

@@ -5,36 +5,39 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class DownloadGalleryImages extends AsyncTask<ImageView, Void, Bitmap> {
-    ImageView imageView;
-    URL imageURL;
-    Bitmap mIcon_val;
+    private ImageView imageView;
+    private URL imageURL;
+    private Bitmap mIcon_val;
+    private static final int GALLERY_XY_PIXELS = 300;
 
-    public DownloadGalleryImages(URL iu, ImageView iv) {
+    public DownloadGalleryImages(final URL iu, final ImageView iv) {
         imageURL = iu;
         imageView = iv;
     }
 
     @Override
-    protected Bitmap doInBackground(ImageView... imageViews) {
-        return download_Image();
+    protected Bitmap doInBackground(final ImageView... imageViews) {
+        return this.download_Image();
     }
 
     @Override
-    protected void onPostExecute(Bitmap result) {
-        ImageHelper ih = new ImageHelper();
+    protected void onPostExecute(final Bitmap result) {
+        final ImageHelper ih = new ImageHelper();
+        Bitmap returnResult = result;
 
-        result = ih.getResizedBitmap(result, 300, 300);
+        returnResult = ih.getResizedBitmap(returnResult, GALLERY_XY_PIXELS, GALLERY_XY_PIXELS);
 
-        imageView.setImageBitmap(result);
+        imageView.setImageBitmap(returnResult);
     }
 
     private Bitmap download_Image() {
         try {
             mIcon_val = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        } catch (Exception e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 

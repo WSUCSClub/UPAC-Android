@@ -9,9 +9,11 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,75 +26,74 @@ import java.util.List;
 public class AboutFragment extends Fragment {
     public static final String TAG = "about";
     private static View aboutView;
-    private static App parse = new App();
+    private static final App parse = new App();
     private ViewGroup parent;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         parent = container;
         return aboutView;
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(final Activity activity) {
         super.onAttach(activity);
 
         try {
-            List<ParseObject> memberList = parse.getBoardMembers();
+            final List<ParseObject> memberList = parse.getBoardMembers();
 
-            String name, position, email;
-            URL imageURL;
-            aboutView = getActivity().getLayoutInflater().inflate(R.layout.fragment_about, parent, false);
-            LinearLayout ll = (LinearLayout) aboutView.findViewById(R.id.about_sections);
+            aboutView = this.getActivity().getLayoutInflater().inflate(R.layout.fragment_about, parent, false);
+            final LinearLayout ll = (LinearLayout) aboutView.findViewById(R.id.about_sections);
 
             try {
-                LinearLayout[] lines = new LinearLayout[memberList.size()];
-                LinearLayout[] infoLayout = new LinearLayout[memberList.size()];
-                ImageView[] iv = new ImageView[memberList.size()];
-                TextView[] contactName = new TextView[memberList.size()];
-                TextView[] contactInfo = new TextView[memberList.size()];
+                final LinearLayout[] lines = new LinearLayout[memberList.size()];
+                final LinearLayout[] infoLayout = new LinearLayout[memberList.size()];
+                final ImageView[] iv = new ImageView[memberList.size()];
+                final TextView[] contactName = new TextView[memberList.size()];
+                final TextView[] contactInfo = new TextView[memberList.size()];
 
-                for (int i = 0; i < memberList.size(); i++) {
+                final int memberCount = memberList.size();
+                for (int i = 0; i < memberCount; i++) {
                     try {
-                        imageURL = new URL(memberList.get(i).getParseFile("picture").getUrl());
-                        name = memberList.get(i).getString("name");
-                        position = memberList.get(i).getString("position");
-                        email = memberList.get(i).getString("email");
+                        URL imageURL = new URL(memberList.get(i).getParseFile("picture").getUrl());
+                        String name = memberList.get(i).getString("name");
+                        String position = memberList.get(i).getString("position");
+                        String email = memberList.get(i).getString("email");
 
-                        EmailBoardMemberClickListener cocl = new EmailBoardMemberClickListener(email, getActivity());
+                        final OnClickListener cocl = new EmailBoardMemberClickListener(email, this.getActivity());
 
-                        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-                        int width = displayMetrics.widthPixels;
-                        int imgHeight = width / 4;
-                        int imgWidth = (int) Math.ceil(width / 2.8);
+                        final DisplayMetrics displayMetrics = this.getActivity().getResources().getDisplayMetrics();
+                        final int width = displayMetrics.widthPixels;
+                        final int imgHeight = width / 4;
+                        final int imgWidth = (int) Math.ceil(width / 2.8);
 
-                        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(imgWidth, imgHeight, 3f);
+                        final LayoutParams imgParams = new LayoutParams(imgWidth, imgHeight, 3f);
 
-                        iv[i] = new ImageView(getActivity());
+                        iv[i] = new ImageView(this.getActivity());
                         iv[i].setId(i);
                         iv[i].setLayoutParams(imgParams);
                         iv[i].setPadding(25, 0, 25, 0);
 
-                        DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
+                        final DownloadAboutImages dai = new DownloadAboutImages(imageURL, iv[i]);
                         dai.execute();
 
-                        LinearLayout.LayoutParams infoParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 7f);
+                        final LayoutParams infoParam = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 7f);
 
-                        infoLayout[i] = new LinearLayout(getActivity());
+                        infoLayout[i] = new LinearLayout(this.getActivity());
                         infoLayout[i].setLayoutParams(infoParam);
                         infoLayout[i].setOrientation(LinearLayout.VERTICAL);
 
-                        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        final LayoutParams textParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-                        contactName[i] = new TextView(getActivity());
+                        contactName[i] = new TextView(this.getActivity());
                         contactName[i].setText(name);
                         contactName[i].setTextColor(Color.BLACK);
                         contactName[i].setLayoutParams(textParams);
                         contactName[i].setPadding(0, 25, 0, 0);
                         contactName[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
-                        contactInfo[i] = new TextView(getActivity());
-                        contactInfo[i].setText(position + "\n" + email);
+                        contactInfo[i] = new TextView(this.getActivity());
+                        contactInfo[i].setText(position + String.format("%n") + email);
                         contactInfo[i].setTextColor(Color.BLACK);
                         contactInfo[i].setId(i);
                         contactInfo[i].setLayoutParams(textParams);
@@ -102,12 +103,12 @@ public class AboutFragment extends Fragment {
                         infoLayout[i].addView(contactName[i]);
                         infoLayout[i].addView(contactInfo[i]);
 
-                        GradientDrawable gd = new GradientDrawable();
+                        final GradientDrawable gd = new GradientDrawable();
                         gd.setStroke(1, Color.parseColor("#E1E1E1"));
 
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                        final LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-                        lines[i] = new LinearLayout(getActivity());
+                        lines[i] = new LinearLayout(this.getActivity());
                         lines[i].setLayoutParams(params);
                         lines[i].addView(iv[i]);
                         lines[i].addView(infoLayout[i]);
@@ -116,16 +117,17 @@ public class AboutFragment extends Fragment {
                         lines[i].setOnClickListener(cocl);
 
                         ll.addView(lines[i]);
-                    } catch (MalformedURLException e) {
+                    } catch (final MalformedURLException e) {
                         e.printStackTrace();
                     }
                 }
-            } catch(NullPointerException e){
-                Toast toast = Toast.makeText(getActivity(), "Cannot access Parse files. Please check your internet connection and restart the app.", Toast.LENGTH_LONG);
+            } catch (final NullPointerException e) {
+                final Toast toast = Toast.makeText(this.getActivity(), "Cannot access Parse files. Please check your internet connection and " +
+                        "restart the app.", Toast.LENGTH_LONG);
                 toast.show();
                 e.printStackTrace();
             }
-        } catch (ClassCastException e) {
+        } catch (final ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement MainActivity.");
         }
     }

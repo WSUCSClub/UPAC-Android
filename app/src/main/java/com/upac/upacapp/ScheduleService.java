@@ -20,7 +20,7 @@ public class ScheduleService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, final int flags, final int startId) {
         Log.i("ScheduleService", "Received start id " + startId + ": " + intent);
 
         // We want this service to continue running until it is explicitly stopped, so return sticky.
@@ -28,7 +28,7 @@ public class ScheduleService extends Service {
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(final Intent intent) {
         return mBinder;
     }
 
@@ -38,7 +38,7 @@ public class ScheduleService extends Service {
     /**
      * Show an alarm for a certain date when the alarm is called it will pop up a notification
      */
-    public void setAlarm(Calendar c) {
+    public void setAlarm(final Calendar c) {
         // This starts a new thread to set the alarm
         // You want to push off your tasks onto a new thread to free up the UI to carry on responding
         new AlarmTask(this, c).run();

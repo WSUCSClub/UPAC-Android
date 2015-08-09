@@ -9,22 +9,29 @@ public class EventDetailsClickListener implements OnClickListener {
     private static FragmentActivity context;
     private static int pages;
     private int openedEvent;
-    private static String[] titles, locations, times, descriptions, images, dates, ids;
+    private static String[] titles;
+    private static String[] locations;
+    private static String[] times;
+    private static String[] descriptions;
+    private static String[] images;
+    private static String[] dates;
+    private static String[] ids;
     private static boolean[] hasRaffle;
 
-    public EventDetailsClickListener(FragmentActivity fa) {
+    public EventDetailsClickListener(final FragmentActivity fa) {
         context = fa;
     }
 
-    public void setOpenedEvent(int p) {
+    public void setOpenedEvent(final int p) {
         openedEvent = p;
     }
 
-    public void setPageAmount(int p) {
+    public void setPageAmount(final int p) {
         pages = p;
     }
 
-    public void setInformation(String[] a, String[] b, String[] c, String[] d, String[] e, String[] f, boolean[] g, String[] h) {
+    public void setInformation(final String[] a, final String[] b, final String[] c, final String[] d, final String[] e, final String[] f,
+                               final boolean[] g, final String[] h) {
         titles = a;
         locations = b;
         dates = c;
@@ -36,8 +43,8 @@ public class EventDetailsClickListener implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(context, EventDetailsSlidePagerActivity.class);
+    public void onClick(final View v) {
+        final Intent intent = new Intent(context, EventDetailsSlidePagerActivity.class);
         intent.putExtra("AllPages", pages);
         intent.putExtra("Page", openedEvent);
         intent.putExtra("Titles", titles);

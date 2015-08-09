@@ -14,13 +14,13 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
     private static final String TICKET_ID = "ticket_id";
     private static final String[] COLUMNS = {EVENT_ID, TICKET_ID};
 
-    public RaffleSQLiteHelper(Context context) {
+    public RaffleSQLiteHelper(final Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        String CREATE_RAFFLE_TABLE = "CREATE TABLE raffle_entries ( " +
+    public void onCreate(final SQLiteDatabase db) {
+        final String CREATE_RAFFLE_TABLE = "CREATE TABLE raffle_entries ( " +
                 "event_id DOUBLE PRIMARY KEY UNIQUE, " +
                 "ticket_id STRING)";
 
@@ -28,44 +28,47 @@ public class RaffleSQLiteHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS raffle_entries");
 
         this.onCreate(db);
     }
 
-    public String getEntries(String eventId) {
-        SQLiteDatabase db = this.getReadableDatabase();
+    public String getEntries(final String eventId) {
+        final SQLiteDatabase db = this.getReadableDatabase();
         String ticketID = null;
 
-        Cursor cursor =
-                db.query(DATABASE_NAME, // a. table
-                        COLUMNS, // b. column names
-                        " event_id = ?", // c. selections
-                        new String[]{String.valueOf(eventId)}, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
         try {
+            final Cursor cursor =
+                    db.query(DATABASE_NAME, // a. table
+                            COLUMNS, // b. column names
+                            " event_id = ?", // c. selections
+                            new String[]{String.valueOf(eventId)}, // d. selections args
+                            null, // e. group by
+                            null, // f. having
+                            null, // g. order by
+                            null); // h. limit
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+            }
+
             ticketID = cursor.getString(cursor.getColumnIndex(TICKET_ID));
         } catch (CursorIndexOutOfBoundsException e) {
             System.out.println("There are no entries");
+        } finally {
+            if (db != null) {
+                db.close();
+            }
         }
-
-        db.close();
 
         return ticketID;
     }
 
-    public void addEntry(String eventId, String entryId) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public void addEntry(final String eventId, final String entryId) {
+        final SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(EVENT_ID, eventId);
         values.put(TICKET_ID, entryId);
 

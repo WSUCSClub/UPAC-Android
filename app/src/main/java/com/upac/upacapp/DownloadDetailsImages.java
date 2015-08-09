@@ -5,32 +5,33 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class DownloadDetailsImages extends AsyncTask<ImageView, Void, Bitmap> {
-    ImageView imageView;
-    URL imageURL;
-    Bitmap mIcon_val;
+    private ImageView imageView;
+    private URL imageURL;
+    private Bitmap mIcon_val;
 
-    public DownloadDetailsImages(URL iu, ImageView iv) {
+    public DownloadDetailsImages(final URL iu, final ImageView iv) {
         imageURL = iu;
         imageView = iv;
     }
 
     @Override
-    protected Bitmap doInBackground(ImageView... imageViews) {
-        return download_Image();
+    protected Bitmap doInBackground(final ImageView... imageViews) {
+        return this.download_Image();
     }
 
     @Override
-    protected void onPostExecute(Bitmap result) {
+    protected void onPostExecute(final Bitmap result) {
         imageView.setImageBitmap(result);
     }
 
     private Bitmap download_Image() {
         try {
             mIcon_val = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        } catch (Exception e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 
